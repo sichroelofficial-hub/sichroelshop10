@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sichroel TopUp</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 120px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    .price-discount {
+      color: #22c55e;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .order-btn {
+      display: inline-block;
+      background: #22c55e;
+      color: #000;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Sichroel TopUp</h1>
+<div class="game-list" id="gameList"></div>
+
+<script>
+/* =========================
+   YANG BOLEH KAMU UBAH
+   ========================= */
+
+// ✅ NOMOR WHATSAPP (SUDAH DIISI)
+const WA_NUMBER = "6285888747908";
+
+// ⚠️ URL CSV KAMU (KALAU CSV PINDAH, GANTI INI)
+const CSV_URL = "https://raw.githubusercontent.com/sichroelofficial-hub/sichroel.shop/main/CSV%20Produck.csv";
+
+
+/* =========================
+   JANGAN DIUBAH
+   ========================= */
+
+fetch(CSV_URL)
+  .then(res => res.text())
+  .then(text => {
+    const rows = text.trim().split("\n").slice(1);
+    const data = rows.map(r => {
+      const [Game, Nama, Harga, HargaDiskon, ImageURL] = r.split(",");
+      return { Game, Nama, Harga, HargaDiskon, ImageURL };
+    });
+
+    const gameList = document.getElementById("gameList");
+
+    data.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      card.innerHTML = `
+        <img src="${p.ImageURL}" alt="${p.Game}">
+        <h3>${p.Game}</h3>
+        <p>${p.Nama}</p>
+        <div class="price">Rp${Number(p.Harga).toLocaleString("id-ID")}</div>
+        <div class="price-discount">Rp${Number(p.HargaDiskon).toLocaleString("id-ID")}</div>
+        <a class="order-btn"
+          href="https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+`Halo admin Sichroel TopUp 👋
+Saya mau top up:
+
+Game: ${p.Game}
+Produk: ${p.Nama}
+Harga: Rp${Number(p.HargaDiskon).toLocaleString("id-ID")}
+
+Mohon cek stok ya 🙏`
+          )}"
+          target="_blank">
+          Buy
+        </a>
+      `;
+
+      gameList.appendChild(card);
+    });
+  });
+</script>
+
+</body>
+</html>
