@@ -116,7 +116,7 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
   margin-top: 15px;
 }
 
-/* PANDUAN PEMBELIAN - REVISED STEP BY STEP */
+/* PANDUAN PEMBELIAN */
 .guide-box {
   background: rgba(15, 23, 42, 0.6);
   border: 1px dashed var(--accent);
@@ -447,7 +447,8 @@ function prepareOrder(game, userField, serverField){
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 function sendWA(){
-  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: ${temp.game}\n💎 Produk: ${temp.nominal}\n🆔 ID: ${temp.user}\n🌐 Server: ${temp.server}\n💳 Metode: QRIS\n\nHalo Min, saya mau bayar orderan ini!`;
+  // REVISI: Menambahkan teks miring di akhir pesan
+  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: ${temp.game}\n💎 Produk: ${temp.nominal}\n🆔 ID: ${temp.user}\n🌐 Server: ${temp.server}\n💳 Metode: QRIS\n\n_Tolong kirimkan QRIS nya ya!_`;
   window.open(`https://wa.me/6285888747908?text=${encodeURIComponent(msg)}`, '_blank');
   closeModal();
 }
