@@ -302,19 +302,37 @@ input:focus { outline: 1px solid var(--accent); }
 }
 .op-hours p { color: var(--muted); font-size: 12px; margin-top: 10px; text-transform: uppercase; font-weight: 600; }
 
-/* MODAL */
+/* MODAL & STRUK STYLE */
 .modal {
-  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(15px);
+  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.92); backdrop-filter: blur(15px);
   display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
 }
 .modal-box {
-  background: #0f172a; padding: 35px; border-radius: 25px; max-width: 400px;
-  width: 100%; border: 1px solid var(--accent); text-align: center;
+  background: #111827; padding: 25px; border-radius: 25px; max-width: 420px;
+  width: 100%; border: 1px solid rgba(34, 197, 94, 0.3); text-align: center;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5); position: relative;
 }
-#confirmText { text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin: 20px 0; font-family: sans-serif; color: var(--accent); }
+#confirmText { 
+  text-align: left; background: #0f172a; padding: 20px; 
+  border-radius: 15px; margin: 15px 0; font-family: 'Courier New', Courier, monospace; 
+  color: var(--text); border: 1px dashed rgba(255,255,255,0.1); position: relative;
+}
+.receipt-header { border-bottom: 2px dashed rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; text-align: center; color: var(--accent); font-weight: bold; }
+.receipt-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+.receipt-label { color: var(--muted); }
+.receipt-val { font-weight: bold; color: #fff; }
+.receipt-footer { border-top: 2px dashed rgba(255,255,255,0.1); margin-top: 15px; padding-top: 10px; font-size: 18px; color: var(--warning); font-weight: 900; text-align: center; }
+
+/* COPY BUTTON */
+.btn-copy {
+  position: absolute; top: 10px; right: 10px; background: rgba(34, 197, 94, 0.1);
+  border: 1px solid var(--accent); color: var(--accent); padding: 5px 10px; 
+  border-radius: 8px; font-size: 10px; cursor: pointer; transition: 0.3s;
+}
+.btn-copy:hover { background: var(--accent); color: #000; }
 
 .order-btn {
-  margin-top: 20px; width: 100%; padding: 16px; border: none; border-radius: 15px;
+  margin-top: 15px; width: 100%; padding: 16px; border: none; border-radius: 15px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   font-weight: 900; cursor: pointer; color: #022c22; transition: 0.3s;
 }
@@ -583,15 +601,21 @@ function simulasiCheck(e, fieldId) {
     setTimeout(() => { btn.innerText = "VALID ✅"; setTimeout(() => btn.innerText = "CEK ID", 2000); }, 800);
 }
 
-/* REVISI FUNGSI PREPARE ORDER (VALIDASI KOLOM) */
+function copyToClipboard() {
+    const text = `Produk: ${temp.game}\nVarian: ${temp.nominal}\nID: ${temp.user}\nServer: ${temp.server}`;
+    navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.btn-copy');
+        btn.innerText = "TERSALIN!";
+        setTimeout(() => btn.innerText = "SALIN DATA", 2000);
+    });
+}
+
 function prepareOrder(game, userField, serverField){
   const userEl = document.getElementById(userField);
   const serverEl = serverField ? document.getElementById(serverField) : null;
-  
   const u = userEl.value.trim();
   const s = serverEl ? serverEl.value.trim() : "";
 
-  // Validasi User ID Kosong
   if(!u) {
     userEl.classList.add('error-shake');
     userEl.focus();
@@ -599,7 +623,6 @@ function prepareOrder(game, userField, serverField){
     return showWarning('Waduh! Masukkan data kamu dulu ya.');
   }
 
-  // Validasi Server ID Kosong (untuk game yang ada kolom server)
   if(serverField && !s) {
     serverEl.classList.add('error-shake');
     serverEl.focus();
@@ -607,17 +630,19 @@ function prepareOrder(game, userField, serverField){
     return showWarning('Server ID nya jangan lupa diisi, Kak!');
   }
 
-  // Validasi Nominal belum dipilih
   if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!');
 
   temp = { game, nominal: selectedNominalValue, user: u, server: s || "-" };
   
   document.getElementById('confirmText').innerHTML = `
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Produk:</span> <b>${game.toUpperCase()}</b></div>
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Varian:</span> <b>${temp.nominal}</b></div>
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Data:</span> <b>${temp.user}</b></div>
-    ${serverField !== null ? `<div style="display:flex; justify-content:space-between; padding:8px 0;"><span>Server:</span> <b>${temp.server}</b></div>` : ''}
-    <div style="display:flex; justify-content:space-between; padding:8px 0; color:var(--warning)"><span>Metode:</span> <b>QRIS</b></div>
+    <button class="btn-copy" onclick="copyToClipboard()">SALIN DATA</button>
+    <div class="receipt-header">SICHROEL SHOP RECEIPT</div>
+    <div class="receipt-line"><span class="receipt-label">Produk:</span><span class="receipt-val">${game.toUpperCase()}</span></div>
+    <div class="receipt-line"><span class="receipt-label">Varian:</span><span class="receipt-val">${temp.nominal.split('–')[0]}</span></div>
+    <div class="receipt-line"><span class="receipt-label">Data ID:</span><span class="receipt-val">${temp.user}</span></div>
+    ${serverField !== null ? `<div class="receipt-line"><span class="receipt-label">Server:</span><span class="receipt-val">${temp.server}</span></div>` : ''}
+    <div class="receipt-line" style="margin-top:10px;"><span class="receipt-label">Metode:</span><span class="receipt-val">QRIS</span></div>
+    <div class="receipt-footer">Total: ${temp.nominal.split('–')[1]}</div>
   `;
   document.getElementById('modal').style.display='flex';
 }
@@ -630,7 +655,7 @@ function sendWA(){
   closeModal();
 }
 
-/* FILTER KHUSUS ANGKA UNTUK INPUT ID */
+/* FILTER INPUT */
 const numericFields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user', 'netflix_user', 'disney_user', 'gplay_user', 'steam_user'];
 numericFields.forEach(id => {
     const el = document.getElementById(id);
@@ -641,6 +666,7 @@ numericFields.forEach(id => {
     }
 });
 
+/* LOCAL STORAGE */
 document.querySelectorAll('input').forEach(input => {
     const saved = localStorage.getItem(input.id);
     if(saved) input.value = saved;
@@ -649,6 +675,5 @@ document.querySelectorAll('input').forEach(input => {
     });
 });
 </script>
-
 </body>
 </html>
