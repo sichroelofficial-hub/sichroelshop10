@@ -21,8 +21,6 @@
   --muted:#94a3b8;
   --error:#ef4444;
   --warning:#f59e0b;
-  --soldout: #64748b;
-  --hover-bg: rgba(255, 255, 255, 0.1);
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -34,14 +32,8 @@ body{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background:var(--bg);
   color:var(--text);
+  transition: background 0.3s, color 0.3s;
   overflow-x: hidden;
-  min-height: 100vh;
-}
-
-/* REVISI: Animasi Masuk Konten */
-@keyframes contentFadeUp {
-  from { opacity: 0; transform: translateY(20px); filter: blur(10px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 @keyframes shake {
@@ -117,7 +109,7 @@ header{
 }
 
 header h1{
-  font-size: clamp(35px, 10vw, 55px); margin: 0; font-weight: 900;
+  font-size: 55px; margin: 0; font-weight: 900;
   background: linear-gradient(to bottom, #ffffff 40%, var(--accent));
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.3));
@@ -137,7 +129,7 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
 
 .guide-box {
   background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(34, 197, 94, 0.4);
+  border: 1px dashed var(--accent);
   padding: 20px;
   border-radius: 20px;
   max-width: 600px;
@@ -148,6 +140,7 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
 .guide-box ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; }
 .guide-box li { margin-bottom: 8px; line-height: 1.4; }
 
+/* KATEGORI STYLING START */
 .category-header {
   text-align: center;
   margin-bottom: 25px;
@@ -184,12 +177,9 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
   .category-tabs { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* REVISI: Tab Button dengan Efek Klik */
 .tab-btn {
-  position: relative;
-  overflow: hidden;
-  background: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: 15px 10px;
   border-radius: 20px;
   color: var(--muted);
@@ -200,10 +190,6 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
   gap: 8px;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   backdrop-filter: blur(10px);
-}
-
-.tab-btn:active {
-  transform: scale(0.92);
 }
 
 .tab-btn .tab-icon {
@@ -220,22 +206,23 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
 }
 
 .tab-btn:hover {
-  background: var(--hover-bg);
-  border-color: var(--accent);
-  color: var(--text);
+  background: rgba(34, 197, 94, 0.05);
+  border-color: rgba(34, 197, 94, 0.3);
+  transform: translateY(-5px);
 }
 
 .tab-btn.active {
   background: linear-gradient(145deg, var(--accent), var(--accent2));
   color: #022c22;
   border-color: #fff;
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.5);
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
 
 .tab-btn.active .tab-icon {
   filter: grayscale(0) brightness(1.2);
   transform: scale(1.1);
 }
+/* KATEGORI STYLING END */
 
 section{ padding:40px 20px; max-width: 1100px; margin: auto; }
 h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px; }
@@ -246,18 +233,10 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   gap: 15px;
   max-width: 800px; margin: 0 auto 50px;
 }
-
-/* REVISI: Game Option dengan Efek Klik */
 .game-opt {
-  background: rgba(15, 23, 42, 0.8); border: 2px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.6); border: 2px solid rgba(255, 255, 255, 0.05);
   padding: 15px 10px; border-radius: 20px; text-align: center;
-  cursor: pointer; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.game-opt:active {
-  transform: scale(0.9);
+  cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
 }
 
 .game-opt .game-thumb {
@@ -267,23 +246,10 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   object-fit: cover; 
   border: 2px solid rgba(255,255,255,0.1); 
   display: block;
-  transition: 0.3s;
 }
 .game-opt span { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
-
-.game-opt:hover { 
-  border-color: var(--accent); 
-  transform: translateY(-5px);
-  background: var(--hover-bg); 
-}
-
-/* FIX: Perbaikan warna teks saat menu produk aktif agar tidak gelap/hilang */
-.game-opt.active { 
-    background: rgba(34, 197, 94, 0.15); 
-    border-color: var(--accent); 
-    box-shadow: 0 0 30px rgba(34, 197, 94, 0.3); 
-}
-.game-opt.active .game-thumb { border-color: var(--accent); transform: scale(1.05); }
+.game-opt:hover { border-color: var(--accent); transform: translateY(-5px); }
+.game-opt.active { background: rgba(34, 197, 94, 0.1); border-color: var(--accent); box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
 .game-opt.active span { color: var(--accent); }
 
 .nominal-grid { 
@@ -296,14 +262,13 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   .nominal-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* REVISI: Nominal Item Klik */
 .nominal-item {
-  background: rgba(30, 41, 59, 0.5); 
+  background: rgba(255,255,255,0.03); 
   border: 1px solid rgba(255,255,255,0.1);
   padding: 20px 10px; 
   border-radius: 18px; 
   cursor: pointer; 
-  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1); 
+  transition: all 0.3s ease; 
   position: relative;
   text-align: center;
   display: flex;
@@ -312,14 +277,12 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   overflow: hidden;
 }
 
-.nominal-item:active:not(.is-sold-out) {
-  transform: scale(0.95);
-}
-
-.best-seller-badge, .sold-out-badge {
+/* BEST SELLER BADGE STYLING */
+.best-seller-badge {
     position: absolute;
     top: 0;
     right: 0;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
     color: #fff;
     font-size: 8px;
     font-weight: 900;
@@ -327,27 +290,10 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
     border-bottom-left-radius: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    z-index: 2;
-}
-.best-seller-badge {
-    background: linear-gradient(135deg, #f59e0b, #d97706);
     box-shadow: -2px 2px 10px rgba(245, 158, 11, 0.3);
+    z-index: 2;
     animation: badgePulse 2s infinite;
 }
-.sold-out-badge {
-    background: linear-gradient(135deg, #475569, #1e293b);
-    box-shadow: -2px 2px 10px rgba(0,0,0,0.3);
-}
-
-.nominal-item.is-sold-out {
-    cursor: not-allowed;
-    filter: grayscale(1);
-    opacity: 0.6;
-}
-.nominal-item.is-sold-out .price, .nominal-item.is-sold-out .val {
-    color: var(--muted) !important;
-}
-
 .best-seller-badge::after {
     content: '';
     position: absolute;
@@ -364,9 +310,9 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
     to { left: 200%; }
 }
 
-.nominal-item:hover:not(.is-sold-out) { 
+.nominal-item:hover { 
   border-color: var(--accent); 
-  background: var(--hover-bg); 
+  background: rgba(255,255,255,0.08); 
   transform: translateY(-3px);
 }
 .nominal-item.selected { 
@@ -382,12 +328,9 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
 
 .input-group { position: relative; margin-top: 15px; }
 input {
-  width: 100%; padding: 15px; border-radius: 15px; background: rgba(15, 23, 42, 0.9);
+  width: 100%; padding: 15px; border-radius: 15px; background: rgba(15, 23, 42, 0.8);
   border: 1px solid rgba(255,255,255,0.1); color: var(--text); font-weight: 600;
-  outline: none;
-  transition: 0.3s;
 }
-input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
 
 .btn-check {
     position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
@@ -396,10 +339,9 @@ input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94
 }
 
 .card {
-  display: none; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px);
+  display: none; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px);
   padding: 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05);
-  position: relative; overflow: hidden; 
-  animation: contentFadeUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative; overflow: hidden; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   max-width: 500px; margin: 0 auto;
 }
 
@@ -413,28 +355,13 @@ input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94
 }
 
 .custom-alert {
-  position: fixed; top: -120px; left: 50%; transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.95); 
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 18px 25px; border-radius: 24px; display: flex; align-items: center;
-  gap: 18px; z-index: 10001; 
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); 
-  width: 90%; max-width: 420px;
+  position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+  background: #1e293b; border-left: 5px solid var(--warning);
+  padding: 15px 25px; border-radius: 15px; display: flex; align-items: center;
+  gap: 15px; z-index: 9999; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); width: 90%; max-width: 400px;
 }
-.custom-alert.show { top: 40px; }
-
-.alert-icon-container {
-    width: 45px; height: 45px; border-radius: 14px;
-    background: linear-gradient(135deg, var(--warning), #d97706);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px; box-shadow: 0 8px 15px rgba(245, 158, 11, 0.3);
-    flex-shrink: 0;
-}
-.alert-content-text { display: flex; flex-direction: column; gap: 2px; }
-.alert-title { font-weight: 900; font-size: 14px; color: #fff; letter-spacing: 0.5px; }
-.alert-msg { font-size: 12px; color: var(--muted); font-weight: 500; }
+.custom-alert.show { top: 30px; }
 
 .op-hours {
   margin: 60px auto 20px;
@@ -449,25 +376,24 @@ input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94
 }
 
 .modal {
-  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95); backdrop-filter: blur(15px);
-  display: none; align-items: center; justify-content: center; z-index: 10000; padding: 20px;
+  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.92); backdrop-filter: blur(15px);
+  display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
 }
 .modal-box {
   background: #111827; padding: 25px; border-radius: 25px; max-width: 420px;
   width: 100%; border: 1px solid rgba(34, 197, 94, 0.3); text-align: center;
-  max-height: 90vh; overflow-y: auto;
-  animation: contentFadeUp 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 #confirmText { 
   text-align: left; 
   background: #0f172a; 
-  padding: 20px; 
+  padding: 25px; 
   border-radius: 20px; 
   margin: 15px 0; 
   font-family: 'Courier New', Courier, monospace; 
   color: var(--text); 
   border: 1px solid rgba(34, 197, 94, 0.3);
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
   position: relative;
 }
 #confirmText::before {
@@ -488,20 +414,28 @@ input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94
     letter-spacing: 2px;
     display: block;
 }
+.receipt-header .tagline {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
 .receipt-line { 
     display: flex; 
     justify-content: space-between; 
     margin-bottom: 10px; 
     font-size: 13px; 
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    padding-bottom: 5px;
 }
 .receipt-label { color: var(--muted); }
-.receipt-val { font-weight: bold; color: #fff; text-align: right; word-break: break-all; margin-left: 10px; }
+.receipt-val { font-weight: bold; color: #fff; text-align: right; }
 .receipt-footer { 
     border-top: 2px dashed rgba(255,255,255,0.1); 
     margin-top: 15px; 
     padding-top: 15px; 
     text-align: center; 
 }
+.receipt-footer .total-label { font-size: 12px; color: var(--muted); display: block; }
 .receipt-footer .total-val { font-size: 24px; color: var(--warning); font-weight: 900; }
 
 .order-btn {
@@ -509,29 +443,50 @@ input:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   font-weight: 900; cursor: pointer; color: #022c22; transition: 0.3s;
 }
-.order-btn:hover { filter: brightness(1.1); transform: scale(1.02); }
-.order-btn:active { transform: scale(0.95); }
 
 footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px; opacity: 0.7; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-/* REVISI: Konten Section Animation */
 .category-section { 
     display: none; 
-    animation: contentFadeUp 0.5s ease-out;
+    animation: fadeInContent 0.5s ease-in-out;
+}
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.qris-logo-receipt {
+    display: block;
+    width: 80px;
+    margin: 10px auto 0;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
 }
 
 .notif-premium {
-    background: rgba(34, 197, 94, 0.1);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.95));
     border: 1px solid var(--accent);
     color: var(--text);
-    padding: 15px;
+    padding: 20px;
     border-radius: 20px;
     margin-bottom: 25px;
     font-size: 13px;
+    text-align: left;
     display: flex;
     gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     align-items: center;
+    position: relative;
+    overflow: hidden;
 }
+.notif-premium::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+    animation: shineNotif 4s infinite;
+}
+@keyframes shineNotif { to { left: 200%; } }
+.notif-premium b { color: var(--accent); text-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
 </style>
 </head>
 
@@ -539,11 +494,8 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 <div class="bg-animation"><div class="circle"></div></div>
 
 <div id="customAlert" class="custom-alert">
-  <div class="alert-icon-container" id="alertIcon">⚠️</div>
-  <div class="alert-content-text">
-      <div class="alert-title" id="alertTitle">Pemberitahuan</div>
-      <div class="alert-msg" id="alertMsg">Pilih produk favoritmu dulu!</div>
-  </div>
+  <div class="alert-icon">⚠️</div>
+  <div class="alert-msg" id="alertMsg">Pilih produk favoritmu dulu!</div>
 </div>
 
 <div class="running-text">
@@ -562,11 +514,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   <div class="guide-box">
     <h3>Langkah Order:</h3>
     <ol>
-      <li><b>Pilih Kategori:</b> Ketuk menu di bawah ini.</li>
-      <li><b>Pilih Produk:</b> Pilih icon layanan yang ingin dibeli.</li>
-      <li><b>Pilih Nominal:</b> Klik pada kartu harga yang sesuai.</li>
-      <li><b>Lengkapi Data:</b> Masukkan ID Game/No HP dengan benar.</li>
-      <li><b>Konfirmasi:</b> Tekan "Beli Sekarang" dan lanjut ke WhatsApp.</li>
+      <li><b>Pilih Kategori:</b> Ketuk menu (Game/Voucher/Akun Apk Premium/Pulsa & Kuota) di bawah ini.</li>
+      <li><b>Pilih Produk:</b> Pilih icon layanan yang ingin Anda beli.</li>
+      <li><b>Pilih Nominal:</b> Klik pada kartu harga yang sesuai keinginan Anda.</li>
+      <li><b>Lengkapi Data:</b> Masukkan ID Game, Email, atau Nomor HP tujuan dengan benar.</li>
+      <li><b>Konfirmasi Struk:</b> Tekan "Beli Sekarang", periksa detail pada struk belanja, lalu klik "Lanjut ke WhatsApp".</li>
     </ol>
   </div>
 
@@ -575,7 +527,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   </div>
 
   <div class="category-tabs">
-    <button class="tab-btn" onclick="switchCategory('topup', this)">
+    <button class="tab-btn active" onclick="switchCategory('topup', this)">
       <div class="tab-icon">🎮</div>
       <span>Top Up Game</span>
     </button>
@@ -592,8 +544,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <span>Pulsa & Data</span>
     </button>
   </div>
-
-  <div id="category-topup" class="category-section">
+  <div id="category-topup" class="category-section" style="display: block;">
     <h2>🎮 Top Up Game</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'ml')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png" class="game-thumb"><span>Mobile Legends</span></div>
@@ -750,7 +701,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 <div class="modal" id="premiumModal">
   <div class="modal-box" style="border-color: var(--accent); background: linear-gradient(145deg, #111827, #020617);">
     <div style="font-size: 50px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--accent));" id="modalIcon">🛡️</div>
-    <h2 style="margin-top:0; color: #fff;" id="modalTitle">Info Produk</h2>
+    <h2 style="margin-top:0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="modalTitle">Info Produk</h2>
     <div id="modalDescription" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; color: var(--muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
     </div>
     <button class="order-btn" onclick="closePremiumModal()">Saya Mengerti, Lanjutkan ✨</button>
@@ -759,7 +710,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 
 <footer>© 2026 SICHROEL SHOP | Top Up Aman Sedunia & Akhirat</footer>
 
-<a href="https://wa.me/6285888747908" style="position:fixed; bottom:30px; right:30px; background:#25d366; padding:16px 25px; border-radius:50px; color:white; text-decoration:none; font-weight:800; z-index:9999; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);" target="_blank">Chat Admin</a>
+<a href="https://wa.me/6285888747908" style="position:fixed; bottom:30px; right:30px; background:#25d366; padding:16px 25px; border-radius:50px; color:white; text-decoration:none; font-weight:800; z-index:999;" target="_blank">Chat Admin</a>
 
 <div class="modal" id="modal">
   <div class="modal-box">
@@ -780,15 +731,9 @@ let currentProvider = "";
 function switchCategory(cat, el) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   el.classList.add('active');
-  
-  // Sembunyikan semua section dulu
-  document.querySelectorAll('.category-section').forEach(sec => {
-      sec.style.display = 'none';
-  });
-
+  document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'none');
   const targetCat = document.getElementById('category-' + cat);
   targetCat.style.display = 'block';
-  
   targetCat.scrollIntoView({ behavior: 'smooth', block: 'start' });
   
   document.getElementById('pukot-main-menu').style.display = 'grid';
@@ -830,27 +775,19 @@ function generateGenericProducts(gridId, prefix, count, priceBase, unit) {
     const grid = document.getElementById(gridId);
     if(!grid) return;
     grid.innerHTML = "";
-    const soldOutIdx = Math.floor(Math.random() * (count - 4)) + 5; 
-
     for(let i=1; i<=count; i++) {
         let val = (i * prefix) + " " + unit;
         let realPrice = (i * priceBase) + 2000;
-        let strikePrice = realPrice + 5000;
+        let strikePrice = realPrice + 5000; // Harga coret lebih mahal 5rb
         let priceTxt = "Rp " + realPrice.toLocaleString('id-ID');
         let strikeTxt = "Rp " + strikePrice.toLocaleString('id-ID');
         
         const div = document.createElement('div');
         div.className = "nominal-item";
+        div.onclick = function() { selectNominal(this, val + ' – ' + priceTxt); };
         
-        let badgeHtml = "";
-        if (i === soldOutIdx) {
-            div.classList.add('is-sold-out');
-            badgeHtml = `<div class="sold-out-badge">Sold Out</div>`;
-            div.onclick = function() { showWarning('Produk ini telah habis terjual!', 'Sold Out', '🚫'); };
-        } else {
-            div.onclick = function() { selectNominal(this, val + ' – ' + priceTxt); };
-            if (i <= 4) badgeHtml = `<div class="best-seller-badge">Best Seller</div>`;
-        }
+        // Tambahkan badge best seller untuk 4 produk pertama
+        let badgeHtml = i <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
         
         div.innerHTML = `
             ${badgeHtml}
@@ -877,26 +814,16 @@ function populateInitialProducts(cat) {
         generateGenericProducts('steam-prod-grid', 12000, 10, 14000, 'IDR Wallet');
     } else if(cat === 'premium') {
         const netflix = document.getElementById('netflix-prod-grid');
-        if(!netflix) return;
         netflix.innerHTML = "";
         const netTypes = ["1 Hari Sharing", "7 Hari Sharing", "1 Bulan Sharing", "1 Bulan Private", "3 Bulan Private", "6 Bulan Private", "1 Tahun Private", "1 Bulan 4K", "Ultra HD Sharing", "Profile Lock"];
-        const soldOutIdx = 6; 
-        
         netTypes.forEach((t, i) => {
             let realPrice = (3000 + (i*15000));
             let strikePrice = realPrice + 7000;
             const div = document.createElement('div');
             div.className = "nominal-item";
+            div.onclick = function() { selectNominal(this, t + ' – Rp ' + realPrice.toLocaleString('id-ID')); };
             
-            let badgeHtml = "";
-            if (i === soldOutIdx) {
-                div.classList.add('is-sold-out');
-                badgeHtml = `<div class="sold-out-badge">Sold Out</div>`;
-                div.onclick = function() { showWarning('Produk ini telah habis terjual!', 'Sold Out', '🚫'); };
-            } else {
-                div.onclick = function() { selectNominal(this, t + ' – Rp ' + realPrice.toLocaleString('id-ID')); };
-                if (i <= 3) badgeHtml = `<div class="best-seller-badge">Best Seller</div>`;
-            }
+            let badgeHtml = (i + 1) <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
             
             div.innerHTML = `
                 ${badgeHtml}
@@ -913,7 +840,6 @@ function populateInitialProducts(cat) {
 
 function generatePukotProducts(targetGridId, mode, provider) {
     const grid = document.getElementById(targetGridId);
-    if(!grid) return;
     grid.innerHTML = "";
     let items = [];
     
@@ -935,21 +861,12 @@ function generatePukotProducts(targetGridId, mode, provider) {
         }
     }
 
-    const soldOutIdx = 4; 
-
     items.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = "nominal-item";
+        div.onclick = function() { selectNominal(this, item.val + ' – ' + item.price); };
         
-        let badgeHtml = "";
-        if (index === soldOutIdx) {
-            div.classList.add('is-sold-out');
-            badgeHtml = `<div class="sold-out-badge">Sold Out</div>`;
-            div.onclick = function() { showWarning('Stok provider sedang gangguan/habis!', 'Maaf Ya', '🚫'); };
-        } else {
-            div.onclick = function() { selectNominal(this, item.val + ' – ' + item.price); };
-            if (index <= 3) badgeHtml = `<div class="best-seller-badge">Best Seller</div>`;
-        }
+        let badgeHtml = (index + 1) <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
         
         div.innerHTML = `
             ${badgeHtml}
@@ -961,21 +878,11 @@ function generatePukotProducts(targetGridId, mode, provider) {
     });
 }
 
-function showWarning(msg, title = "Pemberitahuan", icon = "⚠️") {
+function showWarning(msg) {
   const alertBox = document.getElementById('customAlert');
   document.getElementById('alertMsg').innerText = msg;
-  document.getElementById('alertTitle').innerText = title;
-  document.getElementById('alertIcon').innerText = icon;
-  
-  const iconContainer = document.querySelector('.alert-icon-container');
-  if(icon === '🚫') {
-      iconContainer.style.background = "linear-gradient(135deg, #ef4444, #991b1b)";
-  } else {
-      iconContainer.style.background = "linear-gradient(135deg, var(--warning), #d97706)";
-  }
-
   alertBox.classList.add('show');
-  setTimeout(() => alertBox.classList.remove('show'), 3500);
+  setTimeout(() => alertBox.classList.remove('show'), 3000);
 }
 
 function selectPremiumOption(el, id) {
@@ -1017,14 +924,8 @@ function selectGameOption(el, id){
   if(['axis','indosat','smartfren','telkomsel','tri','xl','byu'].includes(id)) {
       currentProvider = id.toUpperCase();
       generatePukotProducts(id + '-grid', currentPukotMode, currentProvider);
-      
-      const inputId = (id === 'byu') ? 'byu_num' : id + '_num';
-      setTimeout(() => {
-          const input = document.getElementById(inputId);
-          if(input) {
-              input.placeholder = (currentPukotMode === "Voucher Data") ? "Nomor WA Kamu" : "Nomor HP Tujuan";
-          }
-      }, 600);
+      const input = document.getElementById(id + (id === 'byu' ? '_num' : (id.includes('num') ? '' : (id === 'axis' || id === 'indosat' || id === 'smartfren' || id === 'telkomsel' || id === 'tri' || id === 'xl' ? '_num' : '_user'))));
+      if(input) input.placeholder = (currentPukotMode === "Voucher Data") ? "Nomor WA Kamu" : "Nomor HP Tujuan";
   }
 
   document.querySelectorAll('.card').forEach(c=>c.style.display='none');
@@ -1036,7 +937,7 @@ function selectGameOption(el, id){
         target.style.display='block';
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
-  }, 400);
+  }, 500);
 }
 
 function selectNominal(el, val){
@@ -1053,19 +954,16 @@ function simulasiCheck(e, fieldId) {
 
 function prepareOrder(game, userField, serverField){
   const userEl = document.getElementById(userField);
-  if(!userEl) return;
-  
   const u = userEl.value.trim();
   const serverEl = serverField ? document.getElementById(serverField) : null;
   const s = serverEl ? serverEl.value.trim() : "";
-  
   if(!u) {
     userEl.classList.add('error-shake');
     userEl.focus();
     setTimeout(() => userEl.classList.remove('error-shake'), 400);
-    return showWarning('Waduh! Masukkan data kamu dulu ya.', 'Data Kosong');
+    return showWarning('Waduh! Masukkan data kamu dulu ya.');
   }
-  if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!', 'Belum Pilih');
+  if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!');
   
   let modeLabel = game;
   if(currentPukotMode && !game.includes(currentPukotMode)) {
@@ -1080,21 +978,22 @@ function prepareOrder(game, userField, serverField){
       orderId: 'SICH-' + Math.floor(Math.random() * 999999)
   };
 
-  const receiptHtml = 
+  document.getElementById('confirmText').innerHTML = 
     `<div class="receipt-header">
         <span class="shop-name">SICHROEL SHOP</span>
+        <span class="tagline">Official Digital Receipt</span>
     </div>
     <div class="receipt-line"><span class="receipt-label">No. Order:</span><span class="receipt-val">#${temp.orderId}</span></div>
     <div class="receipt-line"><span class="receipt-label">Produk:</span><span class="receipt-val">${temp.game.toUpperCase()}</span></div>
     <div class="receipt-line"><span class="receipt-label">Varian:</span><span class="receipt-val">${temp.nominal.split('–')[0]}</span></div>
     <div class="receipt-line"><span class="receipt-label">ID/No HP:</span><span class="receipt-val">${temp.user}</span></div>
     ${serverField !== null && s !== "" && s !== "-" ? `<div class="receipt-line"><span class="receipt-label">Server:</span><span class="receipt-val">${temp.server}</span></div>` : ''}
+    <div class="receipt-line" style="margin-top:10px;"><span class="receipt-label">Metode:</span><span class="receipt-val">QRIS AUTOMATIC</span></div>
     <div class="receipt-footer">
+        <span class="total-label">TOTAL PEMBAYARAN</span>
         <span class="total-val">${temp.nominal.split('–')[1]}</span>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" style="width:70px; display:block; margin:10px auto; filter:brightness(0) invert(1);">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="qris-logo-receipt">
     </div>`;
-    
-  document.getElementById('confirmText').innerHTML = receiptHtml;
   document.getElementById('modal').style.display='flex';
 }
 
@@ -1107,8 +1006,7 @@ function sendWA(){
 }
 
 window.onload = () => {
-    document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'none');
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    populateInitialProducts('topup');
 };
 </script>
 </body>
