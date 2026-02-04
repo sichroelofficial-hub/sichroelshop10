@@ -427,7 +427,6 @@ const gameData = [
     { name: "PUBGM", products: ["60 UC", "325 UC"], type: "id_only" }
 ];
 
-// FITUR AUTO-FILL: Load data saat halaman dibuka
 window.onload = () => {
     const fields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user'];
     fields.forEach(id => {
@@ -436,7 +435,6 @@ window.onload = () => {
     });
 };
 
-// PENCEGAHAN ERROR: Validasi input hanya angka & simpan otomatis
 document.querySelectorAll('input[type="tel"]').forEach(input => {
     input.addEventListener('input', function() {
         this.value = this.value.replace(/[^0-9]/g, '');
@@ -542,7 +540,7 @@ function prepareOrder(game, userField, serverField){
     uInput.classList.remove('input-error');
   }
 
-  if(serverField && !sInput.value.trim()) {
+  if(serverField && (!sInput || !sInput.value.trim())) {
     sInput.classList.add('input-error');
     hasError = true;
   } else if(sInput) {
@@ -552,6 +550,7 @@ function prepareOrder(game, userField, serverField){
   if(hasError) return alert('Data ID/Server wajib diisi!');
   if(!selectedNominalValue) return alert('Pilih Nominal Produk lebih dulu!');
   
+  // PERBAIKAN: Memasukkan data ke variabel temp agar bisa diakses sendWA()
   temp = { game, nominal: selectedNominalValue, user: u, server: s };
   
   document.getElementById('confirmText').innerHTML = `
@@ -567,7 +566,8 @@ function prepareOrder(game, userField, serverField){
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 function sendWA(){
-  if(!temp.game) return alert('Data tidak valid!');
+  // PERBAIKAN LOGIKA: Memastikan temp.user dan temp.server masuk ke string pesan
+  if(!temp.game || !temp.user) return alert('Data tidak lengkap!');
   
   const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: ${temp.game}\n💎 Produk: ${temp.nominal}\n🆔 ID: ${temp.user}\n🌐 Server: ${temp.server}\n💳 Metode: QRIS\n\n_Halo Min, saya mau bayar orderan ini. Tolong kirimkan QRIS nya ya!_`;
   
