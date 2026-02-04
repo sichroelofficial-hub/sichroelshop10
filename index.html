@@ -189,8 +189,12 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
 }
 .nominal-item .val { font-size: 14px; font-weight: 800; color: #fff; }
+
+/* REVISI: HARGA CORET STYLE */
+.nominal-item .price-old { font-size: 10px; color: var(--muted); text-decoration: line-through; opacity: 0.6; }
 .nominal-item .price { font-size: 12px; font-weight: 600; color: var(--accent); }
 .nominal-item.selected .val, .nominal-item.selected .price { color: #022c22; }
+.nominal-item.selected .price-old { color: #022c22; opacity: 0.4; }
 
 .badge-promo {
     position: absolute; top: -8px; right: -5px; background: #fbbf24;
@@ -265,7 +269,7 @@ input:focus { outline: 1px solid var(--accent); }
   background: #0f172a; padding: 35px; border-radius: 25px; max-width: 400px;
   width: 100%; border: 1px solid var(--accent); text-align: center;
 }
-#confirmText { text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin: 20px 0; font-family: monospace; color: var(--accent); }
+#confirmText { text-align: left; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; margin: 20px 0; font-family: sans-serif; color: var(--accent); }
 
 .order-btn {
   margin-top: 20px; width: 100%; padding: 16px; border: none; border-radius: 15px;
@@ -334,22 +338,28 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <h3>Mobile Legends</h3>
       <div class="nominal-grid">
         <div class="nominal-item" onclick="selectNominal(this, '86 DM – Rp20.000')">
-          <span class="val">86 Diamonds</span><span class="price">Rp20.000</span>
+          <span class="val">86 Diamonds</span>
+          <span class="price-old">Rp25.000</span>
+          <span class="price">Rp20.000</span>
         </div>
         <div class="nominal-item" onclick="selectNominal(this, '172 DM – Rp38.000')">
           <span class="badge-promo">Best Seller</span>
-          <span class="val">172 Diamonds</span><span class="price">Rp38.000</span>
+          <span class="val">172 Diamonds</span>
+          <span class="price-old">Rp45.000</span>
+          <span class="price">Rp38.000</span>
         </div>
         <div class="nominal-item" onclick="selectNominal(this, 'WDP – Rp28.000')">
           <span class="badge-promo">Hemat!</span>
-          <span class="val">Weekly Pass</span><span class="price">Rp28.000</span>
+          <span class="val">Weekly Pass</span>
+          <span class="price-old">Rp35.000</span>
+          <span class="price">Rp28.000</span>
         </div>
       </div>
       <div class="input-group">
-        <input id="ml_user" placeholder="User ID" type="tel">
+        <input id="ml_user" placeholder="User ID" type="text">
         <button class="btn-check" onclick="simulasiCheck(event, 'ml_user')">CEK ID</button>
       </div>
-      <input id="ml_server" placeholder="Server ID" type="tel" style="margin-top:10px;">
+      <input id="ml_server" placeholder="Server ID" type="text" style="margin-top:10px;">
       <button class="order-btn" onclick="prepareOrder('Mobile Legends','ml_user','ml_server')">Beli Sekarang</button>
     </div>
 
@@ -358,14 +368,18 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <h3>Free Fire</h3>
       <div class="nominal-grid">
         <div class="nominal-item" onclick="selectNominal(this, '70 DM – Rp10.000')">
-          <span class="val">70 Diamonds</span><span class="price">Rp10.000</span>
+          <span class="val">70 Diamonds</span>
+          <span class="price-old">Rp15.000</span>
+          <span class="price">Rp10.000</span>
         </div>
         <div class="nominal-item" onclick="selectNominal(this, '140 DM – Rp20.000')">
-          <span class="val">140 Diamonds</span><span class="price">Rp20.000</span>
+          <span class="val">140 Diamonds</span>
+          <span class="price-old">Rp25.000</span>
+          <span class="price">Rp20.000</span>
         </div>
       </div>
       <div class="input-group">
-        <input id="ff_user" placeholder="Player ID" type="tel">
+        <input id="ff_user" placeholder="Player ID" type="text">
         <button class="btn-check" onclick="simulasiCheck(event, 'ff_user')">CEK ID</button>
       </div>
       <button class="order-btn" onclick="prepareOrder('Free Fire','ff_user',null)">Beli Sekarang</button>
@@ -376,14 +390,18 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <h3>PUBG Mobile</h3>
       <div class="nominal-grid">
         <div class="nominal-item" onclick="selectNominal(this, '60 UC – Rp15.000')">
-          <span class="val">60 UC</span><span class="price">Rp15.000</span>
+          <span class="val">60 UC</span>
+          <span class="price-old">Rp18.000</span>
+          <span class="price">Rp15.000</span>
         </div>
         <div class="nominal-item" onclick="selectNominal(this, '325 UC – Rp65.000')">
-          <span class="val">325 UC</span><span class="price">Rp65.000</span>
+          <span class="val">325 UC</span>
+          <span class="price-old">Rp80.000</span>
+          <span class="price">Rp65.000</span>
         </div>
       </div>
       <div class="input-group">
-        <input id="pubg_user" placeholder="Character ID" type="tel">
+        <input id="pubg_user" placeholder="Character ID" type="text">
         <button class="btn-check" onclick="simulasiCheck(event, 'pubg_user')">CEK ID</button>
       </div>
       <button class="order-btn" onclick="prepareOrder('Pubg Mobile','pubg_user',null)">Beli Sekarang</button>
@@ -454,21 +472,27 @@ function prepareOrder(game, userField, serverField){
   const u = document.getElementById(userField).value.trim();
   const s = serverField ? document.getElementById(serverField).value.trim() : "-";
   
-  // REVISI: Menggunakan showWarning dengan pesan yang diminta
   if(!u) return showWarning('Waduh! Masukkan User ID kamu dulu ya.');
   if(serverField && !s) return showWarning('Waduh! Server ID jangan dikosongkan.');
   if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!');
 
   temp = { game, nominal: selectedNominalValue, user: u, server: s };
-  document.getElementById('confirmText').innerHTML = `GAME: ${game.toUpperCase()}<br>PRODUK: ${temp.nominal}<br>ID: ${temp.user}<br>SRV: ${temp.server}`;
+  
+  // Perbaikan tampilan modal: Grid layout sederhana
+  document.getElementById('confirmText').innerHTML = `
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Game:</span> <b>${game.toUpperCase()}</b></div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Produk:</span> <b>${temp.nominal}</b></div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>User ID:</span> <b>${temp.user}</b></div>
+    ${serverField ? `<div style="display:flex; justify-content:space-between; padding:8px 0;"><span>Server:</span> <b>${temp.server}</b></div>` : ''}
+    <div style="display:flex; justify-content:space-between; padding:8px 0; color:var(--warning)"><span>Metode:</span> <b>QRIS</b></div>
+  `;
   document.getElementById('modal').style.display='flex';
 }
 
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 function sendWA(){
-  // REVISI: Teks sesuai instruksi terbaru (miring semua, perhatikan kapital & spasi)
-  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: *${temp.game}*\n💎 Produk: *${temp.nominal}*\n🆔 ID: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_Halo Min,Saya mau bayar orderan ini.Tolong kirimkan QRIS nya ya!._`;
+  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: *${temp.game}*\n💎 Produk: *${temp.nominal}*\n🆔 ID: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_Halo Min, Saya mau bayar orderan ini. Tolong kirimkan QRIS nya ya!._`;
   window.open(`https://wa.me/6285888747908?text=${encodeURIComponent(msg)}`, '_blank');
   closeModal();
 }
@@ -477,7 +501,7 @@ document.querySelectorAll('input').forEach(input => {
     const saved = localStorage.getItem(input.id);
     if(saved) input.value = saved;
     input.addEventListener('input', function() {
-        this.value = this.value.replace(/[^0-9]/g, '');
+        // Perbaikan: Tidak lagi menghapus huruf secara paksa agar ID fleksibel
         localStorage.setItem(this.id, this.value);
     });
 });
