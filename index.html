@@ -209,7 +209,7 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   display: grid; 
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
   gap: 15px;
-  max-width: 700px; margin: 0 auto 50px;
+  max-width: 800px; margin: 0 auto 50px;
 }
 .game-opt {
   background: rgba(15, 23, 42, 0.6); border: 2px solid rgba(255, 255, 255, 0.05);
@@ -351,7 +351,15 @@ input {
 footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px; opacity: 0.7; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-.category-section { display: none; }
+/* Update Saran No 1: Animasi Kategori */
+.category-section { 
+    display: none; 
+    animation: fadeInContent 0.5s ease-in-out;
+}
+@keyframes fadeInContent {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 /* QRIS LOGO STYLE */
 .qris-logo-receipt {
@@ -407,16 +415,36 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>🎮 Top Up Game</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'ml')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB" loading="lazy">
-          <span>MLBB</span>
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB">
+          <span>Mobile Legends</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'ff')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire" loading="lazy">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire">
           <span>Free Fire</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'pubg')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM" loading="lazy">
-          <span>PUBGM</span>
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM">
+          <span>PUBG Mobile</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'codm')">
+          <div style="font-size:30px; margin-bottom:10px;">🔫</div>
+          <span>Call Of Duty Mobile</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'eggy')">
+          <div style="font-size:30px; margin-bottom:10px;">🥚</div>
+          <span>Eggy Party Coin</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'pb')">
+          <div style="font-size:30px; margin-bottom:10px;">🎯</div>
+          <span>Point Blank Zepetto</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'aov')">
+          <div style="font-size:30px; margin-bottom:10px;">⚔️</div>
+          <span>Arena Of Valor</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'genshin')">
+          <div style="font-size:30px; margin-bottom:10px;">💎</div>
+          <span>Genshin Impact</span>
       </div>
     </div>
   </div>
@@ -425,11 +453,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>🎟️ Voucher Game & App</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'gplay')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" class="game-thumb" alt="Google Play" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" class="game-thumb" alt="Google Play">
           <span>Google Play</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'steam')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam">
           <span>Steam Wallet</span>
       </div>
     </div>
@@ -439,15 +467,15 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>✨ Akun Premium</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'netflix')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix">
           <span>Netflix</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'disney')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="game-thumb" alt="Disney" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="game-thumb" alt="Disney">
           <span>Disney+</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'canva')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva">
           <span>Canva Pro</span>
       </div>
     </div>
@@ -497,12 +525,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 
   <div class="games">
     <div class="card" id="ml">
-      <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" alt="Mobile Legends" loading="lazy">
+      <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" alt="Mobile Legends">
       <h3>Mobile Legends</h3>
       <div class="nominal-grid">
-        <div class="nominal-item" onclick="selectNominal(this, '86 DM – Rp 20.000')"><span class="val">86 Diamonds</span><span class="price-old">Rp 25.000</span><span class="price">Rp 20.000</span></div>
-        <div class="nominal-item" onclick="selectNominal(this, '172 DM – Rp 38.000')"><span class="badge-promo">Best Seller</span><span class="val">172 Diamonds</span><span class="price-old">Rp 45.000</span><span class="price">Rp 38.000</span></div>
-        <div class="nominal-item" onclick="selectNominal(this, '257 DM – Rp 58.000')"><span class="val">257 Diamonds</span><span class="price-old">Rp 70.000</span><span class="price">Rp 58.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '86 Diamond – Rp 20.000')"><span class="val">86 Diamond</span><span class="price">Rp 20.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '172 Diamond – Rp 38.000')"><span class="val">172 Diamond</span><span class="price">Rp 38.000</span></div>
       </div>
       <div class="input-group">
         <input id="ml_user" placeholder="User ID" type="text" inputmode="numeric">
@@ -513,14 +540,74 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     </div>
 
     <div class="card" id="ff">
-      <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" alt="Free Fire" loading="lazy">
+      <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" alt="Free Fire">
       <h3>Free Fire</h3>
       <div class="nominal-grid">
-        <div class="nominal-item" onclick="selectNominal(this, '70 DM – Rp 10.000')"><span class="val">70 Diamonds</span><span class="price">Rp 10.000</span></div>
-        <div class="nominal-item" onclick="selectNominal(this, '140 DM – Rp 20.000')"><span class="val">140 Diamonds</span><span class="price">Rp 20.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '70 Diamond – Rp 10.000')"><span class="val">70 Diamond</span><span class="price">Rp 10.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '140 Diamond – Rp 20.000')"><span class="val">140 Diamond</span><span class="price">Rp 20.000</span></div>
       </div>
       <input id="ff_user" placeholder="Player ID" type="text" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('Free Fire','ff_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="pubg">
+      <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" alt="PUBGM">
+      <h3>PUBG Mobile</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '60 UC – Rp 15.000')"><span class="val">60 UC</span><span class="price">Rp 15.000</span></div>
+      </div>
+      <input id="pubg_user" placeholder="Character ID" type="text" inputmode="numeric">
+      <button class="order-btn" onclick="prepareOrder('PUBG Mobile','pubg_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="codm">
+      <div style="font-size:50px; text-align:center; margin-bottom:20px;">🔫</div>
+      <h3>Call Of Duty Mobile</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '31 CP – Rp 5.000')"><span class="val">31 CP</span><span class="price">Rp 5.000</span></div>
+      </div>
+      <input id="codm_user" placeholder="OpenID" type="text">
+      <button class="order-btn" onclick="prepareOrder('Call Of Duty Mobile','codm_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="eggy">
+      <div style="font-size:50px; text-align:center; margin-bottom:20px;">🥚</div>
+      <h3>Eggy Party</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '60 Coins – Rp 12.000')"><span class="val">60 Coins</span><span class="price">Rp 12.000</span></div>
+      </div>
+      <input id="eggy_user" placeholder="User ID" type="text">
+      <button class="order-btn" onclick="prepareOrder('Eggy Party','eggy_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="pb">
+      <div style="font-size:50px; text-align:center; margin-bottom:20px;">🎯</div>
+      <h3>Point Blank Zepetto</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '1200 Cash – Rp 10.000')"><span class="val">1200 Cash</span><span class="price">Rp 10.000</span></div>
+      </div>
+      <input id="pb_user" placeholder="PB ID" type="text">
+      <button class="order-btn" onclick="prepareOrder('Point Blank','pb_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="aov">
+      <div style="font-size:50px; text-align:center; margin-bottom:20px;">⚔️</div>
+      <h3>Arena Of Valor</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '40 Game – Rp 10.000')"><span class="val">40 Game</span><span class="price">Rp 10.000</span></div>
+      </div>
+      <input id="aov_user" placeholder="Player ID" type="text">
+      <button class="order-btn" onclick="prepareOrder('Arena Of Valor','aov_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="genshin">
+      <div style="font-size:50px; text-align:center; margin-bottom:20px;">💎</div>
+      <h3>Genshin Impact</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '60 Crystals – Rp 16.000')"><span class="val">60 Crystals</span><span class="price">Rp 16.000</span></div>
+      </div>
+      <input id="genshin_user" placeholder="UID" type="text">
+      <button class="order-btn" onclick="prepareOrder('Genshin Impact','genshin_user',null)">Beli Sekarang</button>
     </div>
 
     <div class="card" id="telkomsel">
@@ -528,7 +615,6 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <h3>Telkomsel Services</h3>
       <div class="nominal-grid">
         <div class="nominal-item" onclick="selectNominal(this, '5rb – Rp 7.500')"><span class="val">Pulsa 5.000</span><span class="price">Rp 7.500</span></div>
-        <div class="nominal-item" onclick="selectNominal(this, '10rb – Rp 12.500')"><span class="val">Pulsa 10.000</span><span class="price">Rp 12.500</span></div>
       </div>
       <input id="telkom_num" placeholder="Nomor HP Telkomsel" type="tel" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('Telkomsel','telkom_num',null)">Beli Sekarang</button>
@@ -553,8 +639,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <input id="xl_num" placeholder="Nomor HP XL/Axis" type="tel" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('XL Axis','xl_num',null)">Beli Sekarang</button>
     </div>
-
-    </div>
+  </div>
 
   <div class="op-hours">
     <div class="op-hours-icon">🕒</div>
@@ -580,7 +665,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 <script>
 let temp={};
 let selectedNominalValue = "";
-let pukotCategory = ""; // Menyimpan status apakah Pulsa atau Kuota
+let pukotCategory = "";
 
 function toggleTheme() {
     const body = document.body;
@@ -600,6 +685,7 @@ if(localStorage.getItem('theme') === 'light') {
     document.getElementById('themeBtn').innerText = "☀️";
 }
 
+// Update Saran No 1: Scroll Otomatis ke Menu
 function switchCategory(cat, el) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   el.classList.add('active');
@@ -607,9 +693,10 @@ function switchCategory(cat, el) {
   
   const targetCat = document.getElementById('category-' + cat);
   targetCat.style.display = 'block';
+  
+  // Perintah: Scroll otomatis
   targetCat.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // Reset menu Pulsa & Kuota jika pindah kategori
   document.getElementById('pukot-main-menu').style.display = 'grid';
   document.getElementById('kuota-types').style.display = 'none';
   document.getElementById('pukot-providers').style.display = 'none';
@@ -618,7 +705,6 @@ function switchCategory(cat, el) {
   document.querySelectorAll('.game-opt').forEach(opt => opt.classList.remove('active'));
 }
 
-// LOGIKA PULSA & KUOTA
 function handlePukot(action) {
     if(action === 'pulsa') {
         pukotCategory = "Pulsa";
@@ -643,6 +729,7 @@ function showWarning(msg) {
   setTimeout(() => alertBox.classList.remove('show'), 3000);
 }
 
+// Update Saran No 1: Scroll Otomatis ke Produk
 function selectGameOption(el, id){
   selectedNominalValue = "";
   document.querySelectorAll('.nominal-item').forEach(i => i.classList.remove('selected'));
@@ -650,11 +737,13 @@ function selectGameOption(el, id){
   el.classList.add('active');
   document.querySelectorAll('.card').forEach(c=>c.style.display='none');
   document.getElementById('game-loading').style.display = 'block';
+  
   setTimeout(() => {
     document.getElementById('game-loading').style.display = 'none';
     const target = document.getElementById(id);
     if(target) {
         target.style.display='block';
+        // Perintah: Scroll otomatis ke card produk
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, 500);
@@ -716,7 +805,7 @@ function sendWA(){
   closeModal();
 }
 
-const numericFields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user', 'netflix_user', 'disney_user', 'gplay_user', 'steam_user', 'telkom_num', 'indosat_num', 'xl_num'];
+const numericFields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user', 'telkom_num', 'indosat_num', 'xl_num'];
 numericFields.forEach(id => {
     const el = document.getElementById(id);
     if(el) {
