@@ -34,6 +34,18 @@ body{
   overflow-x: hidden;
 }
 
+/* ANIMASI SHAKE & ERROR */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+.error-shake { 
+    animation: shake 0.2s ease-in-out 0s 2; 
+    border: 2px solid var(--error) !important; 
+    background: rgba(239, 68, 68, 0.1) !important;
+}
+
 /* BACKGROUND ANIMATION */
 .bg-animation {
   position: fixed;
@@ -132,12 +144,43 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
 .guide-box li { margin-bottom: 8px; line-height: 1.4; }
 .guide-box li b { color: var(--text); }
 
-/* GAME SELECTOR GRID */
+/* CATEGORY TABS */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.tab-btn {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 10px 18px;
+  border-radius: 50px;
+  color: var(--muted);
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+@media (min-width: 480px) {
+  .tab-btn { padding: 12px 25px; font-size: 14px; }
+}
+.tab-btn.active {
+  background: var(--accent);
+  color: #022c22;
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+/* GRID RESPONSIVE */
 section{ padding:40px 20px; max-width: 1100px; margin: auto; }
 h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px; }
 
 .game-selector-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); 
+  gap: 15px;
   max-width: 600px; margin: 0 auto 50px;
 }
 .game-opt {
@@ -190,7 +233,6 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
 }
 .nominal-item .val { font-size: 14px; font-weight: 800; color: #fff; }
 
-/* REVISI: HARGA CORET STYLE */
 .nominal-item .price-old { font-size: 10px; color: var(--muted); text-decoration: line-through; opacity: 0.6; }
 .nominal-item .price { font-size: 12px; font-weight: 600; color: var(--accent); }
 .nominal-item.selected .val, .nominal-item.selected .price { color: #022c22; }
@@ -306,27 +348,66 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   <div class="guide-box">
     <h3>Cara Pembelian:</h3>
     <ol>
-      <li><b>Pilih Game:</b> Klik ikon game favorit Anda di bawah.</li>
-      <li><b>Pilih Produk:</b> Tekan nominal diamond atau produk yang diinginkan.</li>
-      <li><b>Isi Data:</b> Masukkan User ID dan Server ID dengan teliti.</li>
-      <li><b>Konfirmasi:</b> Klik tombol "Beli Sekarang" untuk memeriksa kembali data Anda.</li>
-      <li><b>Bayar:</b> Klik "Lanjut ke WhatsApp", admin akan mengirimkan QRIS untuk pembayaran.</li>
+      <li><b>Pilih Kategori:</b> Top Up, Voucher, atau Akun Premium.</li>
+      <li><b>Pilih Produk:</b> Klik ikon favorit Anda.</li>
+      <li><b>Isi Data:</b> Masukkan User ID / No. WA sesuai permintaan.</li>
+      <li><b>Bayar:</b> Klik "Beli Sekarang", admin akan kirim QRIS di WhatsApp.</li>
     </ol>
   </div>
 
-  <h2>🎮 Pilih Game Favorit</h2>
-  <div class="game-selector-grid">
-    <div class="game-opt" onclick="selectGameOption(this, 'ml')">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB">
-        <span>MLBB</span>
+  <div class="category-tabs">
+    <div class="tab-btn active" onclick="switchCategory('topup', this)">🎮 Top Up</div>
+    <div class="tab-btn" onclick="switchCategory('voucher', this)">🎟️ Voucher</div>
+    <div class="tab-btn" onclick="switchCategory('premium', this)">✨ Akun Premium</div>
+  </div>
+
+  <div id="category-topup" class="category-section">
+    <h2>🎮 Top Up Game</h2>
+    <div class="game-selector-grid">
+      <div class="game-opt" onclick="selectGameOption(this, 'ml')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB" loading="lazy">
+          <span>MLBB</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'ff')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire" loading="lazy">
+          <span>Free Fire</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'pubg')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM" loading="lazy">
+          <span>PUBGM</span>
+      </div>
     </div>
-    <div class="game-opt" onclick="selectGameOption(this, 'ff')">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire">
-        <span>Free Fire</span>
+  </div>
+
+  <div id="category-voucher" class="category-section" style="display:none;">
+    <h2>🎟️ Voucher Game & App</h2>
+    <div class="game-selector-grid">
+      <div class="game-opt" onclick="selectGameOption(this, 'gplay')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" class="game-thumb" alt="Google Play" loading="lazy">
+          <span>Google Play</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'steam')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam" loading="lazy">
+          <span>Steam Wallet</span>
+      </div>
     </div>
-    <div class="game-opt" onclick="selectGameOption(this, 'pubg')">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM">
-        <span>PUBGM</span>
+  </div>
+
+  <div id="category-premium" class="category-section" style="display:none;">
+    <h2>✨ Akun Premium</h2>
+    <div class="game-selector-grid">
+      <div class="game-opt" onclick="selectGameOption(this, 'netflix')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix" loading="lazy">
+          <span>Netflix</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'disney')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="game-thumb" alt="Disney" loading="lazy">
+          <span>Disney+</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'canva')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva" loading="lazy">
+          <span>Canva Pro</span>
+      </div>
     </div>
   </div>
 
@@ -337,29 +418,15 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" alt="Mobile Legends">
       <h3>Mobile Legends</h3>
       <div class="nominal-grid">
-        <div class="nominal-item" onclick="selectNominal(this, '86 DM – Rp20.000')">
-          <span class="val">86 Diamonds</span>
-          <span class="price-old">Rp25.000</span>
-          <span class="price">Rp20.000</span>
-        </div>
-        <div class="nominal-item" onclick="selectNominal(this, '172 DM – Rp38.000')">
-          <span class="badge-promo">Best Seller</span>
-          <span class="val">172 Diamonds</span>
-          <span class="price-old">Rp45.000</span>
-          <span class="price">Rp38.000</span>
-        </div>
-        <div class="nominal-item" onclick="selectNominal(this, 'WDP – Rp28.000')">
-          <span class="badge-promo">Hemat!</span>
-          <span class="val">Weekly Pass</span>
-          <span class="price-old">Rp35.000</span>
-          <span class="price">Rp28.000</span>
-        </div>
+        <div class="nominal-item" onclick="selectNominal(this, '86 DM – Rp20.000')"><span class="val">86 Diamonds</span><span class="price-old">Rp25.000</span><span class="price">Rp20.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '172 DM – Rp38.000')"><span class="badge-promo">Best Seller</span><span class="val">172 Diamonds</span><span class="price-old">Rp45.000</span><span class="price">Rp38.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '257 DM – Rp58.000')"><span class="val">257 Diamonds</span><span class="price-old">Rp70.000</span><span class="price">Rp58.000</span></div>
       </div>
       <div class="input-group">
-        <input id="ml_user" placeholder="User ID" type="text">
+        <input id="ml_user" placeholder="User ID" type="text" inputmode="numeric">
         <button class="btn-check" onclick="simulasiCheck(event, 'ml_user')">CEK ID</button>
       </div>
-      <input id="ml_server" placeholder="Server ID" type="text" style="margin-top:10px;">
+      <input id="ml_server" placeholder="Server ID" type="text" style="margin-top:10px;" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('Mobile Legends','ml_user','ml_server')">Beli Sekarang</button>
     </div>
 
@@ -367,21 +434,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" alt="Free Fire">
       <h3>Free Fire</h3>
       <div class="nominal-grid">
-        <div class="nominal-item" onclick="selectNominal(this, '70 DM – Rp10.000')">
-          <span class="val">70 Diamonds</span>
-          <span class="price-old">Rp15.000</span>
-          <span class="price">Rp10.000</span>
-        </div>
-        <div class="nominal-item" onclick="selectNominal(this, '140 DM – Rp20.000')">
-          <span class="val">140 Diamonds</span>
-          <span class="price-old">Rp25.000</span>
-          <span class="price">Rp20.000</span>
-        </div>
+        <div class="nominal-item" onclick="selectNominal(this, '70 DM – Rp10.000')"><span class="val">70 Diamonds</span><span class="price">Rp10.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '140 DM – Rp20.000')"><span class="val">140 Diamonds</span><span class="price">Rp20.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '355 DM – Rp50.000')"><span class="val">355 Diamonds</span><span class="price">Rp50.000</span></div>
       </div>
-      <div class="input-group">
-        <input id="ff_user" placeholder="Player ID" type="text">
-        <button class="btn-check" onclick="simulasiCheck(event, 'ff_user')">CEK ID</button>
-      </div>
+      <input id="ff_user" placeholder="Player ID" type="text" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('Free Fire','ff_user',null)">Beli Sekarang</button>
     </div>
 
@@ -389,23 +446,71 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" alt="PUBG Mobile">
       <h3>PUBG Mobile</h3>
       <div class="nominal-grid">
-        <div class="nominal-item" onclick="selectNominal(this, '60 UC – Rp15.000')">
-          <span class="val">60 UC</span>
-          <span class="price-old">Rp18.000</span>
-          <span class="price">Rp15.000</span>
-        </div>
-        <div class="nominal-item" onclick="selectNominal(this, '325 UC – Rp65.000')">
-          <span class="val">325 UC</span>
-          <span class="price-old">Rp80.000</span>
-          <span class="price">Rp65.000</span>
-        </div>
+        <div class="nominal-item" onclick="selectNominal(this, '60 UC – Rp15.000')"><span class="val">60 UC</span><span class="price">Rp15.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '325 UC – Rp65.000')"><span class="val">325 UC</span><span class="price">Rp65.000</span></div>
       </div>
-      <div class="input-group">
-        <input id="pubg_user" placeholder="Character ID" type="text">
-        <button class="btn-check" onclick="simulasiCheck(event, 'pubg_user')">CEK ID</button>
-      </div>
+      <input id="pubg_user" placeholder="Character ID" type="text" inputmode="numeric">
       <button class="order-btn" onclick="prepareOrder('Pubg Mobile','pubg_user',null)">Beli Sekarang</button>
     </div>
+
+    <div class="card" id="netflix">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+      <h3>Netflix Premium</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '1 Hari Sharing – Rp5.000')"><span class="val">1 Hari Sharing</span><span class="price">Rp5.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '7 Hari Sharing – Rp15.000')"><span class="val">7 Hari Sharing</span><span class="price">Rp15.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '30 Hari Sharing – Rp35.000')"><span class="val">30 Hari Sharing</span><span class="price">Rp35.000</span></div>
+      </div>
+      <input id="netflix_user" placeholder="Nomor WhatsApp" type="tel" inputmode="numeric">
+      <button class="order-btn" onclick="prepareOrder('Netflix','netflix_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="disney">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney">
+      <h3>Disney+ Hotstar</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '1 Bulan Sharing – Rp25.000')"><span class="val">1 Bulan Sharing</span><span class="price">Rp25.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '1 Tahun Sharing – Rp120.000')"><span class="val">1 Tahun Sharing</span><span class="price">Rp120.000</span></div>
+      </div>
+      <input id="disney_user" placeholder="Nomor WhatsApp" type="tel" inputmode="numeric">
+      <button class="order-btn" onclick="prepareOrder('Disney+','disney_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="canva">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" alt="Canva">
+      <h3>Canva Pro Premium</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '1 Bulan – Rp10.000')"><span class="val">1 Bulan</span><span class="price">Rp10.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '1 Tahun – Rp45.000')"><span class="val">1 Tahun</span><span class="price">Rp45.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, 'Lifetime – Rp75.000')"><span class="badge-promo">Hemat</span><span class="val">Lifetime</span><span class="price">Rp75.000</span></div>
+      </div>
+      <input id="canva_user" placeholder="Email Canva" type="text">
+      <button class="order-btn" onclick="prepareOrder('Canva Pro','canva_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="gplay">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play">
+      <h3>Google Play Voucher</h3>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, 'Rp20.000 – Rp22.000')"><span class="val">Rp20.000</span><span class="price">Rp22.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, 'Rp50.000 – Rp53.000')"><span class="val">Rp50.000</span><span class="price">Rp53.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, 'Rp100.000 – Rp105.000')"><span class="val">Rp100.000</span><span class="price">Rp105.000</span></div>
+      </div>
+      <input id="gplay_user" placeholder="Nomor WhatsApp" type="tel" inputmode="numeric">
+      <button class="order-btn" onclick="prepareOrder('Google Play','gplay_user',null)">Beli Sekarang</button>
+    </div>
+
+    <div class="card" id="steam">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" alt="Steam">
+        <h3>Steam Wallet IDR</h3>
+        <div class="nominal-grid">
+          <div class="nominal-item" onclick="selectNominal(this, '12K IDR – Rp14.500')"><span class="val">Wallet Rp12rb</span><span class="price">Rp14.500</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '45K IDR – Rp52.000')"><span class="val">Wallet Rp45rb</span><span class="price">Rp52.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '60K IDR – Rp68.000')"><span class="val">Wallet Rp60rb</span><span class="price">Rp68.000</span></div>
+        </div>
+        <input id="steam_user" placeholder="No. HP WhatsApp" type="tel" inputmode="numeric">
+        <button class="order-btn" onclick="prepareOrder('Steam Wallet','steam_user',null)">Beli Sekarang</button>
+      </div>
   </div>
 
   <div class="op-hours">
@@ -433,7 +538,15 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 let temp={};
 let selectedNominalValue = "";
 
-// Fungsi Alert Custom
+function switchCategory(cat, el) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'none');
+  document.getElementById('category-' + cat).style.display = 'block';
+  document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.game-opt').forEach(opt => opt.classList.remove('active'));
+}
+
 function showWarning(msg) {
   const alertBox = document.getElementById('customAlert');
   document.getElementById('alertMsg').innerText = msg;
@@ -451,8 +564,10 @@ function selectGameOption(el, id){
   setTimeout(() => {
     document.getElementById('game-loading').style.display = 'none';
     const target = document.getElementById(id);
-    target.style.display='block';
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if(target) {
+        target.style.display='block';
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }, 500);
 }
 
@@ -468,22 +583,40 @@ function simulasiCheck(e, fieldId) {
     setTimeout(() => { btn.innerText = "VALID ✅"; setTimeout(() => btn.innerText = "CEK ID", 2000); }, 800);
 }
 
+/* REVISI FUNGSI PREPARE ORDER (VALIDASI KOLOM) */
 function prepareOrder(game, userField, serverField){
-  const u = document.getElementById(userField).value.trim();
-  const s = serverField ? document.getElementById(serverField).value.trim() : "-";
+  const userEl = document.getElementById(userField);
+  const serverEl = serverField ? document.getElementById(serverField) : null;
   
-  if(!u) return showWarning('Waduh! Masukkan User ID kamu dulu ya.');
-  if(serverField && !s) return showWarning('Waduh! Server ID jangan dikosongkan.');
+  const u = userEl.value.trim();
+  const s = serverEl ? serverEl.value.trim() : "";
+
+  // Validasi User ID Kosong
+  if(!u) {
+    userEl.classList.add('error-shake');
+    userEl.focus();
+    setTimeout(() => userEl.classList.remove('error-shake'), 400);
+    return showWarning('Waduh! Masukkan data kamu dulu ya.');
+  }
+
+  // Validasi Server ID Kosong (untuk game yang ada kolom server)
+  if(serverField && !s) {
+    serverEl.classList.add('error-shake');
+    serverEl.focus();
+    setTimeout(() => serverEl.classList.remove('error-shake'), 400);
+    return showWarning('Server ID nya jangan lupa diisi, Kak!');
+  }
+
+  // Validasi Nominal belum dipilih
   if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!');
 
-  temp = { game, nominal: selectedNominalValue, user: u, server: s };
+  temp = { game, nominal: selectedNominalValue, user: u, server: s || "-" };
   
-  // Perbaikan tampilan modal: Grid layout sederhana
   document.getElementById('confirmText').innerHTML = `
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Game:</span> <b>${game.toUpperCase()}</b></div>
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Produk:</span> <b>${temp.nominal}</b></div>
-    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>User ID:</span> <b>${temp.user}</b></div>
-    ${serverField ? `<div style="display:flex; justify-content:space-between; padding:8px 0;"><span>Server:</span> <b>${temp.server}</b></div>` : ''}
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Produk:</span> <b>${game.toUpperCase()}</b></div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Varian:</span> <b>${temp.nominal}</b></div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:8px 0;"><span>Data:</span> <b>${temp.user}</b></div>
+    ${serverField !== null ? `<div style="display:flex; justify-content:space-between; padding:8px 0;"><span>Server:</span> <b>${temp.server}</b></div>` : ''}
     <div style="display:flex; justify-content:space-between; padding:8px 0; color:var(--warning)"><span>Metode:</span> <b>QRIS</b></div>
   `;
   document.getElementById('modal').style.display='flex';
@@ -492,16 +625,26 @@ function prepareOrder(game, userField, serverField){
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 function sendWA(){
-  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: *${temp.game}*\n💎 Produk: *${temp.nominal}*\n🆔 ID: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_Halo Min, Saya mau bayar orderan ini. Tolong kirimkan QRIS nya ya!._`;
+  const msg = `*ORDER SICHROEL SHOP*\n\n💎 Produk: *${temp.game}*\n✨ Varian: *${temp.nominal}*\n🆔 Data: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_Halo Min, Saya mau bayar orderan ini. Tolong kirimkan QRIS nya ya!._`;
   window.open(`https://wa.me/6285888747908?text=${encodeURIComponent(msg)}`, '_blank');
   closeModal();
 }
+
+/* FILTER KHUSUS ANGKA UNTUK INPUT ID */
+const numericFields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user', 'netflix_user', 'disney_user', 'gplay_user', 'steam_user'];
+numericFields.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) {
+        el.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    }
+});
 
 document.querySelectorAll('input').forEach(input => {
     const saved = localStorage.getItem(input.id);
     if(saved) input.value = saved;
     input.addEventListener('input', function() {
-        // Perbaikan: Tidak lagi menghapus huruf secara paksa agar ID fleksibel
         localStorage.setItem(this.id, this.value);
     });
 });
