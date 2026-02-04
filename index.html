@@ -220,7 +220,7 @@ input:focus { outline: 1px solid var(--accent); }
 }
 .card img { width: 100%; border-radius: 18px; margin-bottom: 20px; max-height: 200px; object-fit: cover; }
 
-/* REVISI: DESIGN PEMBERITAHUAN (TOAST) */
+/* DESIGN PEMBERITAHUAN (TOAST) */
 .custom-alert {
   position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
   background: #1e293b; border-left: 5px solid var(--warning);
@@ -283,7 +283,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 
 <div id="customAlert" class="custom-alert">
   <div class="alert-icon">⚠️</div>
-  <div class="alert-msg" id="alertMsg">Waduh! Masukkan User ID kamu dulu ya.</div>
+  <div class="alert-msg" id="alertMsg">Pilih produk favoritmu dulu!</div>
 </div>
 
 <div class="running-text">
@@ -415,7 +415,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 let temp={};
 let selectedNominalValue = "";
 
-// REVISI: Fungsi Alert Custom
+// Fungsi Alert Custom
 function showWarning(msg) {
   const alertBox = document.getElementById('customAlert');
   document.getElementById('alertMsg').innerText = msg;
@@ -454,10 +454,10 @@ function prepareOrder(game, userField, serverField){
   const u = document.getElementById(userField).value.trim();
   const s = serverField ? document.getElementById(serverField).value.trim() : "-";
   
-  // REVISI: Menggunakan showWarning bukan alert browser
+  // REVISI: Menggunakan showWarning dengan pesan yang diminta
   if(!u) return showWarning('Waduh! Masukkan User ID kamu dulu ya.');
   if(serverField && !s) return showWarning('Waduh! Server ID jangan dikosongkan.');
-  if(!selectedNominalValue) return showWarning('Pilih produk diamond favoritmu dulu!');
+  if(!selectedNominalValue) return showWarning('Pilih produk favoritmu dulu!');
 
   temp = { game, nominal: selectedNominalValue, user: u, server: s };
   document.getElementById('confirmText').innerHTML = `GAME: ${game.toUpperCase()}<br>PRODUK: ${temp.nominal}<br>ID: ${temp.user}<br>SRV: ${temp.server}`;
@@ -467,8 +467,8 @@ function prepareOrder(game, userField, serverField){
 function closeModal(){ document.getElementById('modal').style.display='none'; }
 
 function sendWA(){
-  // REVISI: Teks sesuai instruksi (miring semua, huruf kecil & spasi presisi)
-  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: *${temp.game}*\n💎 Produk: *${temp.nominal}*\n🆔 ID: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_halo min,saya mau bayar orderan ini.tolong kirimkan qris nya ya._`;
+  // REVISI: Teks sesuai instruksi terbaru (miring semua, perhatikan kapital & spasi)
+  const msg = `*ORDER SICHROEL SHOP*\n\n🎮 Game: *${temp.game}*\n💎 Produk: *${temp.nominal}*\n🆔 ID: *${temp.user}*\n🌐 Server: *${temp.server}*\n💳 Metode: *QRIS*\n\n_Halo Min,Saya mau bayar orderan ini.Tolong kirimkan QRIS nya ya!._`;
   window.open(`https://wa.me/6285888747908?text=${encodeURIComponent(msg)}`, '_blank');
   closeModal();
 }
