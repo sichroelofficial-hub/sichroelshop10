@@ -9,7 +9,7 @@
 <meta name="keywords" content="Top Up Game, MLBB, Free Fire, PUBG, Netflix Premium, Canva Pro, Voucher Game">
 <meta property="og:title" content="SICHROEL SHOP – Top Up Aman dan Terpercaya">
 <meta property="og:description" content="Top Up Game Murah, Cepat, dan Legal Sedunia & Akhirat. Proses 1-5 Menit!">
-<meta property="og:image" content="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png">
+<meta property="og:image" content="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png">
 
 <style>
 :root{
@@ -229,9 +229,16 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   border-color: #fff;
   box-shadow: 0 8px 20px rgba(34, 197, 94, 0.4);
 }
-.nominal-item .val { font-size: 12px; font-weight: 800; line-height: 1.2; }
+.nominal-item .val { font-size: 14px; font-weight: 800; }
+.nominal-item .price-old { font-size: 10px; color: var(--muted); text-decoration: line-through; opacity: 0.6; }
 .nominal-item .price { font-size: 13px; font-weight: 700; color: var(--accent); text-shadow: 0 0 2px rgba(0,0,0,0.5); }
 .nominal-item.selected .val, .nominal-item.selected .price { color: #022c22; text-shadow: none; }
+
+.badge-promo {
+    position: absolute; top: -8px; right: -5px; background: #fbbf24;
+    color: #000; font-size: 9px; font-weight: 900; padding: 2px 8px;
+    border-radius: 50px; text-transform: uppercase;
+}
 
 .input-group { position: relative; margin-top: 15px; }
 input {
@@ -282,6 +289,7 @@ input {
   color: var(--accent);
 }
 
+/* REVISED MODERN RECEIPT CSS */
 .modal {
   position: fixed; inset: 0; background: rgba(2, 6, 23, 0.92); backdrop-filter: blur(15px);
   display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
@@ -289,17 +297,47 @@ input {
 .modal-box {
   background: #111827; padding: 25px; border-radius: 25px; max-width: 420px;
   width: 100%; border: 1px solid rgba(34, 197, 94, 0.3); text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 #confirmText { 
   text-align: left; background: #0f172a; padding: 20px; 
-  border-radius: 15px; margin: 15px 0; font-family: 'Courier New', Courier, monospace; 
-  color: var(--text); border: 1px dashed rgba(255,255,255,0.1);
+  border-radius: 20px; margin: 20px 0; font-family: 'Segoe UI', system-ui; 
+  color: var(--text); border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
 }
-.receipt-header { border-bottom: 2px dashed rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px; text-align: center; color: var(--accent); font-weight: bold; }
-.receipt-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
-.receipt-label { color: var(--muted); }
-.receipt-val { font-weight: bold; color: #fff; }
-.receipt-footer { border-top: 2px dashed rgba(255,255,255,0.1); margin-top: 15px; padding-top: 10px; font-size: 18px; color: var(--warning); font-weight: 900; text-align: center; }
+.receipt-header { 
+    text-align: center; 
+    padding-bottom: 15px; 
+    border-bottom: 2px dashed rgba(255,255,255,0.1); 
+    margin-bottom: 20px;
+}
+.receipt-header .shop-name { color: var(--accent); font-weight: 900; font-size: 18px; letter-spacing: 1px; }
+.receipt-header .receipt-title { font-size: 10px; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+
+.receipt-item { display: flex; justify-content: space-between; margin-bottom: 12px; align-items: center; }
+.receipt-label { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.receipt-val { font-weight: 700; color: #fff; font-size: 14px; text-align: right; }
+
+.receipt-total-box {
+    background: rgba(34, 197, 94, 0.1);
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total-label { color: var(--accent); font-weight: 800; font-size: 14px; }
+.total-price { color: var(--warning); font-weight: 900; font-size: 20px; }
+
+.qris-logo-receipt {
+    display: block;
+    width: 80px;
+    margin: 15px auto 0;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
 
 .order-btn {
   margin-top: 15px; width: 100%; padding: 16px; border: none; border-radius: 15px;
@@ -317,13 +355,6 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 @keyframes fadeInContent {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
-}
-
-.qris-logo-receipt {
-    display: block;
-    width: 100px;
-    margin: 10px auto;
-    filter: brightness(0) invert(1);
 }
 
 .notif-premium {
@@ -393,39 +424,84 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   <div id="category-topup" class="category-section">
     <h2>🎮 Top Up Game</h2>
     <div class="game-selector-grid">
-      <div class="game-opt" onclick="selectGameOption(this, 'ml')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png" class="game-thumb"><span>Mobile Legends</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'ff')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-6daf6bac-600c-449a-9d8b-2a5700e70393.png" class="game-thumb"><span>Free Fire</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'pubg')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-68009488-f802-496a-aa95-8b4422fba555.png" class="game-thumb"><span>PUBG Mobile</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'codm')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-84e762b8-6c54-4b43-8712-e02034902c2c.png" class="game-thumb"><span>CODM</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'eggy')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-b2f3667a-11a6-4f47-aa36-7a0b7e31e5e9.png" class="game-thumb"><span>Eggy Party</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'pb')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-d784d4e9-d17c-4267-8a7c-805e26d13fc7.png" class="game-thumb"><span>Point Blank</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'aov')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-c63b1dc0-133c-496e-9a14-249809be859c.png" class="game-thumb"><span>Arena Of Valor</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'genshin')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-d37878f2-a072-4432-804c-dd763097c670.png" class="game-thumb"><span>Genshin Impact</span></div>
+      <div class="game-opt" onclick="selectGameOption(this, 'ml')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB">
+          <span>Mobile Legends</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'ff')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire">
+          <span>Free Fire</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'pubg')">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM">
+          <span>PUBG Mobile</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'codm')">
+          <div style="font-size:30px; margin-bottom:10px;">🔫</div>
+          <span>Call Of Duty Mobile</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'eggy')">
+          <div style="font-size:30px; margin-bottom:10px;">🥚</div>
+          <span>Eggy Party Coin</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'pb')">
+          <div style="font-size:30px; margin-bottom:10px;">🎯</div>
+          <span>Point Blank Zepetto</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'aov')">
+          <div style="font-size:30px; margin-bottom:10px;">⚔️</div>
+          <span>Arena Of Valor</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'genshin')">
+          <div style="font-size:30px; margin-bottom:10px;">💎</div>
+          <span>Genshin Impact</span>
+      </div>
     </div>
   </div>
 
   <div id="category-voucher" class="category-section">
     <h2>🎟️ Voucher Game</h2>
     <div class="game-selector-grid">
-      <div class="game-opt" onclick="selectGameOption(this, 'roblox')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-88d1f71e-062b-40fa-a0f5-988eaa237226.png" class="game-thumb"><span>Roblox</span></div>
-      <div class="game-opt" onclick="selectGameOption(this, 'steam')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-df632add-0bf7-4fdb-aefe-315e609830ad.png" class="game-thumb"><span>Steam</span></div>
+      <div class="game-opt" onclick="selectGameOption(this, 'roblox')">
+          <div style="font-size:30px; margin-bottom:10px;">🧱</div>
+          <span>Roblox</span>
+      </div>
+      <div class="game-opt" onclick="selectGameOption(this, 'steam')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam">
+          <span>Steam</span>
+      </div>
     </div>
   </div>
 
   <div id="category-premium" class="category-section">
     <h2>✨ Akun Premium</h2>
     <div class="game-selector-grid">
-      <div class="game-opt" onclick="selectPremiumOption(this, 'netflix')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-879927fe-ac91-402e-857e-bf177e095119.png" class="game-thumb"><span>Netflix</span></div>
-      <div class="game-opt" onclick="selectPremiumOption(this, 'canva')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-c7a1b1aa-fdb9-4bec-9dfd-4e138d0ee602.png" class="game-thumb"><span>Canva</span></div>
-      <div class="game-opt" onclick="selectPremiumOption(this, 'capcut')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-884e3df0-6b15-4ea8-ac08-3e91b9277d6e.png" class="game-thumb"><span>Capcut</span></div>
+      <div class="game-opt" onclick="selectPremiumOption(this, 'netflix')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix">
+          <span>Netflix</span>
+      </div>
+      <div class="game-opt" onclick="selectPremiumOption(this, 'canva')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva">
+          <span>Canva</span>
+      </div>
+      <div class="game-opt" onclick="selectPremiumOption(this, 'capcut')">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/CapCut_logo.svg" class="game-thumb" alt="Capcut">
+          <span>Capcut</span>
+      </div>
     </div>
   </div>
 
   <div id="category-pukot" class="category-section">
     <h2>📱 Pulsa & Kuota</h2>
     <div class="game-selector-grid" id="pukot-main-menu">
-        <div class="game-opt" onclick="handlePukot('pulsa-menu')"><div style="font-size:30px; margin-bottom:10px;">☎️</div><span>Pulsa</span></div>
-        <div class="game-opt" onclick="handlePukot('kuota-menu')"><div style="font-size:30px; margin-bottom:10px;">🌐</div><span>Kuota</span></div>
+        <div class="game-opt" onclick="handlePukot('pulsa-menu')">
+            <div style="font-size:30px; margin-bottom:10px;">☎️</div>
+            <span>Pulsa</span>
+        </div>
+        <div class="game-opt" onclick="handlePukot('kuota-menu')">
+            <div style="font-size:30px; margin-bottom:10px;">🌐</div>
+            <span>Kuota</span>
+        </div>
     </div>
 
     <div id="kuota-types" style="display:none; margin-bottom:40px;">
@@ -439,13 +515,13 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <div id="pukot-providers" style="display:none;">
         <h3 id="provider-label" style="text-align:center; color:var(--accent);">PILIH PROVIDER</h3>
         <div class="game-selector-grid">
-            <div class="game-opt" onclick="selectGameOption(this, 'axis')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-49658092-2402-45d8-8d97-ce82a08cc351.png" class="game-thumb"><span>Axis</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'indosat')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-e60ceefa-98a4-4a18-98e2-d9f01e832e9b.png" class="game-thumb"><span>Indosat</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'smartfren')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-d98e710d-68e9-4aaf-b225-8e00e295e452.png" class="game-thumb"><span>Smartfren</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'telkomsel')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-b28ff287-344d-42bf-905b-bf45df2fae29.png" class="game-thumb"><span>Telkomsel</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'tri')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-b0cc76ad-d936-4f58-ada9-31f7167590bb.png" class="game-thumb"><span>Tri</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'xl')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-0a867030-8da6-4d22-a76d-d76c9c9a818f.png" class="game-thumb"><span>XL</span></div>
-            <div class="game-opt" onclick="selectGameOption(this, 'byu')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-01b39f37-5c0c-49f3-a82e-97adff511147.png" class="game-thumb"><span>By.U</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'axis')"><span>Axis</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'indosat')"><span>Indosat</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'smartfren')"><span>Smartfren</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'telkomsel')"><span>Telkomsel</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'tri')"><span>Tri</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'xl')"><span>XL</span></div>
+            <div class="game-opt" onclick="selectGameOption(this, 'byu')"><span>By.U</span></div>
         </div>
     </div>
   </div>
@@ -454,85 +530,107 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 
   <div class="games">
     <div class="card" id="ml">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png"><h3>Mobile Legends</h3>
-        <div class="nominal-grid" id="ml-prod-grid"></div>
-        <div class="input-group"><input id="ml_user" placeholder="User ID" type="text" inputmode="numeric"><button class="btn-check" onclick="simulasiCheck(event, 'ml_user')">CEK ID</button></div>
+        <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" alt="Mobile Legends">
+        <h3>Mobile Legends</h3>
+        <div class="nominal-grid">
+          <div class="nominal-item" onclick="selectNominal(this, '86 Diamond – Rp 20.000')"><span class="val">86 Diamond</span><span class="price">Rp 20.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '172 Diamond – Rp 38.000')"><span class="val">172 Diamond</span><span class="price">Rp 38.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '257 Diamond – Rp 58.000')"><span class="val">257 Diamond</span><span class="price">Rp 58.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '344 Diamond – Rp 76.000')"><span class="val">344 Diamond</span><span class="price">Rp 76.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '429 Diamond – Rp 95.000')"><span class="val">429 Diamond</span><span class="price">Rp 95.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '514 Diamond – Rp 114.000')"><span class="val">514 Diamond</span><span class="price">Rp 114.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '600 Diamond – Rp 132.000')"><span class="val">600 Diamond</span><span class="price">Rp 132.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '706 Diamond – Rp 155.000')"><span class="val">706 Diamond</span><span class="price">Rp 155.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Weekly Diamond – Rp 28.000')"><span class="val">Weekly Diamond</span><span class="price">Rp 28.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Twilight Pass – Rp 140.000')"><span class="val">Twilight Pass</span><span class="price">Rp 140.000</span></div>
+        </div>
+        <div class="input-group">
+          <input id="ml_user" placeholder="User ID" type="text" inputmode="numeric">
+          <button class="btn-check" onclick="simulasiCheck(event, 'ml_user')">CEK ID</button>
+        </div>
         <input id="ml_server" placeholder="Server ID" type="text" style="margin-top:10px;" inputmode="numeric">
         <button class="order-btn" onclick="prepareOrder('Mobile Legends','ml_user','ml_server')">Beli Sekarang</button>
-    </div>
-    <div class="card" id="ff">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-6daf6bac-600c-449a-9d8b-2a5700e70393.png"><h3>Free Fire</h3>
-        <div class="nominal-grid" id="ff-prod-grid"></div>
-        <input id="ff_user" placeholder="Player ID" type="text" inputmode="numeric"><button class="order-btn" onclick="prepareOrder('Free Fire','ff_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="pubg">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-68009488-f802-496a-aa95-8b4422fba555.png"><h3>PUBG Mobile</h3>
-        <div class="nominal-grid" id="pubg-prod-grid"></div>
-        <input id="pubg_user" placeholder="Character ID" type="text" inputmode="numeric"><button class="order-btn" onclick="prepareOrder('PUBG Mobile','pubg_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="codm">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-84e762b8-6c54-4b43-8712-e02034902c2c.png"><h3>CODM</h3>
-        <div class="nominal-grid" id="codm-prod-grid"></div>
-        <input id="codm_user" placeholder="OpenID" type="text"><button class="order-btn" onclick="prepareOrder('CODM','codm_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="eggy">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-b2f3667a-11a6-4f47-aa36-7a0b7e31e5e9.png"><h3>Eggy Party</h3>
-        <div class="nominal-grid" id="eggy-prod-grid"></div>
-        <input id="eggy_user" placeholder="User ID" type="text"><button class="order-btn" onclick="prepareOrder('Eggy Party','eggy_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="pb">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-d784d4e9-d17c-4267-8a7c-805e26d13fc7.png"><h3>Point Blank</h3>
-        <div class="nominal-grid" id="pb-prod-grid"></div>
-        <input id="pb_user" placeholder="PB ID" type="text"><button class="order-btn" onclick="prepareOrder('Point Blank','pb_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="aov">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-c63b1dc0-133c-496e-9a14-249809be859c.png"><h3>AOV</h3>
-        <div class="nominal-grid" id="aov-prod-grid"></div>
-        <input id="aov_user" placeholder="Player ID" type="text"><button class="order-btn" onclick="prepareOrder('AOV','aov_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="genshin">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-d37878f2-a072-4432-804c-dd763097c670.png"><h3>Genshin Impact</h3>
-        <div class="nominal-grid" id="genshin-prod-grid"></div>
-        <input id="genshin_user" placeholder="UID" type="text"><button class="order-btn" onclick="prepareOrder('Genshin','genshin_user',null)">Beli Sekarang</button>
-    </div>
-
-    <div class="card" id="roblox">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-88d1f71e-062b-40fa-a0f5-988eaa237226.png"><h3>Roblox</h3>
-        <div class="nominal-grid" id="roblox-prod-grid"></div>
-        <input id="roblox_user" placeholder="Username" type="text"><button class="order-btn" onclick="prepareOrder('Roblox','roblox_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="steam">
-        <img src="https://cdn.phototourl.com/uploads/2026-02-04-df632add-0bf7-4fdb-aefe-315e609830ad.png"><h3>Steam Wallet</h3>
-        <div class="nominal-grid" id="steam-prod-grid"></div>
-        <input id="steam_user" placeholder="Account Name" type="text"><button class="order-btn" onclick="prepareOrder('Steam','steam_user',null)">Beli Sekarang</button>
-    </div>
+      </div>
+  
+      <div class="card" id="ff">
+        <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" alt="Free Fire">
+        <h3>Free Fire</h3>
+        <div class="nominal-grid">
+          <div class="nominal-item" onclick="selectNominal(this, '70 Diamond – Rp 10.000')"><span class="val">70 Diamond</span><span class="price">Rp 10.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '140 Diamond – Rp 20.000')"><span class="val">140 Diamond</span><span class="price">Rp 20.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '210 Diamond – Rp 30.000')"><span class="val">210 Diamond</span><span class="price">Rp 30.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '355 Diamond – Rp 50.000')"><span class="val">355 Diamond</span><span class="price">Rp 50.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '500 Diamond – Rp 65.000')"><span class="val">500 Diamond</span><span class="price">Rp 65.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '720 Diamond – Rp 95.000')"><span class="val">720 Diamond</span><span class="price">Rp 95.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '1000 Diamond – Rp 130.000')"><span class="val">1000 Diamond</span><span class="price">Rp 130.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '1440 Diamond – Rp 180.000')"><span class="val">1440 Diamond</span><span class="price">Rp 180.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Member Mingguan – Rp 30.000')"><span class="val">Member Mingguan</span><span class="price">Rp 30.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Member Bulanan – Rp 120.000')"><span class="val">Member Bulanan</span><span class="price">Rp 120.000</span></div>
+        </div>
+        <input id="ff_user" placeholder="Player ID" type="text" inputmode="numeric">
+        <button class="order-btn" onclick="prepareOrder('Free Fire','ff_user',null)">Beli Sekarang</button>
+      </div>
+  
+      <div class="card" id="pubg">
+        <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" alt="PUBGM">
+        <h3>PUBG Mobile</h3>
+        <div class="nominal-grid">
+          <div class="nominal-item" onclick="selectNominal(this, '60 UC – Rp 15.000')"><span class="val">60 UC</span><span class="price">Rp 15.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '120 UC – Rp 30.000')"><span class="val">120 UC</span><span class="price">Rp 30.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '180 UC – Rp 45.000')"><span class="val">180 UC</span><span class="price">Rp 45.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '325 UC – Rp 70.000')"><span class="val">325 UC</span><span class="price">Rp 70.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '660 UC – Rp 140.000')"><span class="val">660 UC</span><span class="price">Rp 140.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '985 UC – Rp 210.000')"><span class="val">985 UC</span><span class="price">Rp 210.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, '1800 UC – Rp 380.000')"><span class="val">1800 UC</span><span class="price">Rp 380.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Elite Pass – Rp 90.000')"><span class="val">Elite Pass</span><span class="price">Rp 90.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Elite Pass Plus – Rp 210.000')"><span class="val">Elite Pass Plus</span><span class="price">Rp 210.000</span></div>
+          <div class="nominal-item" onclick="selectNominal(this, 'Royale Pass – Rp 100.000')"><span class="val">Royale Pass</span><span class="price">Rp 100.000</span></div>
+        </div>
+        <input id="pubg_user" placeholder="Character ID" type="text" inputmode="numeric">
+        <button class="order-btn" onclick="prepareOrder('PUBG Mobile','pubg_user',null)">Beli Sekarang</button>
+      </div>
 
     <div class="card" id="netflix">
-      <img src="https://cdn.phototourl.com/uploads/2026-02-04-879927fe-ac91-402e-857e-bf177e095119.png"><h3>Netflix Premium</h3>
-      <div class="notif-premium"><span>ℹ️</span><div><b>PENTING:</b> Akun dari Seller. Admin kirim detail login di WA.</div></div>
-      <div class="nominal-grid" id="netflix-prod-grid"></div>
-      <input id="netflix_user" placeholder="Nomor WhatsApp" type="text"><button class="order-btn" onclick="prepareOrder('Netflix','netflix_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="canva">
-      <img src="https://cdn.phototourl.com/uploads/2026-02-04-c7a1b1aa-fdb9-4bec-9dfd-4e138d0ee602.png"><h3>Canva Pro</h3>
-      <div class="notif-premium"><span>ℹ️</span><div><b>PENTING:</b> Invite Team. Berikan email aktif kamu.</div></div>
-      <div class="nominal-grid" id="canva-prod-grid"></div>
-      <input id="canva_user" placeholder="Email Aktif" type="email"><button class="order-btn" onclick="prepareOrder('Canva Pro','canva_user',null)">Beli Sekarang</button>
-    </div>
-    <div class="card" id="capcut">
-      <img src="https://cdn.phototourl.com/uploads/2026-02-04-884e3df0-6b15-4ea8-ac08-3e91b9277d6e.png"><h3>Capcut Pro</h3>
-      <div class="notif-premium"><span>ℹ️</span><div><b>PENTING:</b> Akun dari Seller. Login email & pass diberikan admin.</div></div>
-      <div class="nominal-grid" id="capcut-prod-grid"></div>
-      <input id="capcut_user" placeholder="Nomor WhatsApp" type="text"><button class="order-btn" onclick="prepareOrder('Capcut Pro','capcut_user',null)">Beli Sekarang</button>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="height:40px; width:auto; margin:0 auto 20px;">
+      <h3>Netflix Premium</h3>
+      <div class="notif-premium">
+        <span style="font-size: 24px;">ℹ️</span>
+        <div><b>PENTING:</b> Produk ini berjenis <b>Akun dari Seller</b>. Setelah pembayaran, admin akan mengirimkan detail Akun (Email & Pass) melalui WhatsApp.</div>
+      </div>
+      <div class="nominal-grid">
+        <div class="nominal-item" onclick="selectNominal(this, '1 Hari Sharing – Rp 3.000')"><span class="val">1 Hari Sharing</span><span class="price">Rp 3.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '3 Hari Sharing – Rp 7.000')"><span class="val">3 Hari Sharing</span><span class="price">Rp 7.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '7 Hari Sharing – Rp 12.000')"><span class="val">7 Hari Sharing</span><span class="price">Rp 12.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '1 Bulan Sharing – Rp 35.000')"><span class="val">1 Bulan Sharing</span><span class="price">Rp 35.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '1 Bulan Private – Rp 150.000')"><span class="val">1 Bulan Private</span><span class="price">Rp 150.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '2 Bulan Private – Rp 290.000')"><span class="val">2 Bulan Private</span><span class="price">Rp 290.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '3 Bulan Private – Rp 430.000')"><span class="val">3 Bulan Private</span><span class="price">Rp 430.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '6 Bulan Private – Rp 800.000')"><span class="val">6 Bulan Private</span><span class="price">Rp 800.000</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, '1 Tahun Private – Rp 1.500.000')"><span class="val">1 Tahun Private</span><span class="price">Rp 1.500k</span></div>
+        <div class="nominal-item" onclick="selectNominal(this, 'Lifetime Sharing – Rp 150.000')"><span class="val">Lifetime Sharing</span><span class="price">Rp 150.000</span></div>
+      </div>
+      <input id="netflix_user" placeholder="Nomor WhatsApp Kamu" type="text">
+      <button class="order-btn" onclick="prepareOrder('Netflix','netflix_user',null)">Beli Sekarang</button>
     </div>
 
-    <div class="card" id="axis"><img src="https://cdn.phototourl.com/uploads/2026-02-04-49658092-2402-45d8-8d97-ce82a08cc351.png"><h3>Axis Product</h3><div class="nominal-grid" id="axis-grid"></div><input id="axis_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Axis','axis_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="indosat"><img src="https://cdn.phototourl.com/uploads/2026-02-04-e60ceefa-98a4-4a18-98e2-d9f01e832e9b.png"><h3>Indosat Product</h3><div class="nominal-grid" id="indosat-grid"></div><input id="indosat_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Indosat','indosat_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="smartfren"><img src="https://cdn.phototourl.com/uploads/2026-02-04-d98e710d-68e9-4aaf-b225-8e00e295e452.png"><h3>Smartfren Product</h3><div class="nominal-grid" id="smartfren-grid"></div><input id="smartfren_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Smartfren','smartfren_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="telkomsel"><img src="https://cdn.phototourl.com/uploads/2026-02-04-b28ff287-344d-42bf-905b-bf45df2fae29.png"><h3>Telkomsel Product</h3><div class="nominal-grid" id="telkomsel-grid"></div><input id="telkomsel_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Telkomsel','telkomsel_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="tri"><img src="https://cdn.phototourl.com/uploads/2026-02-04-b0cc76ad-d936-4f58-ada9-31f7167590bb.png"><h3>Tri Product</h3><div class="nominal-grid" id="tri-grid"></div><input id="tri_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Tri','tri_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="xl"><img src="https://cdn.phototourl.com/uploads/2026-02-04-0a867030-8da6-4d22-a76d-d76c9c9a818f.png"><h3>XL Product</h3><div class="nominal-grid" id="xl-grid"></div><input id="xl_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('XL','xl_num',null)">Beli Sekarang</button></div>
-    <div class="card" id="byu"><img src="https://cdn.phototourl.com/uploads/2026-02-04-01b39f37-5c0c-49f3-a82e-97adff511147.png"><h3>By.U Product</h3><div class="nominal-grid" id="byu-grid"></div><input id="byu_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('By.U','byu_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="axis"><h3>Axis Product</h3><div class="nominal-grid" id="axis-grid"></div><input id="axis_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Axis','axis_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="indosat"><h3>Indosat Product</h3><div class="nominal-grid" id="indosat-grid"></div><input id="indosat_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Indosat','indosat_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="smartfren"><h3>Smartfren Product</h3><div class="nominal-grid" id="smartfren-grid"></div><input id="smartfren_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Smartfren','smartfren_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="telkomsel"><h3>Telkomsel Product</h3><div class="nominal-grid" id="telkomsel-grid"></div><input id="telkomsel_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Telkomsel','telkomsel_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="tri"><h3>Tri Product</h3><div class="nominal-grid" id="tri-grid"></div><input id="tri_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('Tri','tri_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="xl"><h3>XL Product</h3><div class="nominal-grid" id="xl-grid"></div><input id="xl_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('XL','xl_num',null)">Beli Sekarang</button></div>
+    <div class="card" id="byu"><h3>By.U Product</h3><div class="nominal-grid" id="byu-grid"></div><input id="byu_num" placeholder="Nomor HP" type="tel"><button class="order-btn" onclick="prepareOrder('By.U','byu_num',null)">Beli Sekarang</button></div>
+
+    <div class="card" id="voucher_data_all">
+        <h3>Voucher Data</h3>
+        <div class="notif-premium">
+            <span style="font-size: 24px;">🎟️</span>
+            <div><b>PEMBERITAHUAN:</b> Setelah pembayaran berhasil, Admin akan mengirimkan <b>Kode Voucher (SN)</b> melalui WhatsApp. Pastikan kamu paham cara input kodenya!</div>
+        </div>
+        <div class="nominal-grid" id="vcr-grid"></div>
+        <input id="vcr_num" placeholder="Nomor WA Kamu" type="tel">
+        <button class="order-btn" onclick="prepareOrder('Voucher Data','vcr_num',null)">Beli Sekarang</button>
+    </div>
 
   </div>
 
@@ -550,7 +648,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2 style="margin-top:0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="modalTitle">Info Produk</h2>
     <div id="modalDescription" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; color: var(--muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
     </div>
-    <button class="order-btn" onclick="closePremiumModal()">Saya Mengerti, Lanjutkan ✨</button>
+    <button class="order-btn" onclick="closePremiumModal()" style="box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);">Saya Mengerti, Lanjutkan ✨</button>
   </div>
 </div>
 
@@ -560,10 +658,9 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 
 <div class="modal" id="modal">
   <div class="modal-box">
-    <h2>Konfirmasi Order</h2>
     <div id="confirmText"></div>
-    <button class="order-btn" onclick="sendWA()">Lanjut ke WhatsApp</button>
-    <button onclick="closeModal()" style="background:transparent; border:none; color:var(--muted); margin-top:15px; cursor:pointer">Batal</button>
+    <button class="order-btn" onclick="sendWA()">🚀 Konfirmasi & Bayar Sekarang</button>
+    <button onclick="closeModal()" style="background:transparent; border:none; color:var(--muted); margin-top:20px; cursor:pointer; font-weight:bold; font-size:12px;">KEMBALI KE MENU</button>
   </div>
 </div>
 
@@ -571,8 +668,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 let temp={};
 let selectedNominalValue = "";
 let currentPukotMode = ""; 
-let currentPremiumTarget = null;
-let currentProvider = "";
+let currentPremiumTarget = "";
 
 function switchCategory(cat, el) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -588,10 +684,6 @@ function switchCategory(cat, el) {
   
   document.querySelectorAll('.card').forEach(c => c.style.display = 'none');
   document.querySelectorAll('.game-opt').forEach(opt => opt.classList.remove('active'));
-
-  if(cat === 'topup' || cat === 'voucher' || cat === 'premium') {
-      populateInitialProducts(cat);
-  }
 }
 
 function handlePukot(action) {
@@ -612,71 +704,21 @@ function handlePukot(action) {
     } else if (action === 'kuota-voucher') {
         currentPukotMode = "Voucher Data";
         document.getElementById('kuota-types').style.display = 'none';
-        document.getElementById('pukot-providers').style.display = 'block';
-        document.getElementById('provider-label').innerText = "PILIH PROVIDER VOUCHER DATA";
+        generateProducts('vcr-grid', 'Voucher Data');
+        selectGameOption(null, 'voucher_data_all');
     }
 }
 
-function generateGenericProducts(gridId, prefix, count, priceBase, unit) {
-    const grid = document.getElementById(gridId);
-    if(!grid) return;
-    grid.innerHTML = "";
-    for(let i=1; i<=count; i++) {
-        let val = (i * prefix) + " " + unit;
-        let price = "Rp " + ((i * priceBase) + 2000).toLocaleString('id-ID');
-        const div = document.createElement('div');
-        div.className = "nominal-item";
-        div.onclick = function() { selectNominal(this, val + ' – ' + price); };
-        div.innerHTML = `<span class="val">${val}</span><span class="price">${price}</span>`;
-        grid.appendChild(div);
-    }
-}
-
-function populateInitialProducts(cat) {
-    if(cat === 'topup') {
-        generateGenericProducts('ml-prod-grid', 86, 10, 18000, 'Diamonds');
-        generateGenericProducts('ff-prod-grid', 70, 10, 9000, 'Diamonds');
-        generateGenericProducts('pubg-prod-grid', 60, 10, 13000, 'UC');
-        generateGenericProducts('codm-prod-grid', 31, 10, 4000, 'CP');
-        generateGenericProducts('eggy-prod-grid', 60, 10, 11000, 'Coins');
-        generateGenericProducts('pb-prod-grid', 1200, 10, 9000, 'Cash');
-        generateGenericProducts('aov-prod-grid', 40, 10, 9000, 'Vouchers');
-        generateGenericProducts('genshin-prod-grid', 60, 10, 15000, 'Crystals');
-    } else if(cat === 'voucher') {
-        generateGenericProducts('roblox-prod-grid', 10, 10, 15000, 'USD Gift Card');
-        generateGenericProducts('steam-prod-grid', 12000, 10, 14000, 'IDR Wallet');
-    } else if(cat === 'premium') {
-        const netflix = document.getElementById('netflix-prod-grid');
-        netflix.innerHTML = "";
-        const netTypes = ["1 Hari Sharing", "7 Hari Sharing", "1 Bulan Sharing", "1 Bulan Private", "3 Bulan Private", "6 Bulan Private", "1 Tahun Private", "1 Bulan 4K", "Ultra HD Sharing", "Profile Lock"];
-        netTypes.forEach((t, i) => {
-            const div = document.createElement('div');
-            div.className = "nominal-item";
-            div.onclick = function() { selectNominal(this, t + ' – Rp ' + (3000 + (i*15000)).toLocaleString('id-ID')); };
-            div.innerHTML = `<span class="val">${t}</span><span class="price">Rp ${(3000 + (i*15000)).toLocaleString('id-ID')}</span>`;
-            netflix.appendChild(div);
-        });
-        generateGenericProducts('canva-prod-grid', 1, 10, 5000, 'Bulan Pro');
-        generateGenericProducts('capcut-prod-grid', 1, 10, 12000, 'Bulan Pro');
-    }
-}
-
-function generatePukotProducts(targetGridId, mode, provider) {
+function generateProducts(targetGridId, mode) {
     const grid = document.getElementById(targetGridId);
     grid.innerHTML = "";
     let items = [];
-    
     if(mode === "Pulsa") {
-        const amounts = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
-        amounts.forEach(amt => items.push({val: amt + "rb Pulsa " + provider, price: "Rp " + ((amt*1000)+1500).toLocaleString('id-ID')}));
+        for(let i=1; i<=10; i++) items.push({val: (i*5) + "rb Pulsa", price: "Rp " + ((i*5)+2) + ".000"});
     } else if (mode === "Isi Ulang Data") {
-        for(let i=1; i<=10; i++) {
-            items.push({val: (i*2) + "GB " + provider + " (30 Hari)", price: "Rp " + ((i*12)+2).toLocaleString('id-ID') + ".000"});
-        }
+        for(let i=1; i<=10; i++) items.push({val: i + "GB Data", price: "Rp " + (i*10) + ".000"});
     } else if (mode === "Voucher Data") {
-        for(let i=1; i<=10; i++) {
-            items.push({val: "Voucher " + provider + " " + (i*2) + "GB", price: "Rp " + ((i*9)+1).toLocaleString('id-ID') + ".000"});
-        }
+        for(let i=1; i<=10; i++) items.push({val: "Vcr " + (i*2) + "GB", price: "Rp " + ((i*2)*5) + ".500"});
     }
 
     items.forEach(item => {
@@ -699,16 +741,17 @@ function selectPremiumOption(el, id) {
     currentPremiumTarget = { el, id };
     document.getElementById('modalIcon').innerText = "🛡️";
     document.getElementById('modalTitle').innerText = "Info Akun Premium";
-    document.getElementById('modalDescription').innerHTML = `Halo Pembeli! Produk Premium ini berjenis <b>Akun dari Seller</b>.<br><br>Setelah pembayaran, Admin akan memberikan detail login di WhatsApp.`;
+    document.getElementById('modalDescription').innerHTML = `Halo Pembeli! Perlu diketahui bahwa produk Premium ini berjenis <b>Akun dari Seller</b>.<br><br>Setelah melakukan pembayaran, Admin akan memberikan detail akun (Email & Password) secara langsung di WhatsApp. Kamu tinggal login dan menikmati fitur premiumnya!`;
     document.getElementById('premiumModal').style.display = 'flex';
 }
 
 function confirmVoucherEducation() {
-    currentPremiumTarget = { action: 'kuota-voucher' };
+    currentPremiumTarget = null;
     document.getElementById('modalIcon').innerText = "🎟️";
     document.getElementById('modalTitle').innerText = "Edukasi Voucher Data";
-    document.getElementById('modalDescription').innerHTML = `PENTING! Voucher Data dikirim dalam bentuk <b>KODE SN</b>.<br><br>Kamu harus memasukkannya secara manual di HP sesuai dial code provider.`;
+    document.getElementById('modalDescription').innerHTML = `PENTING! Voucher Data dikirim dalam bentuk <b>KODE SN (Serial Number)</b>.<br><br>Kamu harus memasukkannya secara manual di HP sesuai dial code provider masing-masing. Pastikan kamu sudah paham cara klaimnya ya agar tidak terjadi kegagalan sistem!`;
     document.getElementById('premiumModal').style.display = 'flex';
+    currentPremiumTarget = { action: 'kuota-voucher' };
 }
 
 function closePremiumModal() {
@@ -719,7 +762,6 @@ function closePremiumModal() {
         } else {
             selectGameOption(currentPremiumTarget.el, currentPremiumTarget.id);
         }
-        currentPremiumTarget = null;
     }
 }
 
@@ -732,10 +774,7 @@ function selectGameOption(el, id){
   }
   
   if(['axis','indosat','smartfren','telkomsel','tri','xl','byu'].includes(id)) {
-      currentProvider = id.toUpperCase();
-      generatePukotProducts(id + '-grid', currentPukotMode, currentProvider);
-      const input = document.getElementById(id + (id === 'byu' ? '_num' : (id.includes('num') ? '' : (id === 'axis' || id === 'indosat' || id === 'smartfren' || id === 'telkomsel' || id === 'tri' || id === 'xl' ? '_num' : '_user'))));
-      if(input) input.placeholder = (currentPukotMode === "Voucher Data") ? "Nomor WA Kamu" : "Nomor HP Tujuan";
+      generateProducts(id + '-grid', currentPukotMode);
   }
 
   document.querySelectorAll('.card').forEach(c=>c.style.display='none');
@@ -762,6 +801,7 @@ function simulasiCheck(e, fieldId) {
     setTimeout(() => { btn.innerText = "VALID ✅"; setTimeout(() => btn.innerText = "CEK ID", 2000); }, 800);
 }
 
+/* REVISED MODERN PREPARE ORDER FUNCTION */
 function prepareOrder(game, userField, serverField){
   const userEl = document.getElementById(userField);
   const u = userEl.value.trim();
@@ -779,15 +819,46 @@ function prepareOrder(game, userField, serverField){
   if(currentPukotMode) modeLabel = currentPukotMode + " " + game;
 
   temp = { game: modeLabel, nominal: selectedNominalValue, user: u, server: s || "-" };
+  
+  // Dynamic Icon for Receipt
+  let receiptIcon = "🎮";
+  if(temp.game.includes("Pulsa") || temp.game.includes("Data")) receiptIcon = "📱";
+  if(temp.game.includes("Netflix") || temp.game.includes("Canva")) receiptIcon = "✨";
+
   document.getElementById('confirmText').innerHTML = 
-    `<div class="receipt-header">SICHROEL SHOP RECEIPT</div>
-    <div class="receipt-line"><span class="receipt-label">Produk:</span><span class="receipt-val">${temp.game.toUpperCase()}</span></div>
-    <div class="receipt-line"><span class="receipt-label">Varian:</span><span class="receipt-val">${temp.nominal.split('–')[0]}</span></div>
-    <div class="receipt-line"><span class="receipt-label">Data:</span><span class="receipt-val">${temp.user}</span></div>
-    ${serverField !== null && s !== "" && s !== "-" ? `<div class="receipt-line"><span class="receipt-label">Server:</span><span class="receipt-val">${temp.server}</span></div>` : ''}
-    <div class="receipt-line" style="margin-top:10px;"><span class="receipt-label">Metode:</span><span class="receipt-val">QRIS</span></div>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="qris-logo-receipt">
-    <div class="receipt-footer">Total: ${temp.nominal.split('–')[1]}</div>`;
+    `<div class="receipt-header">
+        <div class="shop-name">SICHROEL SHOP</div>
+        <div class="receipt-title">Order Confirmation Receipt</div>
+    </div>
+    <div class="receipt-item">
+        <span class="receipt-label">Layanan</span>
+        <span class="receipt-val">${receiptIcon} ${temp.game}</span>
+    </div>
+    <div class="receipt-item">
+        <span class="receipt-label">Item</span>
+        <span class="receipt-val">${temp.nominal.split('–')[0]}</span>
+    </div>
+    <div class="receipt-item">
+        <span class="receipt-label">ID/Nomor</span>
+        <span class="receipt-val">${temp.user}</span>
+    </div>
+    ${serverField !== null ? `
+    <div class="receipt-item">
+        <span class="receipt-label">Server ID</span>
+        <span class="receipt-val">${temp.server}</span>
+    </div>` : ''}
+    <div class="receipt-item">
+        <span class="receipt-label">Metode Bayar</span>
+        <span class="receipt-val">QRIS</span>
+    </div>
+    
+    <div class="receipt-total-box">
+        <span class="total-label">TOTAL TAGIHAN</span>
+        <span class="total-price">${temp.nominal.split('–')[1]}</span>
+    </div>
+    
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="qris-logo-receipt">`;
+    
   document.getElementById('modal').style.display='flex';
 }
 
@@ -799,10 +870,13 @@ function sendWA(){
   closeModal();
 }
 
-// Inisialisasi awal
-window.onload = () => {
-    populateInitialProducts('topup');
-};
+document.querySelectorAll('input').forEach(input => {
+    const saved = localStorage.getItem(input.id);
+    if(saved) input.value = saved;
+    input.addEventListener('input', function() {
+        localStorage.setItem(this.id, this.value);
+    });
+});
 </script>
 </body>
 </html>
