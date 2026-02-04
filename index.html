@@ -274,7 +274,42 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   display: flex;
   flex-direction: column;
   gap: 5px;
+  overflow: hidden;
 }
+
+/* BEST SELLER BADGE STYLING */
+.best-seller-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+    font-size: 8px;
+    font-weight: 900;
+    padding: 4px 10px;
+    border-bottom-left-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: -2px 2px 10px rgba(245, 158, 11, 0.3);
+    z-index: 2;
+    animation: badgePulse 2s infinite;
+}
+.best-seller-badge::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shine 1.5s infinite;
+}
+@keyframes badgePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+@keyframes shine {
+    to { left: 200%; }
+}
+
 .nominal-item:hover { 
   border-color: var(--accent); 
   background: rgba(255,255,255,0.08); 
@@ -287,7 +322,9 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
 }
 .nominal-item .val { font-size: 12px; font-weight: 800; line-height: 1.2; }
 .nominal-item .price { font-size: 13px; font-weight: 700; color: var(--accent); text-shadow: 0 0 2px rgba(0,0,0,0.5); }
+.nominal-item .price-strike { font-size: 10px; color: var(--muted); text-decoration: line-through; opacity: 0.7; }
 .nominal-item.selected .val, .nominal-item.selected .price { color: #022c22; text-shadow: none; }
+.nominal-item.selected .price-strike { color: #022c22; opacity: 0.5; }
 
 .input-group { position: relative; margin-top: 15px; }
 input {
@@ -490,7 +527,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   </div>
 
   <div class="category-tabs">
-    <button class="tab-btn active" onclick="switchCategory('topup', this)">
+    <button class="tab-btn" onclick="switchCategory('topup', this)">
       <div class="tab-icon">🎮</div>
       <span>Top Up Game</span>
     </button>
@@ -507,7 +544,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <span>Pulsa & Data</span>
     </button>
   </div>
-  <div id="category-topup" class="category-section" style="display: block;">
+  <div id="category-topup" class="category-section">
     <h2>🎮 Top Up Game</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'ml')"><img src="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png" class="game-thumb"><span>Mobile Legends</span></div>
@@ -740,11 +777,24 @@ function generateGenericProducts(gridId, prefix, count, priceBase, unit) {
     grid.innerHTML = "";
     for(let i=1; i<=count; i++) {
         let val = (i * prefix) + " " + unit;
-        let price = "Rp " + ((i * priceBase) + 2000).toLocaleString('id-ID');
+        let realPrice = (i * priceBase) + 2000;
+        let strikePrice = realPrice + 5000; // Harga coret lebih mahal 5rb
+        let priceTxt = "Rp " + realPrice.toLocaleString('id-ID');
+        let strikeTxt = "Rp " + strikePrice.toLocaleString('id-ID');
+        
         const div = document.createElement('div');
         div.className = "nominal-item";
-        div.onclick = function() { selectNominal(this, val + ' – ' + price); };
-        div.innerHTML = `<span class="val">${val}</span><span class="price">${price}</span>`;
+        div.onclick = function() { selectNominal(this, val + ' – ' + priceTxt); };
+        
+        // Tambahkan badge best seller untuk 4 produk pertama
+        let badgeHtml = i <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
+        
+        div.innerHTML = `
+            ${badgeHtml}
+            <span class="val">${val}</span>
+            <span class="price-strike">${strikeTxt}</span>
+            <span class="price">${priceTxt}</span>
+        `;
         grid.appendChild(div);
     }
 }
@@ -767,10 +817,20 @@ function populateInitialProducts(cat) {
         netflix.innerHTML = "";
         const netTypes = ["1 Hari Sharing", "7 Hari Sharing", "1 Bulan Sharing", "1 Bulan Private", "3 Bulan Private", "6 Bulan Private", "1 Tahun Private", "1 Bulan 4K", "Ultra HD Sharing", "Profile Lock"];
         netTypes.forEach((t, i) => {
+            let realPrice = (3000 + (i*15000));
+            let strikePrice = realPrice + 7000;
             const div = document.createElement('div');
             div.className = "nominal-item";
-            div.onclick = function() { selectNominal(this, t + ' – Rp ' + (3000 + (i*15000)).toLocaleString('id-ID')); };
-            div.innerHTML = `<span class="val">${t}</span><span class="price">Rp ${(3000 + (i*15000)).toLocaleString('id-ID')}</span>`;
+            div.onclick = function() { selectNominal(this, t + ' – Rp ' + realPrice.toLocaleString('id-ID')); };
+            
+            let badgeHtml = (i + 1) <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
+            
+            div.innerHTML = `
+                ${badgeHtml}
+                <span class="val">${t}</span>
+                <span class="price-strike">Rp ${strikePrice.toLocaleString('id-ID')}</span>
+                <span class="price">Rp ${realPrice.toLocaleString('id-ID')}</span>
+            `;
             netflix.appendChild(div);
         });
         generateGenericProducts('canva-prod-grid', 1, 10, 5000, 'Bulan Pro');
@@ -785,22 +845,35 @@ function generatePukotProducts(targetGridId, mode, provider) {
     
     if(mode === "Pulsa") {
         const amounts = [5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
-        amounts.forEach(amt => items.push({val: amt + "rb Pulsa " + provider, price: "Rp " + ((amt*1000)+1500).toLocaleString('id-ID')}));
+        amounts.forEach(amt => {
+            let real = (amt*1000)+1500;
+            items.push({val: amt + "rb Pulsa " + provider, price: "Rp " + real.toLocaleString('id-ID'), strike: "Rp " + (real + 2000).toLocaleString('id-ID')});
+        });
     } else if (mode === "Isi Ulang Data") {
         for(let i=1; i<=10; i++) {
-            items.push({val: (i*2) + "GB " + provider + " (30 Hari)", price: "Rp " + ((i*12)+2).toLocaleString('id-ID') + ".000"});
+            let real = (i*12)+2;
+            items.push({val: (i*2) + "GB " + provider + " (30 Hari)", price: "Rp " + real.toLocaleString('id-ID') + ".000", strike: "Rp " + (real + 5).toLocaleString('id-ID') + ".000"});
         }
     } else if (mode === "Voucher Data") {
         for(let i=1; i<=10; i++) {
-            items.push({val: "Voucher " + provider + " " + (i*2) + "GB", price: "Rp " + ((i*9)+1).toLocaleString('id-ID') + ".000"});
+            let real = (i*9)+1;
+            items.push({val: "Voucher " + provider + " " + (i*2) + "GB", price: "Rp " + real.toLocaleString('id-ID') + ".000", strike: "Rp " + (real + 3).toLocaleString('id-ID') + ".000"});
         }
     }
 
-    items.forEach(item => {
+    items.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = "nominal-item";
         div.onclick = function() { selectNominal(this, item.val + ' – ' + item.price); };
-        div.innerHTML = `<span class="val">${item.val}</span><span class="price">${item.price}</span>`;
+        
+        let badgeHtml = (index + 1) <= 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
+        
+        div.innerHTML = `
+            ${badgeHtml}
+            <span class="val">${item.val}</span>
+            <span class="price-strike">${item.strike}</span>
+            <span class="price">${item.price}</span>
+        `;
         grid.appendChild(div);
     });
 }
@@ -933,7 +1006,9 @@ function sendWA(){
 }
 
 window.onload = () => {
-    populateInitialProducts('topup');
+    // Dipastikan kategori awal tersembunyi
+    document.querySelectorAll('.category-section').forEach(sec => sec.style.display = 'none');
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
 };
 </script>
 </body>
