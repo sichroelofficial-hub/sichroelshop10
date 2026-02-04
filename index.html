@@ -339,6 +339,9 @@ input:focus { outline: 1px solid var(--accent); }
 
 footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px; opacity: 0.7; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+/* REVISI: SEMBUNYIKAN SECTION SECARA DEFAULT UNTUK MENU TOMBOL */
+.category-section { display: none; }
 </style>
 </head>
 
@@ -374,9 +377,9 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   </div>
 
   <div class="category-tabs">
-    <div class="tab-btn active" onclick="switchCategory('topup', this)">🎮 Top Up</div>
+    <div class="tab-btn" onclick="switchCategory('topup', this)">🎮 Top Up</div>
     <div class="tab-btn" onclick="switchCategory('voucher', this)">🎟️ Voucher</div>
-    <div class="tab-btn" onclick="switchCategory('premium', this)">✨ Akun Premium</div>
+    <div class="tab-btn" onclick="switchCategory('premium', this)">✨ Apk Premium</div>
   </div>
 
   <div id="category-topup" class="category-section">
@@ -397,7 +400,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     </div>
   </div>
 
-  <div id="category-voucher" class="category-section" style="display:none;">
+  <div id="category-voucher" class="category-section">
     <h2>🎟️ Voucher Game & App</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'gplay')">
@@ -411,7 +414,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     </div>
   </div>
 
-  <div id="category-premium" class="category-section" style="display:none;">
+  <div id="category-premium" class="category-section">
     <h2>✨ Akun Premium</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'netflix')">
