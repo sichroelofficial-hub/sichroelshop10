@@ -369,20 +369,30 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     filter: brightness(0) invert(1);
 }
 
-/* NOTIF PREMIUM STYLE */
+/* REVISI PERINTAH 2: Visual Premium yang memanjakan mata */
 .notif-premium {
-    background: rgba(34, 197, 94, 0.1);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(15, 23, 42, 0.95));
     border: 1px solid var(--accent);
     color: var(--text);
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 25px;
     font-size: 13px;
     text-align: left;
     display: flex;
-    gap: 12px;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
-.notif-premium b { color: var(--accent); }
+.notif-premium::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34, 197, 94, 0.2), transparent);
+    animation: shineNotif 4s infinite;
+}
+@keyframes shineNotif { to { left: 200%; } }
+.notif-premium b { color: var(--accent); text-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
 </style>
 </head>
 
@@ -500,11 +510,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>📱 Pulsa & Kuota</h2>
     <div class="game-selector-grid" id="pukot-main-menu">
         <div class="game-opt" onclick="handlePukot('pulsa-menu')">
-            <div style="font-size:30px; margin-bottom:10px;">💸</div>
+            <div style="font-size:30px; margin-bottom:10px;">☎️</div>
             <span>Pulsa</span>
         </div>
         <div class="game-opt" onclick="handlePukot('kuota-menu')">
-            <div style="font-size:30px; margin-bottom:10px;">📶</div>
+            <div style="font-size:30px; margin-bottom:10px;">🌐</div>
             <span>Kuota</span>
         </div>
     </div>
@@ -513,7 +523,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
         <h3 style="text-align:center; color:var(--accent);">PILIH JENIS KUOTA</h3>
         <div class="game-selector-grid">
             <div class="game-opt" onclick="handlePukot('kuota-isi')"><span>Isi Ulang Data</span></div>
-            <div class="game-opt" onclick="handlePukot('kuota-voucher')"><span>Voucher Data</span></div>
+            <div class="game-opt" onclick="confirmVoucherEducation()"><span>Voucher Data</span></div>
         </div>
     </div>
 
@@ -645,7 +655,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" style="height:40px; width:auto; margin:0 auto 20px;">
       <h3>Netflix Premium</h3>
       <div class="notif-premium">
-        <span>ℹ️</span>
+        <span style="font-size: 24px;">ℹ️</span>
         <div><b>PENTING:</b> Produk ini berjenis <b>Akun dari Seller</b>. Setelah pembayaran, admin akan mengirimkan detail Akun (Email & Pass) melalui WhatsApp.</div>
       </div>
       <div class="nominal-grid">
@@ -663,7 +673,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" style="height:40px; width:auto; margin:0 auto 20px;">
       <h3>Canva Pro</h3>
       <div class="notif-premium">
-        <span>ℹ️</span>
+        <span style="font-size: 24px;">ℹ️</span>
         <div><b>PENTING:</b> Produk ini berjenis <b>Invite Team/Akun Seller</b>. Setelah pembayaran, akses premium akan diproses ke email kamu atau diberikan akun baru.</div>
       </div>
       <div class="nominal-grid">
@@ -681,7 +691,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
       <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/CapCut_logo.svg" style="height:40px; width:auto; margin:0 auto 20px;">
       <h3>Capcut Pro</h3>
       <div class="notif-premium">
-        <span>ℹ️</span>
+        <span style="font-size: 24px;">ℹ️</span>
         <div><b>PENTING:</b> Produk ini berjenis <b>Akun dari Seller</b>. Setelah pembayaran, admin akan mengirimkan login email & password akun premium.</div>
       </div>
       <div class="nominal-grid">
@@ -706,8 +716,8 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <div class="card" id="voucher_data_all">
         <h3>Voucher Fisik Data</h3>
         <div class="notif-premium">
-            <span>ℹ️</span>
-            <div><b>PEMBERITAHUAN:</b> Setelah pembayaran berhasil, Admin akan mengirimkan <b>Kode Voucher</b> melalui WhatsApp.</div>
+            <span style="font-size: 24px;">🎟️</span>
+            <div><b>PEMBERITAHUAN:</b> Setelah pembayaran berhasil, Admin akan mengirimkan <b>Kode Voucher (SN)</b> melalui WhatsApp. Pastikan kamu paham cara input kodenya!</div>
         </div>
         <div class="nominal-grid" id="vcr-grid"></div>
         <input id="vcr_num" placeholder="Nomor WA Kamu" type="tel">
@@ -725,14 +735,12 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 </section>
 
 <div class="modal" id="premiumModal">
-  <div class="modal-box">
-    <div style="font-size: 40px; margin-bottom: 10px;">🛡️</div>
-    <h2 style="margin-top:0">Info Akun Premium</h2>
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; color: var(--muted); font-size: 14px; margin-bottom: 20px; line-height: 1.6; text-align: left;">
-        Halo Pembeli! Perlu diketahui bahwa produk Premium ini berjenis <b>Akun dari Seller</b>. <br><br>
-        Setelah melakukan pembayaran, Admin akan memberikan detail akun (Email & Password) secara langsung. Kamu tinggal login dan menikmati fitur premiumnya!
-    </div>
-    <button class="order-btn" onclick="closePremiumModal()">Saya Mengerti, Lanjut</button>
+  <div class="modal-box" style="border-color: var(--accent); background: linear-gradient(145deg, #111827, #020617);">
+    <div style="font-size: 50px; margin-bottom: 15px; filter: drop-shadow(0 0 10px var(--accent));" id="modalIcon">🛡️</div>
+    <h2 style="margin-top:0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;" id="modalTitle">Info Produk</h2>
+    <div id="modalDescription" style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 20px; color: var(--muted); font-size: 14px; margin-bottom: 25px; line-height: 1.6; text-align: left; border: 1px solid rgba(255,255,255,0.05);">
+        </div>
+    <button class="order-btn" onclick="closePremiumModal()" style="box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);">Saya Mengerti, Lanjutkan ✨</button>
   </div>
 </div>
 
@@ -752,7 +760,7 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 <script>
 let temp={};
 let selectedNominalValue = "";
-let currentPukotMode = ""; // Pulsa, IsiUlang, Voucher
+let currentPukotMode = ""; 
 let currentPremiumTarget = "";
 
 function toggleTheme() {
@@ -781,7 +789,6 @@ function switchCategory(cat, el) {
   targetCat.style.display = 'block';
   targetCat.scrollIntoView({ behavior: 'smooth', block: 'start' });
   
-  // Reset Pulsa & Kuota UI
   document.getElementById('pukot-main-menu').style.display = 'grid';
   document.getElementById('kuota-types').style.display = 'none';
   document.getElementById('pukot-providers').style.display = 'none';
@@ -841,15 +848,33 @@ function showWarning(msg) {
   setTimeout(() => alertBox.classList.remove('show'), 3000);
 }
 
+/* REVISI PERINTAH 2 & 3: Logika Modal Konfirmasi Edukasi */
 function selectPremiumOption(el, id) {
     currentPremiumTarget = { el, id };
+    document.getElementById('modalIcon').innerText = "🛡️";
+    document.getElementById('modalTitle').innerText = "Info Akun Premium";
+    document.getElementById('modalDescription').innerHTML = `Halo Pembeli! Perlu diketahui bahwa produk Premium ini berjenis <b>Akun dari Seller</b>.<br><br>Setelah melakukan pembayaran, Admin akan memberikan detail akun (Email & Password) secara langsung di WhatsApp. Kamu tinggal login dan menikmati fitur premiumnya!`;
     document.getElementById('premiumModal').style.display = 'flex';
+}
+
+function confirmVoucherEducation() {
+    currentPremiumTarget = null;
+    document.getElementById('modalIcon').innerText = "🎟️";
+    document.getElementById('modalTitle').innerText = "Edukasi Voucher Data";
+    document.getElementById('modalDescription').innerHTML = `PENTING! Voucher Data dikirim dalam bentuk <b>KODE SN (Serial Number)</b>.<br><br>Kamu harus memasukkannya secara manual di HP sesuai dial code provider masing-masing. Pastikan kamu sudah paham cara klaimnya ya agar tidak terjadi kegagalan sistem!`;
+    document.getElementById('premiumModal').style.display = 'flex';
+    // Set target ke voucher setelah klik mengerti
+    currentPremiumTarget = { action: 'kuota-voucher' };
 }
 
 function closePremiumModal() {
     document.getElementById('premiumModal').style.display = 'none';
     if(currentPremiumTarget) {
-        selectGameOption(currentPremiumTarget.el, currentPremiumTarget.id);
+        if(currentPremiumTarget.action === 'kuota-voucher') {
+            handlePukot('kuota-voucher');
+        } else {
+            selectGameOption(currentPremiumTarget.el, currentPremiumTarget.id);
+        }
     }
 }
 
@@ -861,7 +886,6 @@ function selectGameOption(el, id){
     el.classList.add('active');
   }
   
-  // Jika ini produk pulsa/isi ulang, generate kontennya dulu
   if(['axis','indosat','smartfren','telkomsel','tri','xl','byu'].includes(id)) {
       generateProducts(id + '-grid', currentPukotMode);
   }
