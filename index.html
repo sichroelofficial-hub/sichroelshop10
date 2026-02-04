@@ -129,7 +129,7 @@ header p { color: var(--muted); margin-top: 10px; font-size: 1.1rem; letter-spac
   margin-top: 15px;
 }
 
-/* PANDUAN PEMBELIAN */
+/* PANDUAN PEMBELIAN (REVISI SESUAI PERINTAH) */
 .guide-box {
   background: rgba(15, 23, 42, 0.6);
   border: 1px dashed var(--accent);
@@ -340,7 +340,7 @@ input:focus { outline: 1px solid var(--accent); }
 footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px; opacity: 0.7; }
 @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-/* REVISI: SEMBUNYIKAN SECTION SECARA DEFAULT UNTUK MENU TOMBOL */
+/* SEMBUNYIKAN SECTION SECARA DEFAULT */
 .category-section { display: none; }
 </style>
 </head>
@@ -369,32 +369,33 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
   <div class="guide-box">
     <h3>Cara Pembelian:</h3>
     <ol>
-      <li><b>Pilih Kategori:</b> Top Up, Voucher, atau Akun Premium.</li>
-      <li><b>Pilih Produk:</b> Klik ikon favorit Anda.</li>
-      <li><b>Isi Data:</b> Masukkan User ID / No. WA sesuai permintaan.</li>
-      <li><b>Bayar:</b> Klik "Beli Sekarang", admin akan kirim QRIS di WhatsApp.</li>
+      <li><b>Pilih Menu:</b> Klik tombol <b>Top Up Game</b>, <b>Voucher Game</b>, atau <b>Akun Apk Premium</b> sesuai kebutuhan.</li>
+      <li><b>Pilih Produk:</b> Klik pada ikon game atau aplikasi yang ingin Anda beli.</li>
+      <li><b>Pilih Nominal:</b> Tentukan jumlah item atau durasi langganan yang diinginkan.</li>
+      <li><b>Isi Data:</b> Masukkan User ID / Email / No. WA dengan benar.</li>
+      <li><b>Konfirmasi:</b> Klik <b>Beli Sekarang</b> dan lanjutkan ke WhatsApp untuk pembayaran via QRIS.</li>
     </ol>
   </div>
 
   <div class="category-tabs">
-    <div class="tab-btn" onclick="switchCategory('topup', this)">🎮 Top Up</div>
-    <div class="tab-btn" onclick="switchCategory('voucher', this)">🎟️ Voucher</div>
-    <div class="tab-btn" onclick="switchCategory('premium', this)">✨ Apk Premium</div>
+    <div class="tab-btn" onclick="switchCategory('topup', this)">🎮 Top Up Game</div>
+    <div class="tab-btn" onclick="switchCategory('voucher', this)">🎟️ Voucher Game</div>
+    <div class="tab-btn" onclick="switchCategory('premium', this)">✨ Akun Apk Premium</div>
   </div>
 
   <div id="category-topup" class="category-section">
     <h2>🎮 Top Up Game</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'ml')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB" loading="lazy">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-846ab59b-4797-4d91-9f57-f95c01b6ac74.png" class="game-thumb" alt="MLBB">
           <span>MLBB</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'ff')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire" loading="lazy">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-a42e7d17-ee88-4d88-9d99-c4304762b2e9.png" class="game-thumb" alt="Free Fire">
           <span>Free Fire</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'pubg')">
-          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM" loading="lazy">
+          <img src="https://cdn.phototourl.com/uploads/2026-02-04-8ea925e7-2e51-4125-a994-340a104cc8e8.png" class="game-thumb" alt="PUBGM">
           <span>PUBGM</span>
       </div>
     </div>
@@ -404,11 +405,11 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>🎟️ Voucher Game & App</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'gplay')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" class="game-thumb" alt="Google Play" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" class="game-thumb" alt="Google Play">
           <span>Google Play</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'steam')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg" class="game-thumb" alt="Steam">
           <span>Steam Wallet</span>
       </div>
     </div>
@@ -418,15 +419,15 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
     <h2>✨ Akun Premium</h2>
     <div class="game-selector-grid">
       <div class="game-opt" onclick="selectGameOption(this, 'netflix')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" class="game-thumb" alt="Netflix">
           <span>Netflix</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'disney')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="game-thumb" alt="Disney" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" class="game-thumb" alt="Disney">
           <span>Disney+</span>
       </div>
       <div class="game-opt" onclick="selectGameOption(this, 'canva')">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva" loading="lazy">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Canva_logo.svg" class="game-thumb" alt="Canva">
           <span>Canva Pro</span>
       </div>
     </div>
