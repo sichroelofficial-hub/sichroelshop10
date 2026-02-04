@@ -129,7 +129,6 @@ header{
   gap: 15px;
   margin-bottom: 5px;
 }
-/* UKURAN LOGO UTAMA TETAP */
 .main-logo {
   width: 70px; height: 70px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -226,8 +225,6 @@ h2 { text-align: center; margin-bottom: 40px; font-weight: 800; font-size: 26px;
   padding: 15px 10px; border-radius: 20px; text-align: center;
   cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(10px);
 }
-
-/* UKURAN GAMBAR THUMBNAIL MENU TETAP */
 .game-opt .game-thumb {
   width: 70px; height: 70px; 
   border-radius: 18px; 
@@ -310,11 +307,9 @@ input:focus { outline: 1px solid var(--accent); }
   position: relative; overflow: hidden; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   max-width: 500px; margin: 0 auto;
 }
-
-/* UKURAN BANNER PRODUK DI DALAM CARD TETAP */
 .card img { 
   width: 100%; 
-  height: 180px; /* Ukuran pas untuk HP & PC */
+  height: 180px;
   border-radius: 20px; 
   margin-bottom: 20px; 
   object-fit: cover; 
@@ -377,14 +372,6 @@ input:focus { outline: 1px solid var(--accent); }
 .receipt-label { color: var(--muted); }
 .receipt-val { font-weight: bold; color: #fff; }
 .receipt-footer { border-top: 2px dashed rgba(255,255,255,0.1); margin-top: 15px; padding-top: 10px; font-size: 18px; color: var(--warning); font-weight: 900; text-align: center; }
-
-/* COPY BUTTON */
-.btn-copy {
-  position: absolute; top: 10px; right: 10px; background: rgba(34, 197, 94, 0.1);
-  border: 1px solid var(--accent); color: var(--accent); padding: 5px 10px; 
-  border-radius: 8px; font-size: 10px; cursor: pointer; transition: 0.3s;
-}
-.btn-copy:hover { background: var(--accent); color: #000; }
 
 .order-btn {
   margin-top: 15px; width: 100%; padding: 16px; border: none; border-radius: 15px;
@@ -617,12 +604,10 @@ footer { padding: 60px; text-align: center; color: var(--muted); font-size: 14px
 let temp={};
 let selectedNominalValue = "";
 
-// FITUR LIGHT/DARK MODE
 function toggleTheme() {
     const body = document.body;
     const btn = document.getElementById('themeBtn');
     body.classList.toggle('light-mode');
-    
     if(body.classList.contains('light-mode')) {
         btn.innerText = "☀️";
         localStorage.setItem('theme', 'light');
@@ -632,7 +617,6 @@ function toggleTheme() {
     }
 }
 
-// LOAD THEME PREFERENCE
 if(localStorage.getItem('theme') === 'light') {
     document.body.classList.add('light-mode');
     document.getElementById('themeBtn').innerText = "☀️";
@@ -683,15 +667,6 @@ function simulasiCheck(e, fieldId) {
     setTimeout(() => { btn.innerText = "VALID ✅"; setTimeout(() => btn.innerText = "CEK ID", 2000); }, 800);
 }
 
-function copyToClipboard() {
-    const text = `Produk: ${temp.game}\nVarian: ${temp.nominal}\nID: ${temp.user}\nServer: ${temp.server}`;
-    navigator.clipboard.writeText(text).then(() => {
-        const btn = document.querySelector('.btn-copy');
-        btn.innerText = "TERSALIN!";
-        setTimeout(() => btn.innerText = "SALIN DATA", 2000);
-    });
-}
-
 function prepareOrder(game, userField, serverField){
   const userEl = document.getElementById(userField);
   const serverEl = serverField ? document.getElementById(serverField) : null;
@@ -716,9 +691,9 @@ function prepareOrder(game, userField, serverField){
 
   temp = { game, nominal: selectedNominalValue, user: u, server: s || "-" };
   
+  /* PENGHAPUSAN TOMBOL SALIN DATA DI SINI */
   document.getElementById('confirmText').innerHTML = 
-    `<button class="btn-copy" onclick="copyToClipboard()">SALIN DATA</button>
-    <div class="receipt-header">SICHROEL SHOP RECEIPT</div>
+    `<div class="receipt-header">SICHROEL SHOP RECEIPT</div>
     <div class="receipt-line"><span class="receipt-label">Produk:</span><span class="receipt-val">${game.toUpperCase()}</span></div>
     <div class="receipt-line"><span class="receipt-label">Varian:</span><span class="receipt-val">${temp.nominal.split('–')[0]}</span></div>
     <div class="receipt-line"><span class="receipt-label">Data ID:</span><span class="receipt-val">${temp.user}</span></div>
@@ -736,7 +711,6 @@ function sendWA(){
   closeModal();
 }
 
-/* FILTER INPUT (OPTIMASI: CANVA DIKELUARKAN DARI FILTER ANGKA) */
 const numericFields = ['ml_user', 'ml_server', 'ff_user', 'pubg_user', 'netflix_user', 'disney_user', 'gplay_user', 'steam_user'];
 numericFields.forEach(id => {
     const el = document.getElementById(id);
@@ -747,7 +721,6 @@ numericFields.forEach(id => {
     }
 });
 
-/* LOCAL STORAGE */
 document.querySelectorAll('input').forEach(input => {
     const saved = localStorage.getItem(input.id);
     if(saved) input.value = saved;
