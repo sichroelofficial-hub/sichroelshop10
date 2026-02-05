@@ -3,80 +3,485 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SICHROEL SHOP – Top Up Game Aman, Cepat, dan Terpercaya</title>
+<title>SICHROEL SHOP – Top Up Game Mewah & Terpercaya</title>
+
+<meta name="description" content="SICHROEL SHOP: Top Up Game Murah, Cepat, dan Legal. Proses Otomatis 1-5 Menit.">
+<meta property="og:image" content="https://cdn.phototourl.com/uploads/2026-02-04-6216e0b1-c6a9-42f5-ae39-cd3a291381bd.png">
+
 <style>
-/* CSS asli Anda tetap 100% sama agar tampilan tidak berubah */
-:root{--bg:#020617;--card:#0f172a;--accent:#22c55e;--accent2:#16a34a;--text:#f8fafc;--muted:#94a3b8;--error:#ef4444;--warning:#f59e0b;}
-/* ... (Seluruh CSS dari file asli disisipkan di sini secara utuh) ... */
+:root {
+  --bg: #020617; /* Slate 950 */
+  --card: #0f172a; /* Slate 900 */
+  --accent: #22c55e; /* Green 500 */
+  --accent-glow: rgba(34, 197, 94, 0.4);
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --glass: rgba(15, 23, 42, 0.7);
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+/* Scrollbar Custom */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; border: 2px solid var(--bg); }
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* Animasi Background */
+.bg-glow {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 100%);
+}
+
+.circle-decor {
+  position: absolute;
+  width: 400px; height: 400px;
+  background: var(--accent);
+  filter: blur(150px);
+  border-radius: 50%;
+  opacity: 0.05;
+  top: -100px; right: -100px;
+  animation: pulse 8s infinite alternate;
+}
+
+@keyframes pulse { from { opacity: 0.05; transform: scale(1); } to { opacity: 0.1; transform: scale(1.2); } }
+
+/* Running Text Glow */
+.running-text {
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(10px);
+  color: var(--accent);
+  padding: 10px 0;
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 1000;
+}
+
+/* Header & Logo */
+header { padding: 60px 20px 30px; text-align: center; }
+
+.logo-wrapper {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+
+.main-logo {
+  width: 80px; height: 80px;
+  background: linear-gradient(135deg, var(--accent), #16a34a);
+  border-radius: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px; font-weight: 900; color: #020617;
+  box-shadow: 0 0 30px var(--accent-glow);
+  transform: rotate(-5deg);
+  transition: 0.5s;
+}
+.main-logo:hover { transform: rotate(0deg) scale(1.1); }
+
+header h1 {
+  font-size: 38px; margin: 15px 0 5px; font-weight: 900;
+  letter-spacing: -1px;
+  background: linear-gradient(to bottom, #fff, #cbd5e1);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+header p { color: var(--muted); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
+
+/* Guide Box (Glassmorphism) */
+.guide-box {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 25px; border-radius: 24px;
+  max-width: 700px; margin: 0 auto 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.guide-box h3 { color: var(--accent); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+
+/* Category Tabs */
+.category-tabs {
+  display: flex; justify-content: center; gap: 10px;
+  flex-wrap: wrap; margin-bottom: 40px; padding: 0 15px;
+}
+
+.tab-btn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 12px 20px; border-radius: 16px;
+  color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: #020617; font-weight: 700;
+  box-shadow: 0 10px 20px var(--accent-glow);
+  border-color: transparent;
+}
+
+/* Product Selection */
+.game-selector-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 15px; max-width: 900px; margin: 0 auto 40px; padding: 0 20px;
+}
+
+.game-opt {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 15px 10px; border-radius: 20px;
+  text-align: center; cursor: pointer; transition: 0.3s;
+}
+
+.game-opt:hover, .game-opt.active {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+  background: rgba(34, 197, 94, 0.05);
+}
+
+.game-thumb {
+  width: 65px; height: 65px; border-radius: 15px;
+  margin-bottom: 10px; object-fit: cover;
+  border: 2px solid var(--border);
+}
+
+.game-opt span { font-size: 11px; font-weight: 700; color: var(--muted); display: block; }
+.game-opt.active span { color: var(--accent); }
+
+/* Card Product Details */
+.card {
+  display: none; background: var(--glass);
+  backdrop-filter: blur(20px);
+  padding: 30px; border-radius: 32px;
+  border: 1px solid var(--border);
+  max-width: 600px; margin: 0 auto;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Item Price Grid */
+.nominal-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 12px; margin: 25px 0;
+}
+
+.nominal-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  padding: 15px; border-radius: 18px;
+  cursor: pointer; transition: 0.2s; position: relative;
+}
+
+.nominal-item:hover { border-color: var(--accent); background: rgba(255,255,255,0.06); }
+
+.nominal-item.active {
+  background: var(--accent); border-color: transparent;
+}
+
+.nominal-item.active * { color: #020617 !important; }
+
+.nominal-item .val { font-size: 13px; font-weight: 700; display: block; margin-bottom: 4px; }
+.nominal-item .price { font-size: 14px; font-weight: 800; color: var(--accent); }
+
+/* Input Styling */
+.input-field {
+  width: 100%; padding: 16px; border-radius: 16px;
+  background: #020617; border: 1px solid var(--border);
+  color: white; font-weight: 600; margin-bottom: 12px;
+  outline: none; transition: 0.3s;
+}
+
+.input-field:focus { border-color: var(--accent); box-shadow: 0 0 15px rgba(34, 197, 94, 0.2); }
+
+/* Order Button */
+.order-btn {
+  width: 100%; padding: 18px; border: none; border-radius: 18px;
+  background: linear-gradient(135deg, var(--accent), #16a34a);
+  color: #020617; font-size: 16px; font-weight: 800;
+  cursor: pointer; transition: 0.3s;
+  box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+.order-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+/* Receipt Modal */
+.modal {
+  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(10px); display: none;
+  align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+}
+
+.modal-box {
+  background: var(--card); padding: 30px; border-radius: 28px;
+  width: 100%; max-width: 400px; border: 1px solid var(--border);
+}
+
+#confirmText {
+  background: #020617; padding: 20px; border-radius: 16px;
+  margin: 20px 0; font-family: 'Courier New', monospace;
+  border-left: 4px solid var(--accent);
+}
+
+.receipt-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+.receipt-label { color: var(--muted); }
+
+/* Badge Seller */
+.best-seller-badge {
+    position: absolute; top: 0; right: 0;
+    background: #f59e0b; color: #000;
+    font-size: 9px; font-weight: 900;
+    padding: 3px 8px; border-radius: 0 18px 0 12px;
+}
+
+footer { padding: 50px; text-align: center; color: var(--muted); font-size: 12px; }
+
+@media (max-width: 600px) {
+  header h1 { font-size: 28px; }
+  .nominal-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
+
 <body>
-<div class="bg-animation"><div class="circle"></div></div>
-<div id="game-loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:9999; background:rgba(0,0,0,0.8); padding:20px; border-radius:20px;"><p style="color:var(--accent); margin:0;">⏳ Sinkronisasi Data Spreadsheet...</p></div>
+<div class="bg-glow"><div class="circle-decor"></div></div>
+
+<div class="running-text">
+  <marquee scrollamount="6">
+    ⚡ SICHROEL SHOP: PROSES CEPAT 1-5 MENIT • LEGAL & AMAN • AKTIF 06.00 - 21.00 WIB • TOP UP GAME TERMURAH SE-INDONESIA ⚡
+  </marquee>
+</div>
+
+<header>
+  <div class="logo-wrapper">
+    <div class="main-logo">S</div>
+    <h1>SICHROEL SHOP</h1>
+    <p>Premium Game Store</p>
+  </div>
+</header>
+
+<section style="padding: 0 20px 60px;">
+  <div class="guide-box">
+    <h3><span style="font-size: 24px;">📝</span> Cara Pesan</h3>
+    <div style="font-size: 14px; color: var(--muted); line-height: 1.8;">
+      1. Pilih <b>Kategori</b> & <b>Game</b> kesukaanmu.<br>
+      2. Pilih <b>Nominal</b> yang ingin dibeli.<br>
+      3. Masukkan <b>Data Akun</b> (ID/Server) dengan teliti.<br>
+      4. Klik <b>Beli Sekarang</b> & selesaikan pembayaran via WhatsApp.
+    </div>
+  </div>
+
+  <div class="category-tabs">
+    <button class="tab-btn active" onclick="switchCategory('topup', this)">🎮 Games</button>
+    <button class="tab-btn" onclick="switchCategory('voucher', this)">🎟️ Voucher</button>
+    <button class="tab-btn" onclick="switchCategory('premium', this)">✨ Apps</button>
+    <button class="tab-btn" onclick="switchCategory('pukot', this)">📱 Pulsa</button>
+  </div>
+
+  <div id="category-topup" class="category-section" style="display: block;">
+    <div class="game-selector-grid" id="game-grid-list">
+      </div>
+  </div>
+
+  <div id="category-voucher" class="category-section" style="display: none;">
+     <div class="game-selector-grid" id="voucher-grid-list"></div>
+  </div>
+  
+  <div id="category-premium" class="category-section" style="display: none;">
+     <div class="game-selector-grid" id="premium-grid-list"></div>
+  </div>
+
+  <div id="category-pukot" class="category-section" style="display: none;">
+     <div class="game-selector-grid" id="pukot-grid-list"></div>
+  </div>
+
+  <div id="product-detail-container">
+    <div class="card" id="active-card">
+      <div style="text-align: center; margin-bottom: 20px;">
+        <img id="detail-img" src="" style="width: 80px; border-radius: 20px; margin-bottom: 10px;">
+        <h3 id="detail-title" style="margin: 0;">Pilih Produk</h3>
+      </div>
+      
+      <div class="nominal-grid" id="detail-nominal-grid">
+        </div>
+
+      <div id="input-fields">
+        <input id="user_id" class="input-field" placeholder="Masukkan ID Akun" type="text">
+        <input id="zone_id" class="input-field" placeholder="Masukkan Zone/Server ID (Opsional)" type="text">
+      </div>
+
+      <button class="order-btn" onclick="handleOrder()">Beli Sekarang</button>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3 style="margin-top:0; color: var(--accent);">Konfirmasi Order</h3>
+    <div id="confirmText"></div>
+    <button class="order-btn" onclick="sendWA()">Lanjut ke WhatsApp</button>
+    <button onclick="closeModal()" style="background:transparent; border:none; color:var(--muted); margin-top:20px; width:100%; cursor:pointer; font-weight:bold;">Koreksi Pesanan</button>
+  </div>
+</div>
+
+<footer>
+  © 2026 SICHROEL SHOP • Managed by Admin<br>
+  <span style="opacity: 0.5; margin-top: 10px; display: block;">Top Up Aman Sedunia & Akhirat</span>
+</footer>
+
+<a href="https://wa.me/6285888747908" style="position:fixed; bottom:30px; right:30px; background:#25d366; width:60px; height:60px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000;" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width: 35px;">
+</a>
 
 <script>
-// --- INTEGRASI SPREADSHEET (ANTI-KETIK) ---
-let database = {};
-let temp = {};
-let selectedNominalValue = "";
+// --- KONFIGURASI ---
+const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbwwCJcJWehq96VMr28utWd7JSGRuxSs26sA_jmYgFIF0n1iYmf8peefy4ptES3xCjHGuQ/exec";
 
-async function loadDataFromSheet() {
-    // GANTI URL DI BAWAH INI DENGAN URL DARI LANGKAH DEPLOY
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyIOcaRDKR-m1JeQxhKRygzdABsHmCAPdQgy861IzE8jkMW_z8MVd6XU9oNrTyrv2Z2/exec"; 
-    
-    if(WEB_APP_URL === "https://script.google.com/macros/s/AKfycbyIOcaRDKR-m1JeQxhKRygzdABsHmCAPdQgy861IzE8jkMW_z8MVd6XU9oNrTyrv2Z2/exec") return;
+let globalData = {};
+let selectedProduct = null;
+let selectedNominal = null;
 
-    document.getElementById('game-loading').style.display = 'block';
+// Load Data Saat Mulai
+async function init() {
     try {
-        const response = await fetch(WEB_APP_URL);
-        database = await response.json();
-        renderPrices();
-    } catch (e) {
-        console.error("Koneksi gagal. Pastikan URL Deploy benar.");
-    }
-    document.getElementById('game-loading').style.display = 'none';
-}
-
-function renderPrices() {
-    if(!database.PriceList) return;
-    
-    const priceData = database.PriceList;
-    const groups = {};
-    priceData.forEach(item => {
-        if(!groups[item.GameID]) groups[item.GameID] = [];
-        groups[item.GameID].push(item);
-    });
-
-    for (let gameId in groups) {
-        const grid = document.getElementById(gameId + '-prod-grid') || document.getElementById(gameId + '-grid');
-        if(!grid) continue;
-        grid.innerHTML = "";
+        const response = await fetch(SPREADSHEET_URL);
+        globalData = await response.json();
         
-        groups[gameId].forEach((prod, index) => {
-            const div = document.createElement('div');
-            div.className = "nominal-item";
-            let pTxt = "Rp " + parseInt(prod.Harga_Asli).toLocaleString('id-ID');
-            let sTxt = "Rp " + parseInt(prod.Harga_Coret).toLocaleString('id-ID');
-            
-            div.onclick = function() { 
-                selectedNominalValue = prod.Produk + ' – ' + pTxt;
-                document.querySelectorAll('.nominal-item').forEach(i => i.classList.remove('selected'));
-                div.classList.add('selected');
-            };
+        // Custom branding dari Spreadsheet
+        if(globalData.toko) {
+            document.querySelector('header h1').innerText = globalData.toko.nama;
+            document.querySelector('.main-logo').innerText = globalData.toko.nama.charAt(0);
+        }
 
-            let badge = index < 4 ? `<div class="best-seller-badge">Best Seller</div>` : "";
-            div.innerHTML = `${badge}<span class="val">${prod.Produk}</span><span class="price-strike">${sTxt}</span><span class="price">${pTxt}</span>`;
-            grid.appendChild(div);
-        });
+        renderGameSelection('topup');
+    } catch (e) {
+        console.error("Gagal memuat data", e);
     }
 }
 
-// Menjalankan fungsi saat web dibuka
-window.onload = () => {
-    loadDataFromSheet();
-};
+function switchCategory(cat, el) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    
+    document.querySelectorAll('.category-section').forEach(s => s.style.display = 'none');
+    document.getElementById('category-' + cat).style.display = 'block';
+    
+    renderGameSelection(cat);
+    document.getElementById('active-card').style.display = 'none';
+}
 
-// [SEMUA FUNGSI MODAL, WA, DAN SWITCH CATEGORY ASLI TETAP DI SINI]
+function renderGameSelection(kategori) {
+    const gridId = kategori + '-grid-list';
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+
+    // Filter produk unik berdasarkan ID untuk icon game
+    const uniqueGames = [];
+    const map = new Map();
+    for (const item of globalData.produk) {
+        if (item.kategori === kategori && !map.has(item.id)) {
+            map.set(item.id, true);
+            uniqueGames.push(item);
+        }
+    }
+
+    grid.innerHTML = uniqueGames.map(game => `
+        <div class="game-opt" onclick="selectGame('${game.id}', '${game.nama_game || game.kategori}')">
+            <img src="${game.img || 'https://via.placeholder.com/100'}" class="game-thumb">
+            <span>${game.id.toUpperCase()}</span>
+        </div>
+    `).join('');
+}
+
+function selectGame(gameId, gameTitle) {
+    // Scroll ke area detail
+    document.getElementById('active-card').style.display = 'block';
+    document.getElementById('detail-title').innerText = gameTitle.toUpperCase();
+    
+    // Reset selection
+    selectedProduct = gameId;
+    selectedNominal = null;
+
+    // Filter nominal untuk game ini
+    const nominals = globalData.produk.filter(p => p.id === gameId);
+    const grid = document.getElementById('detail-nominal-grid');
+    
+    grid.innerHTML = nominals.map(n => `
+        <div class="nominal-item" onclick="pickNominal(this, '${n.nama}', '${n.harga}')">
+            ${n.label ? `<div class="best-seller-badge">${n.label}</div>` : ''}
+            <span class="val">${n.nama}</span>
+            <span class="price">Rp ${parseInt(n.harga).toLocaleString('id-ID')}</span>
+        </div>
+    `).join('');
+
+    // Update Image Preview
+    const gameData = globalData.produk.find(p => p.id === gameId);
+    document.getElementById('detail-img').src = gameData.img;
+
+    // Handle Input khusus (Contoh: ML butuh Zone ID)
+    const zoneInput = document.getElementById('zone_id');
+    zoneInput.style.display = (gameId === 'ml') ? 'block' : 'none';
+
+    window.scrollTo({ top: document.getElementById('active-card').offsetTop - 100, behavior: 'smooth' });
+}
+
+function pickNominal(el, nama, harga) {
+    document.querySelectorAll('.nominal-item').forEach(i => i.classList.remove('active'));
+    el.classList.add('active');
+    selectedNominal = { nama, harga };
+}
+
+function handleOrder() {
+    const userId = document.getElementById('user_id').value;
+    const zoneId = document.getElementById('zone_id').value;
+
+    if (!selectedProduct || !selectedNominal || !userId) {
+        alert("Mohon lengkapi Data ID dan Pilih Nominal!");
+        return;
+    }
+
+    const confirmText = document.getElementById('confirmText');
+    confirmText.innerHTML = `
+        <div class="receipt-line"><span class="receipt-label">Produk</span><span>${selectedProduct.toUpperCase()}</span></div>
+        <div class="receipt-line"><span class="receipt-label">Varian</span><span>${selectedNominal.nama}</span></div>
+        <div class="receipt-line"><span class="receipt-label">ID Akun</span><span>${userId} ${zoneId ? '('+zoneId+')' : ''}</span></div>
+        <hr style="border: 0; border-top: 1px dashed var(--border); margin: 15px 0;">
+        <div class="receipt-line"><span class="receipt-label">Total</span><span style="color:var(--accent); font-weight:900;">Rp ${parseInt(selectedNominal.harga).toLocaleString('id-ID')}</span></div>
+    `;
+
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+function sendWA() {
+    const userId = document.getElementById('user_id').value;
+    const zoneId = document.getElementById('zone_id').value;
+    const orderId = Math.floor(1000 + Math.random() * 9000);
+    
+    const msg = `*PESANAN BARU - #${orderId}*\n` +
+                `----------------------------\n` +
+                `🎮 Game: *${selectedProduct.toUpperCase()}*\n` +
+                `💎 Produk: *${selectedNominal.nama}*\n` +
+                `🆔 ID: *${userId}* ${zoneId ? '('+zoneId+')' : ''}\n` +
+                `💰 Harga: *Rp ${parseInt(selectedNominal.harga).toLocaleString('id-ID')}*\n` +
+                `----------------------------\n` +
+                `Mohon instruksi pembayarannya Admin!`;
+
+    window.open(`https://wa.me/${globalData.toko.wa}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+window.onload = init;
 </script>
 </body>
 </html>
