@@ -103,8 +103,30 @@
         .category-card { transition: all 0.3s ease; cursor: pointer; }
         .category-card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-3px); }
 
-        .product-item { cursor: pointer; transition: 0.2s; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .product-item { cursor: pointer; transition: 0.2s; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
         .product-item.selected { border-color: var(--primary); background: rgba(0, 224, 255, 0.1); transform: scale(1.02); }
+
+        /* --- Product Label Animation --- */
+        .badge-label {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 3px 10px;
+            font-size: 8px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom-left-radius: 10px;
+            background: linear-gradient(45deg, #0066ff, #00e0ff);
+            box-shadow: 0 2px 10px rgba(0, 224, 255, 0.3);
+            z-index: 5;
+            animation: labelShimmer 2s infinite alternate;
+        }
+
+        @keyframes labelShimmer {
+            0% { opacity: 0.8; filter: brightness(1); transform: scale(1); }
+            100% { opacity: 1; filter: brightness(1.3); transform: scale(1.05); }
+        }
 
         .btn-contact {
             position: relative;
@@ -463,8 +485,12 @@
             }
 
             products.forEach(p => {
+                // LOGIKA LABEL DARI SPREADSHEET
+                const labelHTML = p.Label ? `<div class="badge-label">${p.Label}</div>` : '';
+
                 grid.innerHTML += `
                     <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" class="product-item glass p-3 rounded-xl">
+                        ${labelHTML}
                         <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
                         <p class="text-[9px] text-gray-500 line-through">Rp ${p.Harga_Coret}</p>
                         <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
@@ -494,7 +520,6 @@
         function submitOrder() {
             const target = document.getElementById('targetId').value;
             
-            // Perbaikan: Jika data akun kosong, tampilkan modal cantik
             if (!target || target.trim() === "") {
                 showModal(
                     '<div class="relative inline-block"><i class="fas fa-user-edit text-5xl text-orange-400"></i><div class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-ping"></div></div>', 
