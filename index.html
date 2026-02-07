@@ -211,45 +211,39 @@
         'PREMIUM': ['Canva', 'Spotify', 'Netflix', 'YouTube', 'Vidio', 'Alight Motion', 'Viu']
     };
 
-    async function init() {
+async function init() {
+        // Paksa hilangkan loader jika dalam 7 detik data tidak muncul
+        const timeout = setTimeout(() => {
+            const loader = document.getElementById('loader');
+            if (loader && loader.style.display !== 'none') {
+                loader.style.display = 'none';
+                alert("Koneksi lambat atau Spreadsheet belum di-Publish ke Web!");
+            }
+        }, 7000);
+
         try {
             console.log("Menghubungkan ke Spreadsheet...");
             const [setup, products] = await Promise.all([
-                fetch(`${API_URL}/Setup_Toko`).then(r => {
-                    if (!r.ok) throw new Error("Sheet Setup_Toko tidak ditemukan");
-                    return r.json();
-                }),
-                fetch(`${API_URL}/Setup_Produk`).then(r => {
-                    if (!r.ok) throw new Error("Sheet Setup_Produk tidak ditemukan");
-                    return r.json();
-                })
+                fetch(`${API_URL}/Setup_Toko`).then(r => r.json()),
+                fetch(`${API_URL}/Setup_Produk`).then(r => r.json())
             ]);
 
-            // Validasi data toko
-            if (setup && setup.length > 0) {
-                db_setup = setup[0];
-            } else {
-                console.warn("Data Setup_Toko kosong.");
-            }
+            clearTimeout(timeout); // Batalkan timeout jika berhasil
 
-            // Validasi data produk
+            if (setup && setup.length > 0) db_setup = setup[0];
             if (Array.isArray(products)) {
                 db_products = products.filter(p => p.Status && p.Status.toLowerCase() === 'aktif');
             }
 
             renderSetup();
             
-            // Menghilangkan loader dengan aman
-            const loader = document.getElementById('loader');
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 300);
-            }
-            
-            console.log("Website siap digunakan!");
+            document.getElementById('loader').style.display = 'none';
+            console.log("Website siap!");
         } catch (err) {
-            console.error("Detail Error:", err);
-            alert("Koneksi Error! Periksa apakah:\n1. ID Spreadsheet sudah benar.\n2. Nama Tab adalah 'Setup_Toko' dan 'Setup_Produk'.\n3. Sudah klik File > Share > Publish to Web.");
+            clearTimeout(timeout);
+            console.error("Error Detail:", err);
+            document.getElementById('loader').style.display = 'none';
+            alert("Gagal memuat data. Pastikan Spreadsheet sudah di-Publish ke Web!");
         }
     }
 
