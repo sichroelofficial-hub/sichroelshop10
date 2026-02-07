@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Store...</title>
+    <title>SICHROEL SHOP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -13,20 +13,22 @@
             --primary: #00e0ff;
             --secondary: #0066ff;
             --dark-bg: #0f172a;
-            --card-bg: #1e293b;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
+            background: radial-gradient(circle at top right, #1e293b, #0f172a);
             color: #ffffff;
+            min-height: 100vh;
             margin: 0;
             overflow-x: hidden;
         }
 
+        /* --- UI Components --- */
         .glass {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
@@ -43,7 +45,7 @@
             display: inline-block;
             padding-left: 100%;
             animation: marquee 20s linear infinite;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: bold;
             color: white;
         }
@@ -53,23 +55,27 @@
             100% { transform: translate(-100%, 0); }
         }
 
-        .category-card {
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        #shopLogo {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+        }
+        
+        #shopLogo:hover { transform: scale(1.1) rotate(5deg); }
+
+        .category-card { transition: all 0.3s ease; cursor: pointer; }
+        .category-card:hover { background: rgba(255, 255, 255, 0.08); transform: translateY(-3px); }
+
+        .product-item { cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.1); }
+        .product-item.selected { border-color: var(--primary); background: rgba(0, 224, 255, 0.1); transform: scale(1.02); }
+
+        .btn-admin {
+            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1));
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
         }
 
-        .category-card:active { transform: scale(0.95); }
-
-        .product-item {
-            cursor: pointer;
-            transition: 0.2s;
-            border: 2px solid transparent;
-        }
-
-        .product-item.selected {
-            border-color: var(--primary);
-            background: rgba(0, 224, 255, 0.1);
-        }
+        .btn-admin:hover { background: var(--primary); color: #000; transform: translateY(-5px); }
 
         .modal-bg {
             background: rgba(0, 0, 0, 0.85);
@@ -84,40 +90,67 @@
 
         .animate-zoom { animation: zoom 0.3s ease; }
         @keyframes zoom {
-            from { opacity: 0; transform: scale(0.8); }
+            from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
-        }
+            /* Animasi kilauan pada tombol */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 
-        /* Hide Scrollbar */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
+.btn-contact {
+    position: relative;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%);
+    border: 1px solid rgba(0, 224, 255, 0.2);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-contact::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.btn-contact:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 25px rgba(0, 224, 255, 0.2);
+    transform: translateY(-5px);
+    background: rgba(0, 224, 255, 0.1);
+}
+
+.icon-box {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+        }
     </style>
 </head>
 <body>
 
     <div id="loader" class="fixed inset-0 z-[999] bg-slate-900 flex flex-col items-center justify-center">
         <div class="w-12 h-12 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-xs mt-4 tracking-widest text-cyan-400">LOADING STORE...</p>
     </div>
 
     <div class="running-text-container">
-        <div class="running-text" id="runningText">Memuat informasi toko...</div>
+        <div class="running-text" id="runningText">Memuat informasi...</div>
     </div>
 
-    <nav class="sticky top-0 z-50 glass px-4 py-3 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <img src="" id="shopLogo" class="w-10 h-10 rounded-full object-cover shadow-lg border border-white/20" alt="Logo">
-            <div>
-                <h1 id="shopName" class="font-bold text-base leading-tight">...</h1>
-                <p id="shopSlogan" class="text-[9px] text-cyan-400 uppercase tracking-widest font-semibold">...</p>
+    <nav class="sticky top-0 z-50 glass px-4 py-6">
+        <div class="flex flex-col items-center justify-center text-center">
+            <div class="relative mb-3">
+                <img src="" id="shopLogo" class="w-20 h-20 rounded-full object-cover" alt="Logo">
+                <div id="statusIndicator" class="absolute bottom-1 right-1 w-4 h-4 border-2 border-slate-900 rounded-full bg-gray-500"></div>
             </div>
-        </div>
-        <div class="text-right">
-            <p class="text-[9px] text-gray-400">Jam Operasional</p>
-            <p id="shopHours" class="text-[10px] font-bold text-green-400">...</p>
+            <h1 id="shopName" class="text-2xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-400 uppercase">...</h1>
+            <p id="shopSlogan" class="text-[10px] text-cyan-400 uppercase tracking-[0.3em] font-semibold mt-1">...</p>
         </div>
     </nav>
 
-    <main class="max-w-xl mx-auto p-4 mb-24">
-        
+    <main class="max-w-xl mx-auto p-4 min-h-[60vh]">
         <div id="mainMenu" class="grid grid-cols-2 gap-3 mb-6">
             <div onclick="openCategory('ITEM GAME')" class="category-card glass rounded-2xl p-5 flex flex-col items-center gap-2">
                 <div class="w-12 h-12 bg-cyan-500/20 rounded-full flex items-center justify-center">
@@ -145,41 +178,82 @@
             </div>
         </div>
 
-        <div id="subSection" class="hidden">
-            <div class="flex items-center gap-2 mb-4" onclick="backToMain()">
-                <i class="fas fa-chevron-left text-cyan-400"></i>
+        <div id="subSection" class="hidden animate-zoom">
+            <div class="flex items-center gap-2 mb-4 cursor-pointer text-cyan-400" onclick="backToMain()">
+                <i class="fas fa-arrow-left"></i>
                 <span class="font-bold text-sm">Kembali</span>
             </div>
             <h2 id="subTitle" class="text-lg font-bold mb-4">Pilih Game</h2>
             <div id="subGrid" class="grid grid-cols-3 gap-3"></div>
         </div>
 
-        <div id="productSection" class="hidden">
-            <div class="flex items-center gap-2 mb-4" onclick="backToSub()">
-                <i class="fas fa-chevron-left text-cyan-400"></i>
+        <div id="productSection" class="hidden animate-zoom">
+            <div class="flex items-center gap-2 mb-4 cursor-pointer text-cyan-400" onclick="backToSub()">
+                <i class="fas fa-arrow-left"></i>
                 <span class="font-bold text-sm" id="btnBackText">Kembali</span>
             </div>
+            <img id="detailBanner" class="w-full aspect-[16/9] object-cover rounded-2xl mb-6 shadow-xl border border-white/10" src="">
             
-            <img id="detailBanner" class="w-full aspect-[16/9] object-cover rounded-2xl mb-6 shadow-xl" src="">
-
             <div class="glass rounded-2xl p-4 mb-6">
-                <h3 class="text-sm font-bold mb-3"><i class="fas fa-id-card text-cyan-400 mr-2"></i>Data Akun / Nomor</h3>
-                <input type="text" id="targetId" placeholder="Masukkan ID atau No HP..." class="w-full bg-slate-900/50 border border-white/10 p-3 rounded-xl text-sm focus:border-cyan-400 outline-none">
+                <h3 class="text-sm font-bold mb-3 flex items-center gap-2">
+                    <i class="fas fa-id-card text-cyan-400"></i>Data Akun / Nomor
+                </h3>
+                <input type="text" id="targetId" placeholder="Masukkan ID atau No HP..." class="w-full bg-slate-900 border border-white/10 p-3 rounded-xl text-sm focus:border-cyan-400 outline-none transition-all">
             </div>
 
-            <h3 class="text-sm font-bold mb-3 px-1"><i class="fas fa-shopping-cart text-cyan-400 mr-2"></i>Pilih Nominal</h3>
+            <h3 class="text-sm font-bold mb-3 px-1 flex items-center gap-2">
+                <i class="fas fa-shopping-bag text-cyan-400"></i>Pilih Nominal
+            </h3>
             <div id="productGrid" class="grid grid-cols-2 gap-3"></div>
         </div>
-
     </main>
+
+    <footer class="mt-12 pb-32 px-6">
+    <div class="max-w-md mx-auto">
+        
+        <div class="flex flex-col items-center mb-8">
+            <div class="glass px-5 py-2 rounded-full flex items-center gap-3 border border-white/5">
+                <div id="pingContainer" class="relative flex h-2 w-2">
+                    <span id="statusPing" class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"></span>
+                    <span id="statusCircle" class="relative inline-flex rounded-full h-2 w-2"></span>
+                </div>
+                <span id="shopHours" class="text-[11px] font-medium tracking-wide text-gray-300">...</span>
+            </div>
+        </div>
+
+        <div onclick="window.open('https://wa.me/' + db_setup.No_WhatsApp)" class="btn-contact p-1 rounded-3xl cursor-pointer">
+            <div class="bg-slate-900/40 backdrop-blur-md rounded-[22px] p-5 flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <div class="icon-box w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white tracking-wide">Customer Service</h4>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Siap membantu kendala Anda</p>
+                    </div>
+                </div>
+                <div class="bg-white/5 w-8 h-8 rounded-full flex items-center justify-center text-gray-400">
+                    <i class="fas fa-chevron-right text-xs"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-12 opacity-30">
+            <div class="h-[1px] w-12 bg-cyan-500/50 mx-auto mb-4"></div>
+            <p class="text-[9px] tracking-[0.3em] font-light uppercase">
+                Powered by <span class="font-bold text-cyan-400">SICHROEL digital</span>
+            </p>
+        </div>
+    </div>
+</footer>
 
     <div id="orderBar" class="fixed bottom-0 inset-x-0 glass border-t border-white/10 p-4 hidden z-50">
         <div class="max-w-xl mx-auto flex justify-between items-center">
             <div>
-                <p class="text-[10px] text-gray-400">Total Harga</p>
+                <p class="text-[10px] text-gray-400">Total Pembayaran</p>
                 <p id="totalPrice" class="text-lg font-bold text-cyan-400">Rp 0</p>
             </div>
-            <button onclick="submitOrder()" class="bg-cyan-500 text-slate-900 font-extrabold px-6 py-3 rounded-xl shadow-lg shadow-cyan-500/30">BELI SEKARANG</button>
+            <button onclick="submitOrder()" class="bg-cyan-500 text-slate-900 font-extrabold px-6 py-3 rounded-xl shadow-lg shadow-cyan-500/40 active:scale-95 transition-transform">BELI SEKARANG</button>
         </div>
     </div>
 
@@ -192,197 +266,177 @@
         </div>
     </div>
 
- <script>
-    // --- KONFIGURASI ---
-    // Ganti ID di bawah dengan ID dari URL Spreadsheet Anda
-    const SPREADSHEET_ID = '1LcuDp-LXMSTe64jTZXc6CAgIoXhJXIVVpOzNRQDx4BY'; 
-    const API_URL = `https://opensheet.elk.sh/${SPREADSHEET_ID}`;
+    <script>
+        const SPREADSHEET_ID = '1LcuDp-LXMSTe64jTZXc6CAgIoXhJXIVVpOzNRQDx4BY'; 
+        const API_URL = `https://opensheet.elk.sh/${SPREADSHEET_ID}`;
 
-    let db_setup = {};
-    let db_products = [];
-    let selectedProduct = null;
-    let activeSub = "";
+        let db_setup = {};
+        let db_products = [];
+        let selectedProduct = null;
 
-    // Mapping Data Statis sesuai permintaan Anda
-    const categories = {
-        'ITEM GAME': ['Mobile Legend', 'Free Fire', 'PUBG Mobile', 'COD Mobile', 'PB Zepetto', 'Arena Of Valor', 'Genshin Impact', 'Eggy Party Coins', 'Stumble Guys', 'Lita Coin'],
-        'PULSA': ['Axis', 'Indosat', 'Smartfren', 'Telkomsel', 'Tri', 'XL', 'By.U'],
-        'VOUCHER': ['Steam', 'Garena', 'PUBG Mobile (Vcr)', 'Roblox'],
-        'PREMIUM': ['Canva', 'Spotify', 'Netflix', 'YouTube', 'Vidio', 'Alight Motion', 'Viu']
-    };
+        const categories = {
+            'ITEM GAME': ['Mobile Legend', 'Free Fire', 'PUBG Mobile', 'COD Mobile', 'PB Zepetto', 'Arena Of Valor', 'Genshin Impact', 'Eggy Party Coins', 'Stumble Guys', 'Lita Coin'],
+            'PULSA': ['Axis', 'Indosat', 'Smartfren', 'Telkomsel', 'Tri', 'XL', 'By.U'],
+            'VOUCHER': ['Steam', 'Garena', 'PUBG Mobile (Vcr)', 'Roblox'],
+            'PREMIUM': ['Canva', 'Spotify', 'Netflix', 'YouTube', 'Vidio', 'Alight Motion', 'Viu']
+        };
 
-async function init() {
-        // Paksa hilangkan loader jika dalam 7 detik data tidak muncul
-        const timeout = setTimeout(() => {
-            const loader = document.getElementById('loader');
-            if (loader && loader.style.display !== 'none') {
-                loader.style.display = 'none';
-                alert("Koneksi lambat atau Spreadsheet belum di-Publish ke Web!");
+        async function init() {
+            try {
+                const [setup, products] = await Promise.all([
+                    fetch(`${API_URL}/Setup_Toko`).then(r => r.json()),
+                    fetch(`${API_URL}/Setup_Produk`).then(r => r.json())
+                ]);
+
+                if (setup && setup.length > 0) db_setup = setup[0];
+                if (Array.isArray(products)) {
+                    db_products = products.filter(p => p.Status && p.Status.toLowerCase() === 'aktif');
+                }
+
+                renderSetup();
+                document.getElementById('loader').style.display = 'none';
+            } catch (err) {
+                console.error("Gagal memuat data:", err);
+                document.getElementById('loader').style.display = 'none';
             }
-        }, 7000);
-
-        try {
-            console.log("Menghubungkan ke Spreadsheet...");
-            const [setup, products] = await Promise.all([
-                fetch(`${API_URL}/Setup_Toko`).then(r => r.json()),
-                fetch(`${API_URL}/Setup_Produk`).then(r => r.json())
-            ]);
-
-            clearTimeout(timeout); // Batalkan timeout jika berhasil
-
-            if (setup && setup.length > 0) db_setup = setup[0];
-            if (Array.isArray(products)) {
-                db_products = products.filter(p => p.Status && p.Status.toLowerCase() === 'aktif');
-            }
-
-            renderSetup();
-            
-            document.getElementById('loader').style.display = 'none';
-            console.log("Website siap!");
-        } catch (err) {
-            clearTimeout(timeout);
-            console.error("Error Detail:", err);
-            document.getElementById('loader').style.display = 'none';
-            alert("Gagal memuat data. Pastikan Spreadsheet sudah di-Publish ke Web!");
         }
-    }
 
-    function renderSetup() {
-        const shopName = document.getElementById('shopName');
-        const slogan = document.getElementById('shopSlogan');
-        const logo = document.getElementById('shopLogo');
-        const hours = document.getElementById('shopHours');
-        const runText = document.getElementById('runningText');
+        function renderSetup() {
+            document.getElementById('shopName').innerText = db_setup.Nama_Toko || "SICHROEL SHOP";
+            document.getElementById('shopSlogan').innerText = db_setup.Slogan || "Slogan Belum Diisi";
+            document.getElementById('shopLogo').src = db_setup.Logo_URL || "https://via.placeholder.com/150";
+            document.getElementById('runningText').innerText = db_setup.Running_Text || "Selamat datang!";
 
-        if (shopName) shopName.innerText = db_setup.Nama_Toko || "Nama Toko Belum Diisi";
-        if (slogan) slogan.innerText = db_setup.Slogan || "Slogan Belum Diisi";
-        if (logo) logo.src = db_setup.Logo_URL || "https://via.placeholder.com/150";
-        if (hours) hours.innerText = db_setup.Jam_Operasional || "24 Jam";
-        if (runText) runText.innerText = db_setup.Running_Text || "Selamat datang di toko kami!";
-        document.title = db_setup.Nama_Toko || "Online Shop";
-    }
+            const jamOp = db_setup.Jam_Operasional || "00:00 - 23:59";
+            checkStatus(jamOp);
+        }
 
-    function openCategory(catName) {
-        if (catName === 'PREMIUM') {
-            showModal(
-                '<i class="fas fa-exclamation-circle text-5xl text-yellow-400"></i>',
-                'PENTING!',
-                'Ini adalah pembelian akun. Akun akan dikirim admin via WhatsApp setelah bayar.',
-                'Ya, Saya Mengerti',
-                () => { closeModal(); renderSub(catName); }
-            );
+        function checkStatus(jamOp) {
+    const hDisplay = document.getElementById('shopHours');
+    const dot = document.getElementById('statusIndicator');
+    const ping = document.getElementById('statusPing');
+    const circle = document.getElementById('statusCircle');
+
+    try {
+        const sekarang = new Date();
+        // Menggunakan jam lokal (WIB biasanya jam sistem)
+        const waktuSekarang = (sekarang.getHours() * 60) + sekarang.getMinutes();
+
+        // Bersihkan spasi dan pastikan format benar
+        const range = jamOp.replace(/\./g, ':').split('-');
+        const [start, end] = range.map(t => t.trim());
+        
+        const [hS, mS] = start.split(':').map(Number);
+        const [hE, mE] = end.split(':').map(Number);
+
+        const waktuMulai = (hS * 60) + mS;
+        const waktuSelesai = (hE * 60) + mE;
+
+        // DEBUG: Hapus ini jika sudah lancar
+        console.log("Sekarang:", waktuSekarang, "Mulai:", waktuMulai, "Selesai:", waktuSelesai);
+
+        if (waktuSekarang >= waktuMulai && waktuSekarang <= waktuSelesai) {
+            dot.className = "absolute bottom-1 right-1 w-4 h-4 border-2 border-slate-900 rounded-full bg-green-500";
+            if(ping) ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75";
+            circle.className = "relative inline-flex rounded-full h-3 w-3 bg-green-500";
+            hDisplay.innerHTML = `${jamOp} <span class="text-green-400 ml-1 text-[10px] tracking-normal">(BUKA)</span>`;
         } else {
-            renderSub(catName);
+            dot.className = "absolute bottom-1 right-1 w-4 h-4 border-2 border-slate-900 rounded-full bg-red-500";
+            if(ping) ping.className = "absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-0";
+            circle.className = "relative inline-flex rounded-full h-3 w-3 bg-red-500";
+            hDisplay.innerHTML = `${jamOp} <span class="text-red-400 ml-1 text-[10px] tracking-normal">(TUTUP)</span>`;
         }
+    } catch (e) {
+        console.error("Kesalahan format jam:", e);
+        hDisplay.innerText = jamOp;
     }
+}
 
-    function renderSub(catName) {
-        activeSub = catName;
-        const subList = categories[catName];
-        const grid = document.getElementById('subGrid');
-        if (!grid) return;
-        
-        grid.innerHTML = '';
-        document.getElementById('subTitle').innerText = catName === 'PULSA' ? 'Pilih Provider' : 'Pilih Item';
-
-        subList.forEach(name => {
-            const sample = db_products.find(p => p.Subkategori === name);
-            const img = sample ? sample.Image_URL : 'https://via.placeholder.com/150';
-            
-            grid.innerHTML += `
-                <div onclick="openProductDetail('${name}')" class="category-card glass rounded-xl p-2 text-center animate-zoom">
-                    <img src="${img}" class="w-full aspect-square object-cover rounded-lg mb-2 shadow-sm">
-                    <p class="text-[9px] font-bold uppercase truncate">${name}</p>
-                </div>
-            `;
-        });
-
-        document.getElementById('mainMenu').style.display = 'none';
-        document.getElementById('subSection').style.display = 'block';
-    }
-
-    function openProductDetail(subName) {
-        const products = db_products.filter(p => p.Subkategori === subName);
-        const grid = document.getElementById('productGrid');
-        if (!grid) return;
-        
-        grid.innerHTML = '';
-
-        if (products.length > 0) {
-            document.getElementById('detailBanner').src = products[0].Image_URL;
-            document.getElementById('btnBackText').innerText = subName;
+        function openCategory(catName) {
+            if (catName === 'PREMIUM') {
+                showModal('<i class="fas fa-exclamation-circle text-5xl text-yellow-400"></i>', 'PENTING!', 'Akun akan dikirim Admin via WA setelah pembayaran berhasil.', 'SAYA MENGERTI', () => { closeModal(); renderSub(catName); });
+            } else { renderSub(catName); }
         }
 
-        products.forEach(p => {
-            const label = p.Label === 'Terlaris' ? '<span class="absolute top-0 right-0 bg-red-600 text-[7px] px-2 py-1 rounded-bl-lg font-bold shadow-sm">HOT</span>' : '';
-            grid.innerHTML += `
-                <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" class="product-item glass p-3 rounded-xl relative overflow-hidden transition-all">
-                    ${label}
-                    <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
-                    <p class="text-[9px] text-gray-500 line-through">Rp ${p.Harga_Coret}</p>
-                    <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
-                </div>
-            `;
-        });
+        function renderSub(catName) {
+            const grid = document.getElementById('subGrid');
+            grid.innerHTML = '';
+            document.getElementById('subTitle').innerText = `Pilih ${catName}`;
 
-        document.getElementById('subSection').style.display = 'none';
-        document.getElementById('productSection').style.display = 'block';
-    }
+            categories[catName].forEach(name => {
+                const sample = db_products.find(p => p.Subkategori === name);
+                const img = sample ? sample.Image_URL : 'https://via.placeholder.com/150';
+                grid.innerHTML += `
+                    <div onclick="openProductDetail('${name}')" class="category-card glass rounded-xl p-2 text-center">
+                        <img src="${img}" class="w-full aspect-square object-cover rounded-lg mb-2">
+                        <p class="text-[9px] font-bold uppercase truncate">${name}</p>
+                    </div>`;
+            });
 
-    function selectNominal(name, price, el) {
-        document.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected', 'border-cyan-400', 'bg-cyan-400/10'));
-        el.classList.add('selected', 'border-cyan-400', 'bg-cyan-400/10');
-        selectedProduct = { name, price };
-        document.getElementById('totalPrice').innerText = `Rp ${price}`;
-        document.getElementById('orderBar').style.display = 'block';
-    }
-
-    function submitOrder() {
-        const target = document.getElementById('targetId').value;
-        if (!target) {
-            alert("Harap masukkan Data Akun / Nomor HP terlebih dahulu!");
-            return;
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('subSection').style.display = 'block';
         }
 
-        const text = `Halo ${db_setup.Nama_Toko || 'Admin'},\n\n` +
-                     `Saya ingin membeli produk berikut:\n` +
-                     `🔹 *Produk:* ${selectedProduct.name}\n` +
-                     `🔹 *Data/ID:* ${target}\n` +
-                     `🔹 *Total Harga:* Rp ${selectedProduct.price}\n\n` +
-                     `Mohon segera diproses ya. Terima kasih!`;
-        
-        const url = `https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(text)}`;
-        window.open(url, '_blank');
-    }
+        function openProductDetail(subName) {
+            const products = db_products.filter(p => p.Subkategori === subName);
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            if (products.length > 0) {
+                document.getElementById('detailBanner').src = products[0].Image_URL;
+                document.getElementById('btnBackText').innerText = subName;
+            }
+            products.forEach(p => {
+                grid.innerHTML += `
+                    <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" class="product-item glass p-3 rounded-xl">
+                        <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
+                        <p class="text-[9px] text-gray-500 line-through">Rp ${p.Harga_Coret}</p>
+                        <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
+                    </div>`;
+            });
+            document.getElementById('subSection').style.display = 'none';
+            document.getElementById('productSection').style.display = 'block';
+        }
 
-    function backToMain() {
-        document.getElementById('subSection').style.display = 'none';
-        document.getElementById('mainMenu').style.display = 'grid';
-    }
+        function selectNominal(name, price, el) {
+            document.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedProduct = { name, price };
+            document.getElementById('totalPrice').innerText = `Rp ${price}`;
+            document.getElementById('orderBar').style.display = 'block';
+        }
 
-    function backToSub() {
-        document.getElementById('productSection').style.display = 'none';
-        document.getElementById('orderBar').style.display = 'none';
-        document.getElementById('subSection').style.display = 'block';
-    }
+        function submitOrder() {
+            const target = document.getElementById('targetId').value;
+            if (!target) return alert("Masukkan ID/Nomor HP!");
+            const text = `Halo Admin,\n\nSaya ingin membeli:\n🔹 Produk: ${selectedProduct.name}\n🔹 ID/Target: ${target}\n🔹 Total: Rp ${selectedProduct.price}\n\nMohon diproses, terima kasih!`;
+            window.open(`https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(text)}`, '_blank');
+        }
 
-    function showModal(icon, title, desc, btnText, action) {
-        const modal = document.getElementById('modal');
-        document.getElementById('modalIcon').innerHTML = icon;
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalDesc').innerText = desc;
-        const mBtn = document.getElementById('modalBtn');
-        mBtn.innerText = btnText;
-        mBtn.onclick = action;
-        modal.style.display = 'flex';
-    }
+        function backToMain() {
+            document.getElementById('subSection').style.display = 'none';
+            document.getElementById('mainMenu').style.display = 'grid';
+        }
 
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-    }
+        function backToSub() {
+            document.getElementById('productSection').style.display = 'none';
+            document.getElementById('orderBar').style.display = 'none';
+            document.getElementById('subSection').style.display = 'block';
+        }
 
-    // Jalankan aplikasi
-    init();
-</script>
+        function showModal(icon, title, desc, btnText, action) {
+            const modal = document.getElementById('modal');
+            document.getElementById('modalIcon').innerHTML = icon;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            const mBtn = document.getElementById('modalBtn');
+            mBtn.innerText = btnText;
+            mBtn.onclick = action;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        init();
+    </script>
 </body>
 </html>
