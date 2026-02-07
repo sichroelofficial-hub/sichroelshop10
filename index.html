@@ -23,6 +23,7 @@
             min-height: 100vh;
             margin: 0;
             overflow-x: hidden;
+            scroll-behavior: smooth; /* Menambah kehalusan pergerakan */
         }
 
         /* --- UI Components --- */
@@ -273,7 +274,7 @@
                 <span id="shopHours" class="text-[11px] font-medium tracking-wide text-gray-300">...</span>
             </div>
 
-            <div onclick="window.open('https://wa.me/' + db_setup.No_WhatsApp)" class="btn-contact p-1 rounded-3xl cursor-pointer">
+            <div onclick="window.open('https://wa.me/' + (db_setup.No_WhatsApp || ''))" class="btn-contact p-1 rounded-3xl cursor-pointer">
                 <div class="bg-slate-900/40 backdrop-blur-md rounded-[22px] p-5 flex items-center justify-between text-left">
                     <div class="flex items-center gap-4">
                         <div class="icon-box w-12 h-12 rounded-2xl flex items-center justify-center text-white text-2xl">
@@ -321,7 +322,6 @@
         let db_products = [];
         let selectedProduct = null;
         let currentCategory = '';
-        let currentSubMenu = 'main'; // Track level menu
 
         const categories = {
             'ITEM GAME': ['Mobile Legend', 'Free Fire', 'PUBG Mobile', 'COD Mobile', 'PB Zepetto', 'Arena Of Valor', 'Genshin Impact', 'Eggy Party Coins', 'Stumble Guys', 'Lita Coin'],
@@ -331,16 +331,23 @@
             'PREMIUM': ['Canva', 'Spotify', 'Netflix', 'YouTube', 'Vidio', 'Alight Motion', 'Viu', 'Capcut']
         };
 
+        // Fungsi Helper untuk Scroll ke Atas
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         async function init() {
             try {
                 const [setup, products] = await Promise.all([
                     fetch(`${API_URL}/Setup_Toko`).then(r => r.json()),
                     fetch(`${API_URL}/Setup_Produk`).then(r => r.json())
                 ]);
+                
                 if (setup && setup.length > 0) db_setup = setup[0];
                 if (Array.isArray(products)) {
                     db_products = products.filter(p => p.Status && p.Status.toLowerCase() === 'aktif');
                 }
+                
                 renderSetup();
                 document.getElementById('loader').style.display = 'none';
             } catch (err) {
@@ -388,6 +395,7 @@
 
         function openCategory(catName) {
             currentCategory = catName;
+            scrollToTop(); // Perbaikan: Scroll ke atas saat klik kategori
             if (catName === 'PREMIUM') {
                 showModal('<i class="fas fa-exclamation-circle text-5xl text-yellow-400"></i>', 'PENTING!', 'Akun akan dikirim Admin via WA setelah pembayaran berhasil.', 'SAYA MENGERTI', () => { closeModal(); renderSub(catName); });
             } else if (catName === 'PULSA') {
@@ -398,14 +406,15 @@
         }
 
         function renderSub(catName) {
-            currentSubMenu = 'sub';
             document.getElementById('guideSection').style.display = 'none';
             document.getElementById('categoryHeader').style.display = 'none';
             document.getElementById('mainMenu').style.display = 'none';
-
+            
             const grid = document.getElementById('subGrid');
             grid.innerHTML = '';
-            document.getElementById('subTitle').innerText = `Pilih ${catName.replace('_PROVIDERS', '')}`;
+            
+            let displayName = catName === 'KUOTA_PROVIDERS' ? 'KUOTA' : catName;
+            document.getElementById('subTitle').innerText = `Pilih ${displayName}`;
 
             if(categories[catName]) {
                 categories[catName].forEach(name => {
@@ -419,21 +428,20 @@
                 });
             }
             document.getElementById('subSection').style.display = 'block';
+            scrollToTop(); // Perbaikan: Pastikan konten muncul dari atas
         }
 
         function backToMain() {
-            // Jika di level Tipe Kuota, kembali ke menu Pulsa/Kuota
             if (document.getElementById('subTitle').innerText === 'TIPE KUOTA') {
                 renderPulsaKuotaMenu();
                 return;
             }
-            
-            currentSubMenu = 'main';
             document.getElementById('subSection').style.display = 'none';
             document.getElementById('productSection').style.display = 'none';
             document.getElementById('guideSection').style.display = 'block';
             document.getElementById('categoryHeader').style.display = 'block';
             document.getElementById('mainMenu').style.display = 'grid';
+            scrollToTop(); // Perbaikan: Kembali ke atas saat menu utama muncul
         }
 
         function openProductDetail(subName) {
@@ -442,16 +450,14 @@
             const targetInput = document.getElementById('targetId');
             
             grid.innerHTML = '';
+            targetInput.value = ''; 
             
-            // Logika Placeholder dinamis
             if (currentCategory === 'ITEM GAME') {
                 targetInput.placeholder = "Masukan ID, Server(Jika ada)/Username";
             } else if (currentCategory === 'PULSA') {
                 targetInput.placeholder = "Masukan No HP";
-            } else if (currentCategory === 'VOUCHER' || currentCategory === 'PREMIUM') {
-                targetInput.placeholder = "Masukan No HP/Email";
             } else {
-                targetInput.placeholder = "Masukan Data Akun...";
+                targetInput.placeholder = "Masukan No HP/Email/Data Akun";
             }
 
             if (products.length > 0) {
@@ -469,12 +475,14 @@
             });
             document.getElementById('subSection').style.display = 'none';
             document.getElementById('productSection').style.display = 'block';
+            scrollToTop(); // Perbaikan: Scroll ke atas saat masuk detail produk
         }
 
         function backToSub() {
             document.getElementById('productSection').style.display = 'none';
             document.getElementById('orderBar').style.display = 'none';
             document.getElementById('subSection').style.display = 'block';
+            scrollToTop(); // Perbaikan
         }
 
         function selectNominal(name, price, el) {
@@ -504,7 +512,6 @@
 
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
 
-        // Fitur Pulsa/Kuota
         function renderPulsaKuotaMenu() {
             document.getElementById('guideSection').style.display = 'none';
             document.getElementById('categoryHeader').style.display = 'none';
@@ -527,6 +534,7 @@
             `;
             document.getElementById('subTitle').innerText = `PILIH LAYANAN`;
             document.getElementById('subSection').style.display = 'block';
+            scrollToTop(); // Perbaikan
         }
 
         function renderKuotaTypeMenu() {
@@ -546,8 +554,10 @@
                 </div>
             `;
             document.getElementById('subTitle').innerText = `TIPE KUOTA`;
+            scrollToTop(); // Perbaikan
         }
 
+        // Initialize App
         init();
     </script>
 </body>
