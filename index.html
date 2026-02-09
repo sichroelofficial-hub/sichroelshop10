@@ -281,6 +281,36 @@
             justify-items: center;
         }
 
+        /* --- ANIMASI START: CUSTOM INTERACTION CLASSES --- */
+        .section-exit {
+            animation: fadeOutDown 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+
+        .category-card:active {
+            transform: scale(0.95) translateY(0);
+        }
+
+        .product-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            background: rgba(0, 224, 255, 0.05);
+        }
+
+        .sub-category-dropdown {
+            animation: slideDownFade 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideDownFade {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* --- ANIMASI END --- */
+
         /* Responsive adjustments */
         @media (max-width: 640px) {
             .footer-payment-img { height: 22px; }
@@ -520,47 +550,76 @@
             `).join('');
         }
 
+        // --- ANIMASI START: UI INTERACTION LOGIC ---
         function openCategory(catName) {
-            currentCategory = catName;
-            const grid = document.getElementById('subGrid');
-            document.getElementById('subTitle').innerText = `Pilih ${catName}`;
-            grid.innerHTML = Object.keys(groupedData[catName]).map((sub, index) => `
-                <div onclick="openProductDetail('${sub}')" onmousedown="createRipple(event)" class="category-card glass rounded-2xl p-2 text-center tap-effect" style="animation-delay: ${index * 0.05}s">
-                    <img src="${groupedData[catName][sub]}" class="w-full aspect-square object-cover rounded-xl mb-2">
-                    <p class="text-[9px] font-bold uppercase truncate">${sub}</p>
-                </div>
-            `).join('');
-            toggleSection('subSection');
+            const currentMenu = document.getElementById('mainMenu');
+            const guide = document.getElementById('guideSection');
+            const header = document.getElementById('categoryHeader');
+
+            // 1. Menu Kategori: Fade out current content
+            [currentMenu, guide, header].forEach(el => {
+                el.classList.add('section-exit');
+            });
+
+            setTimeout(() => {
+                currentCategory = catName;
+                const grid = document.getElementById('subGrid');
+                document.getElementById('subTitle').innerText = `Pilih ${catName}`;
+                
+                // 2. Sub Kategori: Render with drop-down animation
+                grid.innerHTML = Object.keys(groupedData[catName]).map((sub, index) => `
+                    <div onclick="openProductDetail('${sub}')" onmousedown="createRipple(event)" class="category-card glass rounded-2xl p-2 text-center tap-effect sub-category-dropdown" style="animation-delay: ${index * 0.05}s">
+                        <img src="${groupedData[catName][sub]}" class="w-full aspect-square object-cover rounded-xl mb-2">
+                        <p class="text-[9px] font-bold uppercase truncate">${sub}</p>
+                    </div>
+                `).join('');
+                
+                [currentMenu, guide, header].forEach(el => el.classList.remove('section-exit'));
+                toggleSection('subSection');
+            }, 300);
         }
 
         function openProductDetail(subName) {
-            const products = db_products.filter(p => p.Subkategori === subName);
-            const grid = document.getElementById('productGrid');
-            const targetInput = document.getElementById('targetId');
-            document.getElementById('detailBanner').src = products[0].Image_URL;
-            document.getElementById('btnBackText').innerText = subName;
-            const cat = currentCategory.toUpperCase();
-            targetInput.placeholder = cat.includes('GAME') ? "Masukan ID (Server)" : 
-                                     (cat.includes('PULSA') || cat.includes('KUOTA') ? "Masukan Nomor HP" : "Masukan Data Lengkap");
-            grid.innerHTML = products.map((p, index) => `
-                <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" onmousedown="createRipple(event)" class="product-item glass p-3 rounded-xl tap-effect" style="animation-delay: ${index * 0.05}s">
-                    ${p.Label ? `<div class="badge-label">${p.Label}</div>` : ''}
-                    <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
-                    <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
-                </div>
-            `).join('');
-            const payGrid = document.getElementById('paymentGrid');
-            payGrid.innerHTML = db_payments.map((p, index) => `
-                <div onclick="selectPayment('${p.Metode}', '${p.Keterangan}', this)" onmousedown="createRipple(event)" class="payment-item glass p-4 rounded-xl flex justify-between items-center tap-effect" style="animation-delay: ${index * 0.05}s">
-                    <div class="flex items-center gap-3">
-                        <img src="${p.Image_URL}" class="payment-icon">
-                        <span class="text-xs font-bold uppercase">${p.Metode}</span>
+            const subGrid = document.getElementById('subGrid');
+            subGrid.classList.add('section-exit');
+
+            setTimeout(() => {
+                const products = db_products.filter(p => p.Subkategori === subName);
+                const grid = document.getElementById('productGrid');
+                const targetInput = document.getElementById('targetId');
+                
+                document.getElementById('detailBanner').src = products[0].Image_URL;
+                document.getElementById('btnBackText').innerText = subName;
+                
+                const cat = currentCategory.toUpperCase();
+                targetInput.placeholder = cat.includes('GAME') ? "Masukan ID (Server)" : 
+                                         (cat.includes('PULSA') || cat.includes('KUOTA') ? "Masukan Nomor HP" : "Masukan Data Lengkap");
+                
+                // 3. Pilihan Produk: Render with fade + scale (scaleIn animation)
+                grid.innerHTML = products.map((p, index) => `
+                    <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" onmousedown="createRipple(event)" class="product-item glass p-3 rounded-xl tap-effect" style="animation: scaleIn 0.4s ease-out forwards; animation-delay: ${index * 0.05}s">
+                        ${p.Label ? `<div class="badge-label">${p.Label}</div>` : ''}
+                        <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
+                        <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
                     </div>
-                    <span class="text-[9px] text-gray-500">${p.Keterangan}</span>
-                </div>
-            `).join('');
-            toggleSection('productSection');
+                `).join('');
+                
+                const payGrid = document.getElementById('paymentGrid');
+                payGrid.innerHTML = db_payments.map((p, index) => `
+                    <div onclick="selectPayment('${p.Metode}', '${p.Keterangan}', this)" onmousedown="createRipple(event)" class="payment-item glass p-4 rounded-xl flex justify-between items-center tap-effect" style="animation-delay: ${index * 0.05}s">
+                        <div class="flex items-center gap-3">
+                            <img src="${p.Image_URL}" class="payment-icon">
+                            <span class="text-xs font-bold uppercase">${p.Metode}</span>
+                        </div>
+                        <span class="text-[9px] text-gray-500">${p.Keterangan}</span>
+                    </div>
+                `).join('');
+                
+                subGrid.classList.remove('section-exit');
+                toggleSection('productSection');
+            }, 300);
         }
+        // --- ANIMASI END ---
 
         function selectNominal(name, price, el) {
             document.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
