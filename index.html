@@ -694,9 +694,20 @@
                 showModal('<i class="fas fa-credit-card text-cyan-400 text-5xl"></i>', 'Pilih Pembayaran!', 'Silakan pilih metode pembayaran yang diinginkan.', 'OK', closeModal);
                 return;
             }
+            
+            let labelData = "Data";
+            const cat = currentCategory.toUpperCase();
+            if (cat.includes('GAME')) {
+                labelData = "ID Server";
+            } else if (cat.includes('PULSA') || cat.includes('KUOTA')) {
+                labelData = "No Telepon";
+            } else {
+                labelData = "ID Username";
+            }
+
             const confirmHTML = `<div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 space-y-3 text-left">
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Produk:</span><span class="text-white text-[10px] font-bold">${selectedProduct.name}</span></div>
-                <div class="flex justify-between"><span class="text-gray-400 text-[10px]">ID/Tujuan:</span><span class="text-cyan-400 text-[10px] font-bold">${target}</span></div>
+                <div class="flex justify-between"><span class="text-gray-400 text-[10px]">${labelData}:</span><span class="text-cyan-400 text-[10px] font-bold">${target}</span></div>
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Pembayaran:</span><span class="text-white text-[10px] font-bold">${selectedPayment.metode}</span></div>
                 <div class="h-[1px] bg-white/10 w-full"></div>
                 <div class="flex justify-between items-center"><span class="text-white font-bold text-xs">Total Tagihan:</span><span class="text-cyan-400 font-black text-lg">Rp ${selectedProduct.price}</span></div>
@@ -706,7 +717,17 @@
 
         function submitOrder() {
             const target = document.getElementById('targetId').value;
-            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *Target* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
+            let labelData = "Data";
+            const cat = currentCategory.toUpperCase();
+            if (cat.includes('GAME')) {
+                labelData = "ID Server";
+            } else if (cat.includes('PULSA') || cat.includes('KUOTA')) {
+                labelData = "No Telepon";
+            } else {
+                labelData = "ID Username";
+            }
+            
+            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
             window.open(`https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(waText)}`, '_blank');
             closeModal();
         }
