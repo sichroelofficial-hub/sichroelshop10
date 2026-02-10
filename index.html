@@ -719,6 +719,7 @@
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Pembayaran:</span><span class="text-white text-[10px] font-bold">${selectedPayment.metode}</span></div>
                 <div class="h-[1px] bg-white/10 w-full"></div>
                 <div class="flex justify-between items-center"><span class="text-white font-bold text-xs">Total Tagihan:</span><span class="text-cyan-400 font-black text-lg">Rp ${selectedProduct.price}</span></div>
+                <div class="mt-2 pt-2 border-t border-white/5"><p class="text-[9px] text-gray-400 italic text-center">⏳ Estimasi proses 1–5 menit setelah pembayaran dikonfirmasi.</p></div>
             </div>`;
             showModal('<i class="fas fa-shopping-cart text-green-400 text-5xl"></i>', 'KONFIRMASI PESANAN', confirmHTML, 'Ya, Pesanan Sudah Benar', submitOrder);
         }
@@ -735,7 +736,7 @@
                 labelData = "ID Username";
             }
             
-            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n📁 *Kategori* : Proses 1-5 menit *Kategori* : ${currentCategory} (${currentSubCategory})\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
+            const waText = `*HALO ADMIN, SAYA MAU ORDER*\n------------------------------------------\n📁 *Kategori* : ${currentCategory} (${currentSubCategory})\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n⏳ *Estimasi* : 1-5 Menit Proses\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
             window.open(`https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(waText)}`, '_blank');
             closeModal();
         }
