@@ -524,6 +524,7 @@
         let selectedProduct = null;
         let selectedPayment = null;
         let currentCategory = "";
+        let currentSubCategory = "";
 
         function createRipple(event) {
             const button = event.currentTarget;
@@ -631,6 +632,7 @@
             const subGrid = document.getElementById('subGrid');
             subGrid.classList.add('section-exit');
             setTimeout(() => {
+                currentSubCategory = subName;
                 const products = db_products.filter(p => p.Subkategori === subName);
                 const grid = document.getElementById('productGrid');
                 const targetInput = document.getElementById('targetId');
@@ -639,13 +641,18 @@
                 const cat = currentCategory.toUpperCase();
                 targetInput.placeholder = cat.includes('GAME') ? "Masukan ID (Server)" : 
                                          (cat.includes('PULSA') || cat.includes('KUOTA') ? "Masukan Nomor HP" : "Masukan Data Lengkap");
-                grid.innerHTML = products.map((p, index) => `
+                grid.innerHTML = products.map((p, index) => {
+                    const hargaCoret = p.Harga_Coret ? `<p class="text-[9px] text-gray-500 line-through decoration-red-500/50 italic">Rp ${p.Harga_Coret}</p>` : '';
+                    return `
                     <div onclick="selectNominal('${p.Nama_Produk}', '${p.Harga}', this)" onmousedown="createRipple(event)" class="product-item glass p-3 rounded-xl tap-effect" style="animation: scaleIn 0.4s ease-out forwards; animation-delay: ${index * 0.05}s">
                         ${p.Label ? `<div class="badge-label">${p.Label}</div>` : ''}
                         <p class="text-[11px] font-bold mb-1">${p.Nama_Produk}</p>
-                        <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
+                        <div class="flex flex-col">
+                            ${hargaCoret}
+                            <p class="text-xs font-black text-cyan-400">Rp ${p.Harga}</p>
+                        </div>
                     </div>
-                `).join('');
+                `}).join('');
                 const payGrid = document.getElementById('paymentGrid');
                 payGrid.innerHTML = db_payments.map((p, index) => `
                     <div onclick="selectPayment('${p.Metode}', '${p.Keterangan}', this)" onmousedown="createRipple(event)" class="payment-item glass p-4 rounded-xl flex justify-between items-center tap-effect" style="animation-delay: ${index * 0.05}s">
@@ -706,6 +713,7 @@
             }
 
             const confirmHTML = `<div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 space-y-3 text-left">
+                <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Kategori:</span><span class="text-white text-[10px] font-bold">${currentCategory} (${currentSubCategory})</span></div>
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Produk:</span><span class="text-white text-[10px] font-bold">${selectedProduct.name}</span></div>
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">${labelData}:</span><span class="text-cyan-400 text-[10px] font-bold">${target}</span></div>
                 <div class="flex justify-between"><span class="text-gray-400 text-[10px]">Pembayaran:</span><span class="text-white text-[10px] font-bold">${selectedPayment.metode}</span></div>
@@ -727,7 +735,7 @@
                 labelData = "ID Username";
             }
             
-            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
+            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n📁 *Kategori* : ${currentCategory} (${currentSubCategory})\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
             window.open(`https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(waText)}`, '_blank');
             closeModal();
         }
