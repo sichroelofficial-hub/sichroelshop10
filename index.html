@@ -735,7 +735,7 @@
                 labelData = "ID Username";
             }
             
-            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n📁 *Kategori* : ${currentCategory} (${currentSubCategory})\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
+            const waText = `*PESANAN BARU - ${db_setup.Nama_Toko}*\n------------------------------------------\n📁 *Kategori* : Proses 1-5 menit *Kategori* : ${currentCategory} (${currentSubCategory})\n🕹️ *Produk* : ${selectedProduct.name}\n🎯 *${labelData}* : ${target}\n💳 *Metode* : ${selectedPayment.metode}\n💰 *Total* : Rp ${selectedProduct.price}\n------------------------------------------\n_Mohon segera diproses ya Min, Terimakasih!_`;
             window.open(`https://wa.me/${db_setup.No_WhatsApp}?text=${encodeURIComponent(waText)}`, '_blank');
             closeModal();
         }
