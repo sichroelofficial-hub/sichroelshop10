@@ -362,6 +362,59 @@
             .footer-payment-img { height: 18px; }
             .footer-payment-wrapper { padding: 1rem; }
         }
+
+        /* BANNER PROMO START */
+        .banner-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .banner-wrapper {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .banner-slide {
+            min-width: 100%;
+            aspect-ratio: 16/9;
+        }
+
+        .banner-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        .banner-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .banner-dot.active {
+            background: var(--primary);
+            width: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+        /* BANNER PROMO END */
+
     </style>
 </head>
 <body>
@@ -406,12 +459,18 @@
                     <div><h4 class="text-xs font-bold text-white uppercase tracking-wide">Metode Pembayaran</h4><p class="text-[10px] text-gray-400 mt-1">Pilih cara bayar yang paling mudah bagimu.</p></div>
                 </div>
                 <div class="flex gap-4 relative z-10">
-                    <div class="flex-none w-8 h-8 rounded-full bg-green-500/20 border border-green-500/50 flex items-center justify-center text-xs font-bold text-green-400">3</div>
+                    <div class="flex-none w-8 h-8 rounded-full bg-green-500/20 border border-green-500/50 flex items-center justify-center text-xs font-bold text-cyan-400">3</div>
                     <div><h4 class="text-xs font-bold text-white uppercase tracking-wide">Konfirmasi WhatsApp</h4><p class="text-[10px] text-gray-400 mt-1">Cek rincian dan kirim pesanan ke Admin.</p></div>
                 </div>
             </div>
         </div>
 
+        <div id="bannerSection" class="hidden section-fade">
+            <div class="banner-container glass">
+                <div id="bannerWrapper" class="banner-wrapper"></div>
+            </div>
+            <div id="bannerDots" class="banner-dots"></div>
+        </div>
         <div id="categoryHeader" class="mb-4 px-1">
             <h2 class="text-xs font-bold tracking-[0.2em] text-white uppercase flex items-center gap-2">
                 <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>KATEGORI PRODUK
@@ -529,6 +588,73 @@
         let currentSubCategory = "";
         let currentGroup = "";
 
+        // BANNER PROMO START
+        let db_banners = [];
+        let currentBannerIndex = 0;
+        let bannerInterval;
+
+        async function initBanner() {
+            try {
+                const response = await fetch(`${API_URL}/Banner_Promo`);
+                const data = await response.json();
+                db_banners = data.filter(b => b.Status?.toLowerCase() === 'aktif');
+                
+                if (db_banners.length > 0) {
+                    renderBanners();
+                    startBannerAutoSlide();
+                    document.getElementById('bannerSection').classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error("Gagal memuat banner:", err);
+            }
+        }
+
+        function renderBanners() {
+            const wrapper = document.getElementById('bannerWrapper');
+            const dots = document.getElementById('bannerDots');
+            
+            wrapper.innerHTML = db_banners.map(b => `
+                <div class="banner-slide">
+                    <img src="${b.Image_URL}" alt="Promo Banner" loading="lazy">
+                </div>
+            `).join('');
+
+            dots.innerHTML = db_banners.map((_, i) => `
+                <div class="banner-dot ${i === 0 ? 'active' : ''}" onclick="goToBanner(${i})"></div>
+            `).join('');
+        }
+
+        function updateBannerUI() {
+            const wrapper = document.getElementById('bannerWrapper');
+            const dots = document.querySelectorAll('.banner-dot');
+            
+            wrapper.style.transform = `translateX(-${currentBannerIndex * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentBannerIndex);
+            });
+        }
+
+        function nextBanner() {
+            currentBannerIndex = (currentBannerIndex + 1) % db_banners.length;
+            updateBannerUI();
+        }
+
+        function goToBanner(index) {
+            currentBannerIndex = index;
+            updateBannerUI();
+            resetBannerInterval();
+        }
+
+        function startBannerAutoSlide() {
+            bannerInterval = setInterval(nextBanner, 7000);
+        }
+
+        function resetBannerInterval() {
+            clearInterval(bannerInterval);
+            startBannerAutoSlide();
+        }
+        // BANNER PROMO END
+
         function createRipple(event) {
             const button = event.currentTarget;
             const ripple = document.createElement("span");
@@ -573,6 +699,7 @@
                 renderSetup();
                 renderMainMenu();
                 renderFooterPayments();
+                initBanner(); // BANNER PROMO CALL
                 document.getElementById('loader').style.display = 'none';
             } catch (err) {
                 console.error("Gagal memuat data:", err);
@@ -622,7 +749,8 @@
             const currentMenu = document.getElementById('mainMenu');
             const guide = document.getElementById('guideSection');
             const header = document.getElementById('categoryHeader');
-            [currentMenu, guide, header].forEach(el => { el.classList.add('section-exit'); });
+            const banner = document.getElementById('bannerSection'); // BANNER PROMO TARGET
+            [currentMenu, guide, header, banner].forEach(el => { if(el) el.classList.add('section-exit'); });
             setTimeout(() => {
                 currentCategory = catName;
                 const grid = document.getElementById('subGrid');
@@ -633,7 +761,7 @@
                         <p class="text-[9px] font-bold uppercase truncate">${sub}</p>
                     </div>
                 `).join('');
-                [currentMenu, guide, header].forEach(el => el.classList.remove('section-exit'));
+                [currentMenu, guide, header, banner].forEach(el => { if(el) el.classList.remove('section-exit'); });
                 toggleSection('subSection');
             }, 300);
         }
@@ -771,7 +899,7 @@
         }
 
         function toggleSection(sectionId) {
-            ['guideSection', 'categoryHeader', 'mainMenu', 'subSection', 'groupSection', 'productSection'].forEach(id => {
+            ['guideSection', 'categoryHeader', 'mainMenu', 'subSection', 'groupSection', 'productSection', 'bannerSection'].forEach(id => {
                 const el = document.getElementById(id);
                 if (!el) return;
                 if (id === sectionId) {
@@ -784,6 +912,7 @@
                 if(sectionId === 'mainMenu') {
                     document.getElementById('guideSection').style.display = 'block';
                     document.getElementById('categoryHeader').style.display = 'block';
+                    if(db_banners.length > 0) document.getElementById('bannerSection').style.display = 'block'; // BANNER PROMO PERSISTENCE
                     document.getElementById('orderBar').style.display = 'none';
                 }
             });
